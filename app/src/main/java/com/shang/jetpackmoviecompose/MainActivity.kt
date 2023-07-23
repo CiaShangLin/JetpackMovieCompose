@@ -5,119 +5,149 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.RoundedCornerShape
+
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.drawscope.DrawStyle
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.shang.jetpackmoviecompose.ui.theme.JetpackMovieComposeTheme
 
 class MainActivity : ComponentActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             JetpackMovieComposeTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                val navHostController = rememberNavController()
+                Scaffold(
+                    Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background),
+                    bottomBar = {
+                        MyBottomNavigation(navHostController)
+                    },
+
                 ) {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        contentPadding = PaddingValues(horizontal = 8.dp)
-                    ) {
-                        items(20) {
-                            BaseMovieViewHolder().MovieViewHolder()
-                        }
-                    }
+
+                    Navigation(navHostController)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun Navigation(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = "home") {
+        composable("home") {
+            HomePage()
+        }
+        composable("favorites") {
+            FavoritesPage()
+        }
+        composable("settings") {
+            SettingPage()
+        }
+    }
+}
+
+@Composable
+fun MyBottomNavigation(navController: NavController) {
+    val items = listOf(
+        BottomMenu.Home, BottomMenu.Favor, BottomMenu.Setting
+    )
+    var selectedItem by remember { mutableStateOf(0) }
+    BottomNavigation() {
+        items.forEachIndexed { index, item ->
+            BottomNavigationItem(
+                icon = {
+                    Icon(ImageVector.vectorResource(id = item.icon), contentDescription = null)
+                },
+                label = { Text(item.label) },
+                selected = selectedItem == index,
+                onClick = {
+                    navController.navigate(item.route)
+                    selectedItem = index
+                })
+        }
+    }
+}
+
+@Composable
+fun ViewHolder() {
+    ConstraintLayout() {
+        val (cover, favor) = createRefs()
+        AsyncImage(
+            model = "https://i.imgur.com/Jc4gb9V.jpeg",
+            contentDescription = null,
+            modifier = Modifier
+                .aspectRatio(4f / 3f)
+                .constrainAs(cover) {
+
+                },
+            contentScale = ContentScale.Crop
+        )
+        Image(painter = painterResource(id = R.drawable.icon_favor),
+            contentDescription = null,
+            modifier = Modifier
+                .size(25.dp)
+                .constrainAs(favor) {
+                    top.linkTo(cover.bottom, 0.dp)
+                    bottom.linkTo(cover.bottom, 0.dp)
+                })
+    }
+}
+
+
+sealed class BottomMenu(val label: String, val icon: Int,val route:String) {
+    object Home : BottomMenu("首頁", R.drawable.icon_home,"home")
+    object Favor : BottomMenu("收藏", R.drawable.icon_favorite,"favorites")
+    object Setting : BottomMenu("設定", R.drawable.icon_setting,"settings")
+}
+
+//                    LazyVerticalGrid(
+//                        columns = GridCells.Fixed(2),
+//                        verticalArrangement = Arrangement.spacedBy(8.dp),
+//                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+//                        contentPadding = PaddingValues(horizontal = 8.dp)
+//                    ) {
+//                        items(20) {
+//                            BaseMovieViewHolder().MovieViewHolder()
+//                        }
+//                    }
+
+
 //                    Column {
 //                        BaseMovieViewHolder().MovieViewHolder()
 //                        Spacer(modifier = Modifier.height(8.dp))
 //                        HomeMovieViewHolder().MovieViewHolder()
 //                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Composable
-fun ImageView() {
-    val imageModifier = Modifier
-        .size(300.dp)
-        .border(BorderStroke(1.dp, Color.Black))
-        .background(Color.Yellow)
-    Image(
-        painter = painterResource(id = R.drawable.icon_gmail),
-        contentDescription = "",
-        modifier = imageModifier
-    )
-}
-
-
-@Composable
-fun MovieViewHolder() {
-    Card(
-        modifier = Modifier.padding(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White,
-        ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 4.dp
-        ),
-    ) {
-        Box() {
-            Column(modifier = Modifier.defaultMinSize()) {
-                AsyncImage(
-                    model = "https://i.imgur.com/Jc4gb9V.jpeg",
-                    contentDescription = null,
-                    modifier = Modifier
-                        .aspectRatio(4f / 3f),
-                    contentScale = ContentScale.Crop
-                )
-                Text(
-                    text = "蜘蛛人",
-                    style = com.shang.jetpackmoviecompose.ui.theme.Typography.titleMedium
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = "上映日:2023-7-16",
-                        style = com.shang.jetpackmoviecompose.ui.theme.Typography.titleSmall
-                    )
-                    Image(
-                        painter = painterResource(id = R.drawable.icon_favor),
-                        contentDescription = null,
-                        modifier = Modifier.size(15.dp)
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(4.dp))
-            }
-        }
-    }
-}
-
