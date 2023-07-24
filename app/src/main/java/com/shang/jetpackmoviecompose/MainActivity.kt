@@ -10,12 +10,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material3.Icon
+import androidx.compose.material.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -26,6 +27,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.shang.jetpackmoviecompose.ui.favorites.FavoritesPage
@@ -44,14 +46,12 @@ class MainActivity : ComponentActivity() {
                 val navHostController = rememberNavController()
                 Scaffold(
                     Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background),
+                        .fillMaxSize(),
+                    containerColor = MaterialTheme.colorScheme.background,
                     bottomBar = {
                         MyBottomNavigation(navHostController)
                     },
-
                 ) {
-
                     Navigation(navHostController)
                 }
             }
@@ -76,13 +76,22 @@ fun Navigation(navController: NavHostController) {
 
 @Composable
 fun MyBottomNavigation(navController: NavController) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
     val items = listOf(
         BottomMenu.Home, BottomMenu.Favor, BottomMenu.Setting
     )
     var selectedItem by remember { mutableStateOf(0) }
-    BottomNavigation() {
+
+    /**
+     * 媽Ｂ的用material3,BottomNavigationItem的selectedContentColor會失效
+     */
+    BottomNavigation(
+        backgroundColor = MaterialTheme.colorScheme.background
+    ) {
         items.forEachIndexed { index, item ->
             BottomNavigationItem(
+                selectedContentColor = Color.Yellow,
+                unselectedContentColor = Color.Black,
                 icon = {
                     Icon(ImageVector.vectorResource(id = item.icon), contentDescription = null)
                 },
@@ -122,10 +131,10 @@ fun ViewHolder() {
 }
 
 
-sealed class BottomMenu(val label: String, val icon: Int,val route:String) {
-    object Home : BottomMenu("首頁", R.drawable.icon_home,"home")
-    object Favor : BottomMenu("收藏", R.drawable.icon_favorite,"favorites")
-    object Setting : BottomMenu("設定", R.drawable.icon_setting,"settings")
+sealed class BottomMenu(val label: String, val icon: Int, val route: String) {
+    object Home : BottomMenu("首頁", R.drawable.icon_home, "home")
+    object Favor : BottomMenu("收藏", R.drawable.icon_favorite, "favorites")
+    object Setting : BottomMenu("設定", R.drawable.icon_setting, "settings")
 }
 
 //                    LazyVerticalGrid(

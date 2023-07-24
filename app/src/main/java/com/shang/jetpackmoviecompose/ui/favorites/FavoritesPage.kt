@@ -1,10 +1,12 @@
 package com.shang.jetpackmoviecompose.ui.favorites
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -20,36 +22,20 @@ import com.shang.jetpackmoviecompose.ui.home.HomeViewModel
 fun FavoritesPage(favoritesViewModel: FavoritesViewModel = hiltViewModel()) {
 
 
-    val data by favoritesViewModel.getAllMovieFavor().observeAsState()
+    val data by favoritesViewModel.getAllMovieFavor().collectAsState(initial = null)
 
     Column(modifier = Modifier.fillMaxSize()) {
+        Log.d("DEBUG","${MaterialTheme.colorScheme.background}")
         Button(
             onClick = {
-                favoritesViewModel.insertMovieFavor(
-                    MovieFavorEntity(
-                        id = 1,
-                        title = "Movie Title",
-                        poster_path = "poster_path.jpg",
-                        vote_average = 7.5,
-                        release_date = "2023-07-24",
-                        timestamp = System.currentTimeMillis().toInt()
-                    )
-                )
+
+
             },
         ) {
             Text(text = "Add")
         }
         Button(onClick = {
-            favoritesViewModel.deleteMovieFavor(
-                MovieFavorEntity(
-                    id = 1,
-                    title = "Movie Title",
-                    poster_path = "poster_path.jpg",
-                    vote_average = 7.5,
-                    release_date = "2023-07-24",
-                    timestamp = System.currentTimeMillis().toInt()
-                )
-            )
+
         }) {
             Text(text = "Delete")
         }

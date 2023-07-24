@@ -3,6 +3,7 @@ package com.shang.jetpackmoviecompose.room.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.shang.jetpackmoviecompose.room.entity.MovieFavorEntity
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -15,7 +16,7 @@ interface MovieFavorDao {
     fun deleteMovieFavor(movieFavorEntity: MovieFavorEntity)
 
     @Query("Select * From MovieFavorEntity Order by timestamp DESC")
-    fun getAllMovieFavor(): LiveData<List<MovieFavorEntity>>
+    fun getAllMovieFavor(): Flow<List<MovieFavorEntity>>
 
     @Query("Select *  From MovieFavorEntity Where id = :id")
     fun isFavorites(id: Int): Boolean

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.shang.jetpackmoviecompose.room.entity.MovieFavorEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,7 +22,7 @@ class FavoritesViewModel @Inject constructor(
         mFavoritesRepository.deleteMovieFavor(movieFavorEntity)
     }
 
-    fun getAllMovieFavor(): LiveData<List<MovieFavorEntity>> {
+    fun getAllMovieFavor(): Flow<List<MovieFavorEntity>> {
         return mFavoritesRepository.getAllMovieFavor()
     }
 }

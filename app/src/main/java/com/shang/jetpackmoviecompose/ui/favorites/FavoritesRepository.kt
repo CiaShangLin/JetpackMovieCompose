@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Query
 import com.shang.jetpackmoviecompose.room.dao.MovieFavorDao
 import com.shang.jetpackmoviecompose.room.entity.MovieFavorEntity
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class FavoritesRepository @Inject constructor(
@@ -18,7 +19,7 @@ class FavoritesRepository @Inject constructor(
         mMovieFavorDao.deleteMovieFavor(movieFavorEntity)
     }
 
-    fun getAllMovieFavor(): LiveData<List<MovieFavorEntity>> {
+    fun getAllMovieFavor(): Flow<List<MovieFavorEntity>> {
         return mMovieFavorDao.getAllMovieFavor()
     }
 }
