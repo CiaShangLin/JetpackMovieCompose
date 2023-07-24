@@ -1,4 +1,4 @@
-package com.shang.jetpackmoviecompose
+package com.shang.jetpackmoviecompose.ui.home
 
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -18,13 +18,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomePage(homeViewModel: HomeViewModel = viewModel()) {
+fun HomePage(homeViewModel: HomeViewModel = hiltViewModel()) {
 
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()

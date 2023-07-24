@@ -1,13 +1,18 @@
-package com.shang.jetpackmoviecompose
+package com.shang.jetpackmoviecompose.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shang.jetpackmovie.bean.MovieGenreBean
-import com.shang.jetpackmoviecompose.api.ApiService
+import com.shang.jetpackmoviecompose.ui.home.HomeRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject() constructor(
+    private val mHomeRepository: HomeRepository
+) : ViewModel() {
 
     val flow = MutableSharedFlow<MovieGenreBean?>()
 
@@ -18,7 +23,7 @@ class HomeViewModel : ViewModel() {
     fun getData() {
         viewModelScope.launch {
             try {
-                val data = ApiService.movieApi.getMovieGenres()
+                val data = mHomeRepository.getMovieGenres()
                 flow.emit(data)
             }catch (e:Exception){
                 e.printStackTrace()

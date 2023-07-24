@@ -1,4 +1,4 @@
-package com.shang.jetpackmoviecompose
+package com.shang.jetpackmoviecompose.ui.setting
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
