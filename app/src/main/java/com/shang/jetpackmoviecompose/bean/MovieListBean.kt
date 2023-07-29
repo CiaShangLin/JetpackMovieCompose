@@ -10,6 +10,7 @@ import com.squareup.moshi.JsonClass
  * @param total_pages 總頁數
  * @param total_results 全部資料的數量
  */
+@JsonClass(generateAdapter = true)
 data class MovieListBean(
     val page: Int,
     val results: List<Result>,
@@ -33,6 +34,7 @@ data class MovieListBean(
      * @param vote_average 人氣指數
      * @param vote_count 投票次數
      */
+    @JsonClass(generateAdapter = true)
     data class Result(
         val adult: Boolean?,
         val backdrop_path: String?,

@@ -2,6 +2,7 @@ package com.shang.jetpackmoviecompose.api
 
 
 import com.shang.jetpackmovie.bean.*
+import com.skydoves.sandwich.ApiResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
@@ -12,7 +13,7 @@ import retrofit2.http.Url
 interface MovieApi {
 
     @GET("genre/movie/list")
-    suspend fun getMovieGenres(): MovieGenreBean
+    suspend fun getMovieGenres():ApiResponse<MovieGenreBean>
 
     @GET("movie/{id}}")
     suspend fun getMovieDetail(@Path("id") id: Int): MovieDetailBean
@@ -28,7 +29,7 @@ interface MovieApi {
     suspend fun getMovieGenreDetail(
         @Query("with_genres") with_genres: String,
         @Query("page") page: Int
-    ): MovieListBean
+    ): ApiResponse<MovieListBean>
 
 
     @GET("configuration")

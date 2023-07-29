@@ -2,10 +2,7 @@ package com.shang.jetpackmoviecompose.ui.home
 
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.*
@@ -19,9 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import com.shang.jetpackmoviecompose.ui.genre.GenrePage
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -31,7 +26,7 @@ fun HomePage(homeViewModel: HomeViewModel = hiltViewModel()) {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
 
-    val data by homeViewModel.flow.collectAsState(initial = null)
+    val data by homeViewModel.movieGenreFlow.collectAsState(initial = null)
 
 
     Column(
@@ -50,48 +45,27 @@ fun HomePage(homeViewModel: HomeViewModel = hiltViewModel()) {
             selectedTabIndex = pagerState.currentPage,
             backgroundColor = MaterialTheme.colorScheme.background
         ) {
-            TabItem.tabs().forEachIndexed { index, tabItem ->
-                Tab(
-                    selectedContentColor = Color.Yellow,
-                    unselectedContentColor = Color.Black,
-                    selected = pagerState.currentPage == index, onClick = {
-                        coroutineScope.launch { pagerState.animateScrollToPage(index) }
-                    }, text = {
-                        Text(text = tabItem.title)
-                    }
-                )
+            if (data?.genres.isNullOrEmpty()) {
+                Spacer(modifier = Modifier.size(0.dp))
+            } else {
+                data?.genres?.forEachIndexed { index, genre ->
+                    Tab(
+                        selectedContentColor = Color.Yellow,
+                        unselectedContentColor = Color.Black,
+                        selected = pagerState.currentPage == index, onClick = {
+                            coroutineScope.launch { pagerState.animateScrollToPage(index) }
+                        }, text = {
+                            Text(text = genre.name)
+                        }
+                    )
+                }
             }
-
         }
         HorizontalPager(
             state = pagerState,
-            pageCount = 10,
-            modifier = Modifier.fillMaxSize(),
-
-            ) {
-            Text(text = "${data?.toString()}")
-
-        }
-
-
-    }
-}
-
-class TabItem(val title: String) {
-    companion object {
-        fun tabs(): MutableList<TabItem> {
-            val list = mutableListOf<TabItem>()
-            list.add(TabItem("111"))
-            list.add(TabItem("222"))
-            list.add(TabItem("333"))
-            list.add(TabItem("333"))
-            list.add(TabItem("333"))
-            list.add(TabItem("333"))
-            list.add(TabItem("333"))
-            list.add(TabItem("333"))
-            list.add(TabItem("333"))
-            list.add(TabItem("333"))
-            return list
+            pageCount = data?.genres?.size ?: 0,
+            modifier = Modifier.fillMaxSize(),) {
+            GenrePage(data!!.genres[it])
         }
     }
 }

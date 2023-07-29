@@ -4,6 +4,7 @@ import com.shang.jetpackmoviecompose.ui.home.HomeRepository
 import com.shang.jetpackmoviecompose.api.AuthInterceptor
 import com.shang.jetpackmoviecompose.api.LanguageInterceptor
 import com.shang.jetpackmoviecompose.api.MovieApi
+import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,6 +27,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/")
             .addConverterFactory(MoshiConverterFactory.create())
+            .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
             .client(okHttpClient)
             .build()
     }

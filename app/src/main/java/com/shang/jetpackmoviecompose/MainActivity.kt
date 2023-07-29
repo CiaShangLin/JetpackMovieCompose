@@ -3,6 +3,7 @@ package com.shang.jetpackmoviecompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.aspectRatio
@@ -31,14 +32,21 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.shang.jetpackmoviecompose.ui.favorites.FavoritesPage
+import com.shang.jetpackmoviecompose.ui.genre.GenreViewModel
 import com.shang.jetpackmoviecompose.ui.home.HomePage
 import com.shang.jetpackmoviecompose.ui.setting.SettingPage
 import com.shang.jetpackmoviecompose.ui.theme.JetpackMovieComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var factory: MainViewModel.Factory
 
+    private val viewModel: MainViewModel by viewModels {
+        MainViewModel.provideMainViewModelFactory(factory, 1)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
