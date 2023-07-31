@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.shang.jetpackmovie.bean.IBaseMovie
+import com.shang.jetpackmoviecompose.globalData.Configuration
 import com.shang.jetpackmoviecompose.ui.theme.Typography
 
 
@@ -43,9 +44,9 @@ fun MovieViewHolder(data: IBaseMovie) {
         ConstraintLayout(modifier = Modifier.defaultMinSize()) {
             val (cover, favor, title, day, ratio) = createRefs()
 //            "https://i.imgur.com/Jc4gb9V.jpeg"
-            //Configuration.getConfiguration()?.images?.base_url+original
+            // "${Configuration.getConfiguration()?.images?.base_url}original${data.getPosterPath()}",
             AsyncImage(
-                model = "https://i.imgur.com/Jc4gb9V.jpeg",
+                model = "${Configuration.getConfiguration()?.images?.base_url}original${data.getPosterPath()}",
                 contentDescription = null,
                 modifier = Modifier
                     .aspectRatio(3f / 4f)

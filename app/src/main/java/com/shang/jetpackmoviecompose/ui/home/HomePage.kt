@@ -32,7 +32,6 @@ fun HomePage(homeViewModel: HomeViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-
     ) {
         ScrollableTabRow(
             edgePadding = 0.dp,

@@ -25,7 +25,7 @@ fun FavoritesPage(favoritesViewModel: FavoritesViewModel = hiltViewModel()) {
     val data by favoritesViewModel.getAllMovieFavor().collectAsState(initial = null)
 
     Column(modifier = Modifier.fillMaxSize()) {
-        Log.d("DEBUG","${MaterialTheme.colorScheme.background}")
+
         Button(
             onClick = {
 

@@ -2,6 +2,7 @@ package com.shang.jetpackmoviecompose.di
 
 import com.shang.jetpackmoviecompose.ui.home.HomeRepository
 import com.shang.jetpackmoviecompose.api.AuthInterceptor
+import com.shang.jetpackmoviecompose.api.ConfigurationApi
 import com.shang.jetpackmoviecompose.api.LanguageInterceptor
 import com.shang.jetpackmoviecompose.api.MovieApi
 import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
@@ -46,6 +47,8 @@ object NetworkModule {
     @Provides
     fun provideMovieApi(retrofit: Retrofit) = retrofit.create(MovieApi::class.java)
 
-
+    @Singleton
+    @Provides
+    fun provideConfigurationApi(retrofit: Retrofit) = retrofit.create(ConfigurationApi::class.java)
 }
 

@@ -1,5 +1,7 @@
 package com.shang.jetpackmoviecompose
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -25,6 +27,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -41,12 +45,21 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    companion object {
+        fun start(context: Context) {
+            val intent = Intent(context, MainActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
+
     @Inject
     lateinit var factory: MainViewModel.Factory
 
     private val viewModel: MainViewModel by viewModels {
         MainViewModel.provideMainViewModelFactory(factory, 1)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -85,10 +98,12 @@ fun Navigation(navController: NavHostController) {
 @Composable
 fun MyBottomNavigation(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
     val items = listOf(
         BottomMenu.Home, BottomMenu.Favor, BottomMenu.Setting
     )
-    var selectedItem by remember { mutableStateOf(0) }
+
 
     /**
      * 媽Ｂ的用material3,BottomNavigationItem的selectedContentColor會失效
@@ -104,10 +119,15 @@ fun MyBottomNavigation(navController: NavController) {
                     Icon(ImageVector.vectorResource(id = item.icon), contentDescription = null)
                 },
                 label = { Text(item.label) },
-                selected = selectedItem == index,
+                selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
                 onClick = {
-                    navController.navigate(item.route)
-                    selectedItem = index
+                    navController.navigate(item.route) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 })
         }
     }

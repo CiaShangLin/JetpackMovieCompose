@@ -29,8 +29,8 @@ import javax.inject.Inject
 
 @Composable
 fun GenrePage(genre: MovieGenreBean.Genre, viewModel: GenreViewModel = hiltViewModel()) {
-    viewModel.setGenre(genre)
 
+    viewModel.setGenre(genre)
     val data = viewModel.getMovieGenreDetail().collectAsLazyPagingItems()
 
     return Surface(Modifier.fillMaxSize()) {
@@ -40,51 +40,10 @@ fun GenrePage(genre: MovieGenreBean.Genre, viewModel: GenreViewModel = hiltViewM
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 70.dp)
         ) {
-            items(count = data.itemCount + 1, span = {
-                if (it == data.itemCount) {
-                    GridItemSpan(2)
-                } else {
-                    GridItemSpan(1)
-                }
+            items(count = data.itemCount, key = {
+                data[it]!!.getMovieID()
             }) {
-                if (it == data.itemCount) {
-                    Text(text = "Loading",
-                        textAlign = TextAlign.Center,
-                        fontSize = 24.sp,
-                        modifier = Modifier.fillMaxWidth().background(Color.Blue))
-                } else {
-                    MovieViewHolder(data = data[it]!!)
-                }
-            }
-        }
-
-        when (data.loadState.refresh) {
-            is LoadState.Error -> {
-            }
-            LoadState.Loading -> {
-            }
-            is LoadState.NotLoading -> {
-            }
-        }
-        when (data.loadState.append) {
-            is LoadState.Error -> {
-            }
-            LoadState.Loading -> {
-                Text(
-                    text = "Loading",
-                    fontSize = 24.sp,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-            is LoadState.NotLoading -> {
-            }
-        }
-        when (data.loadState.prepend) {
-            is LoadState.Error -> {
-            }
-            LoadState.Loading -> {
-            }
-            is LoadState.NotLoading -> {
+                MovieViewHolder(data = data[it]!!)
             }
         }
     }

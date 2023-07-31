@@ -1,11 +1,14 @@
 package com.shang.jetpackmovie.bean
 
+import com.squareup.moshi.JsonClass
+
 /**
  * 電影配置
  *
  * @param change_keys 不知道是什麼
  * @param images
  */
+@JsonClass(generateAdapter = true)
 data class ConfigurationBean(
     val change_keys: List<String>,
     val images: Images
@@ -16,6 +19,7 @@ data class ConfigurationBean(
      * @param poster_sizes 海報size
      * @param base_url 組成圖片的host
      */
+    @JsonClass(generateAdapter = true)
     data class Images(
         val backdrop_sizes: List<String>,
         val base_url: String,

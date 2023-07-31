@@ -3,6 +3,7 @@ package com.shang.jetpackmoviecompose.core
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDexApplication
+import com.tencent.mmkv.MMKV
 import dagger.hilt.android.HiltAndroidApp
 
 
@@ -18,6 +19,7 @@ class JetpackMovieApplication : MultiDexApplication() {
         super.onCreate()
 
         context = this
+        MMKV.initialize(this)
 //        AppCompatDelegate.setDefaultNightMode(UserSetting.theme)
 //
 //        startKoin {

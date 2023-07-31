@@ -2,6 +2,7 @@ package com.shang.jetpackmoviecompose.ui.genre
 
 import android.util.Log
 import androidx.lifecycle.*
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.shang.jetpackmovie.bean.MovieGenreBean
 import com.shang.jetpackmovie.bean.MovieListBean
@@ -11,6 +12,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.map
@@ -32,9 +34,13 @@ class GenreViewModel @Inject constructor(
 
     fun getGenre() = mGenre
 
-    fun getMovieGenreDetail() =
-        mGenreRepository
+    fun getMovieGenreDetail(): Flow<PagingData<MovieListBean.Result>> {
+        Log.d("DEBUG","${mGenre.toString()}")
+
+        return mGenreRepository
             .getMovieGenreDetail("${mGenre?.id ?: -1}")
             .cachedIn(viewModelScope)
+    }
+
 
 }
