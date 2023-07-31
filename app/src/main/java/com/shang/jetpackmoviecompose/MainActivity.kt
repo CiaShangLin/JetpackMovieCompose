@@ -98,7 +98,7 @@ fun MyBottomNavigation(navController: NavController) {
     ) {
         items.forEachIndexed { index, item ->
             BottomNavigationItem(
-                selectedContentColor = Color.Yellow,
+                selectedContentColor = Color(0xFFFFD306),
                 unselectedContentColor = Color.Black,
                 icon = {
                     Icon(ImageVector.vectorResource(id = item.icon), contentDescription = null)

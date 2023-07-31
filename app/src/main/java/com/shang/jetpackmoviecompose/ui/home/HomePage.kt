@@ -39,7 +39,7 @@ fun HomePage(homeViewModel: HomeViewModel = hiltViewModel()) {
             indicator = { tabPositions ->
                 TabRowDefaults.Indicator(
                     Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
-                    color = Color.Yellow,
+                    color = Color(0xFFFFD306)
                 )
             },
             selectedTabIndex = pagerState.currentPage,
@@ -50,7 +50,7 @@ fun HomePage(homeViewModel: HomeViewModel = hiltViewModel()) {
             } else {
                 data?.genres?.forEachIndexed { index, genre ->
                     Tab(
-                        selectedContentColor = Color.Yellow,
+                        selectedContentColor = Color(0xFFFFD306),
                         unselectedContentColor = Color.Black,
                         selected = pagerState.currentPage == index, onClick = {
                             coroutineScope.launch { pagerState.animateScrollToPage(index) }
