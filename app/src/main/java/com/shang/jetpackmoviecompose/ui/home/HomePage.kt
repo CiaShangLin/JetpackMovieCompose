@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,7 +27,7 @@ fun HomePage(homeViewModel: HomeViewModel = hiltViewModel()) {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
 
-    val data by homeViewModel.movieGenreFlow.collectAsState(initial = null)
+    val data by homeViewModel.movieGenreLiveData.observeAsState(initial = null)
 
 
     Column(
