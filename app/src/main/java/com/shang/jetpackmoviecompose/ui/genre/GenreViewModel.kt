@@ -28,6 +28,7 @@ class GenreViewModel @Inject constructor(
     private var mGenre: MovieGenreBean.Genre? = null
 
 
+
     fun setGenre(genre: MovieGenreBean.Genre) {
         mGenre = genre
     }
@@ -35,8 +36,6 @@ class GenreViewModel @Inject constructor(
     fun getGenre() = mGenre
 
     fun getMovieGenreDetail(): Flow<PagingData<MovieListBean.Result>> {
-        Log.d("DEBUG","${mGenre.toString()}")
-
         return mGenreRepository
             .getMovieGenreDetail("${mGenre?.id ?: -1}")
             .cachedIn(viewModelScope)

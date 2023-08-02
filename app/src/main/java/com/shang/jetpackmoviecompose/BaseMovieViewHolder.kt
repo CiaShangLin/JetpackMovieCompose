@@ -27,6 +27,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.shang.jetpackmovie.bean.IBaseMovie
 import com.shang.jetpackmoviecompose.globalData.Configuration
+import com.shang.jetpackmoviecompose.ui.theme.RatioColor
 import com.shang.jetpackmoviecompose.ui.theme.Typography
 
 
@@ -115,7 +116,7 @@ fun Ratio(ratio: Double, modifier: Modifier) {
             val startAngle = -90f
             val sweepAngle = (ratio  / 100 * 360).toFloat()
             val useCenter = false // 是否连接起点和终点形成一个封闭区域
-            val color = Color.Green
+            val color = RatioColor
             val strokeWidth = 25.dp.value
 
             drawCircle(
