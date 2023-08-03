@@ -55,7 +55,7 @@ fun MovieViewHolder(data: IBaseMovie, favoritesRepository: IFavoritesRepository 
 //            "https://i.imgur.com/Jc4gb9V.jpeg"
             // "${Configuration.getConfiguration()?.images?.base_url}original${data.getPosterPath()}",
             AsyncImage(
-                model = "${Configuration.getConfiguration()?.images?.base_url}original${data.getPosterPath()}",
+                model = data.getPosterPath(),
                 contentDescription = null,
                 modifier = Modifier
                     .aspectRatio(3f / 4f)

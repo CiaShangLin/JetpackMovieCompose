@@ -29,7 +29,7 @@ import com.shang.jetpackmoviecompose.ui.home.HomeViewModel
 fun FavoritesPage(favoritesViewModel: FavoritesViewModel = hiltViewModel()) {
 
 
-    val data by favoritesViewModel.getAllMovieFavor().collectAsState(initial = null)
+    val data by favoritesViewModel.getAllMovieFavorites().collectAsState(initial = null)
 
     val refresh by remember {
         mutableStateOf(false)
