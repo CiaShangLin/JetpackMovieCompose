@@ -47,8 +47,8 @@ class JetpackMovieApplication : MultiDexApplication(), ImageLoaderFactory {
  */
 class BaseUrlInterceptor : Interceptor {
     override suspend fun intercept(chain: Interceptor.Chain): ImageResult {
-        var url = chain.request.data as String
-        if (url.startsWith("/")) {
+        var url = chain.request.data as String?
+        if (url?.startsWith("/")==true) {
             url = "${Configuration.getConfiguration()?.images?.base_url}original${url}"
         }
         val value = chain.request

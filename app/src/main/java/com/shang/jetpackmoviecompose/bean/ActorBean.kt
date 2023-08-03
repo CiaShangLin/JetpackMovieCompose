@@ -1,11 +1,14 @@
 package com.shang.jetpackmovie.bean
 
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class ActorBean(
     val cast: List<Cast>,
     val crew: List<Crew>,
     val id: Int
 )
-
+@JsonClass(generateAdapter = true)
 data class Cast(
     val adult: Boolean?,
     val cast_id: Int?,
@@ -20,7 +23,7 @@ data class Cast(
     val popularity: Double?,
     val profile_path: String?
 )
-
+@JsonClass(generateAdapter = true)
 data class Crew(
     val adult: Boolean?,
     val credit_id: String?,

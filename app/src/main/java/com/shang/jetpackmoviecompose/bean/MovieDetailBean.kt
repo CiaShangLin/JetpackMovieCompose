@@ -1,9 +1,12 @@
 package com.shang.jetpackmovie.bean
 
+import com.squareup.moshi.JsonClass
+
 /**
  * 電影詳細內頁
  *
  */
+@JsonClass(generateAdapter = true)
 data class MovieDetailBean(
     val adult: Boolean?,
     val backdrop_path: String?,
@@ -32,6 +35,7 @@ data class MovieDetailBean(
     val vote_count: Int?
 ) {
 
+    @JsonClass(generateAdapter = true)
     data class ProductionCompany(
         val id: Int?,
         val logo_path: String?,
@@ -39,11 +43,13 @@ data class MovieDetailBean(
         val origin_country: String?
     )
 
+    @JsonClass(generateAdapter = true)
     data class ProductionCountry(
         val iso_3166_1: String?,
         val name: String?
     )
 
+    @JsonClass(generateAdapter = true)
     data class SpokenLanguage(
         val english_name: String?,
         val iso_639_1: String?,

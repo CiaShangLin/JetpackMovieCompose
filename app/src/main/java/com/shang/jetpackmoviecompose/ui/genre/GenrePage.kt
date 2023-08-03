@@ -48,7 +48,7 @@ fun GenrePage(
             contentPadding = PaddingValues(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 70.dp)
         ) {
             items(count = data.itemCount) {
-                MovieViewHolder(data = data[it]!!,favoritesViewModel)
+                MovieViewHolder(data = data[it]!!, favoritesRepository = favoritesViewModel)
             }
         }
 

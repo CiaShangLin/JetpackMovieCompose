@@ -1,6 +1,5 @@
 package com.shang.jetpackmoviecompose
 
-import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,10 +10,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,6 +19,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -31,18 +28,29 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.shang.jetpackmovie.bean.IBaseMovie
-import com.shang.jetpackmoviecompose.globalData.Configuration
-import com.shang.jetpackmoviecompose.ui.favorites.FavoritesRepository
 import com.shang.jetpackmoviecompose.ui.favorites.FavoritesViewModel
 import com.shang.jetpackmoviecompose.ui.favorites.IFavoritesRepository
+import com.shang.jetpackmoviecompose.ui.detail.DetailActivity
 import com.shang.jetpackmoviecompose.ui.theme.RatioColor
 import com.shang.jetpackmoviecompose.ui.theme.Typography
 
 
 @Composable
-fun MovieViewHolder(data: IBaseMovie, favoritesRepository: IFavoritesRepository = hiltViewModel<FavoritesViewModel>()) {
+fun MovieViewHolder(
+    cardModifier: Modifier=Modifier,
+    data: IBaseMovie,
+    favoritesRepository: IFavoritesRepository = hiltViewModel<FavoritesViewModel>(),
+
+) {
+
+    val context= LocalContext.current
+
     Card(
-        modifier = Modifier.padding(0.dp),
+        modifier = cardModifier
+            .padding(0.dp)
+            .clickable {
+                DetailActivity.start(context,data.getMovieID())
+            },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.background,
         ),
@@ -81,8 +89,8 @@ fun MovieViewHolder(data: IBaseMovie, favoritesRepository: IFavoritesRepository 
                 modifier = Modifier
                     .padding(bottom = 4.dp)
                     .constrainAs(day) {
-                        start.linkTo(cover.start, 4.dp)
-                        top.linkTo(title.bottom, 4.dp)
+                        start.linkTo(cover.start, 2.dp)
+                        top.linkTo(title.bottom, 2.dp)
                     },
                 text = "上映日:${data.getReleaseDate()}",
                 style = Typography.titleSmall,
@@ -112,7 +120,7 @@ fun Favor(modifier: Modifier, data: IBaseMovie, favoritesRepository: IFavoritesR
         painter = painterResource(id = if (isFavor.value) R.drawable.icon_favor else R.drawable.icon_not_favor),
         contentDescription = null,
         modifier = modifier
-            .size(25.dp)
+            .size(20.dp)
             .clickable {
                 if (isFavor.value) {
                     favoritesRepository.deleteMovieFavor(data)

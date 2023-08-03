@@ -35,6 +35,11 @@
             android:theme="@style/Theme.JetpackMovieCompose">
         </activity>
 
+        <activity
+            android:name=".ui.detail.DetailActivity"
+            android:exported="true"
+            android:theme="@style/Theme.JetpackMovieCompose">
+        </activity>
 
     </application>
 
