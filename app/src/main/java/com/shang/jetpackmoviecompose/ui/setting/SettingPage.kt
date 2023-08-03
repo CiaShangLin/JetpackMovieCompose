@@ -27,6 +27,7 @@ import com.shang.jetpackmoviecompose.R
 import com.shang.jetpackmoviecompose.ui.dialog.ChangeThemeDialog
 import com.shang.jetpackmoviecompose.ui.dialog.DeveloperDialog
 import com.shang.jetpackmoviecompose.ui.dialog.DisclaimerDialog
+import com.shang.jetpackmoviecompose.ui.theme.MyColorScheme
 import com.shang.jetpackmoviecompose.ui.theme.SettingDividingLine
 
 enum class Setting(@StringRes val title: Int) {
@@ -37,12 +38,10 @@ enum class Setting(@StringRes val title: Int) {
 
 @Composable
 fun SettingPage() {
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Column() {
-            enumValues<Setting>().forEach {
-                SettingItem(it)
-                DividingLine()
-            }
+    Column() {
+        enumValues<Setting>().forEach {
+            SettingItem(it)
+            DividingLine()
         }
     }
 }
@@ -63,7 +62,7 @@ fun SettingItem(setting: Setting) {
         Text(
             text = stringResource(id = setting.title),
             style = MaterialTheme.typography.titleLarge,
-            color = Color.Black,
+            color = MyColorScheme.textColor,
             modifier = Modifier.padding(8.dp)
         )
         Image(

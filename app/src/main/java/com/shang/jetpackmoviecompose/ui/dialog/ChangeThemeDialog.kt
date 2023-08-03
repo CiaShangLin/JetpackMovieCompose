@@ -3,6 +3,7 @@ package com.shang.jetpackmoviecompose.ui.dialog
 import android.util.Log
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.shang.jetpackmoviecompose.R
 import com.shang.jetpackmoviecompose.globalData.UserSetting
+import com.shang.jetpackmoviecompose.ui.theme.JetpackMovieComposeTheme
 import com.shang.jetpackmoviecompose.ui.theme.ThemeRadioButton
 
 
@@ -32,8 +34,7 @@ enum class Theme(@StringRes val title: Int, val mode: Int) {
 @Composable
 fun ChangeThemeDialog(onDismissRequest: () -> Unit) {
 
-    val selectTheme  = remember {
-        Log.d("DEBUG","theme = ${UserSetting.theme}")
+    val selectTheme = remember {
         mutableStateOf(UserSetting.theme)
     }
 
@@ -62,20 +63,30 @@ fun ChangeThemeDialog(onDismissRequest: () -> Unit) {
         }
     }
 
-    Dialog(onDismissRequest = onDismissRequest) {
-        Card(
-            modifier = Modifier.padding(0.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = Color.White
-            ),
-            shape = RoundedCornerShape(8.dp),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 4.dp
-            )
-        ) {
-            enumValues<Theme>().forEachIndexed { index, theme ->
-                item(theme)
+    JetpackMovieComposeTheme(
+        darkTheme = when (selectTheme.value) {
+            Theme.LIGHT.mode -> false
+            Theme.DARK.mode -> true
+            else -> isSystemInDarkTheme()
+        }
+    )
+    {
+        Dialog(onDismissRequest = onDismissRequest) {
+            Card(
+                modifier = Modifier.padding(0.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.White
+                ),
+                shape = RoundedCornerShape(8.dp),
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = 4.dp
+                )
+            ) {
+                enumValues<Theme>().forEachIndexed { index, theme ->
+                    item(theme)
+                }
             }
         }
+
     }
 }

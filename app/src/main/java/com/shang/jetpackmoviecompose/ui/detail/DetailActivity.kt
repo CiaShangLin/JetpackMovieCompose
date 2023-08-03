@@ -31,6 +31,7 @@ import com.shang.jetpackmovie.bean.MovieListBean
 import com.shang.jetpackmoviecompose.MovieViewHolder
 import com.shang.jetpackmoviecompose.R
 import com.shang.jetpackmoviecompose.ui.theme.JetpackMovieComposeTheme
+import com.shang.jetpackmoviecompose.ui.theme.MyColorScheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -89,13 +90,15 @@ class DetailActivity : ComponentActivity() {
             Text(
                 text = stringResource(id = R.string.summary),
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(start = 4.dp)
+                modifier = Modifier.padding(start = 4.dp),
+                color = MyColorScheme.textColor
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = content,
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(4.dp)
+                modifier = Modifier.padding(4.dp),
+                color = MyColorScheme.textColor
             )
         }
     }
@@ -106,7 +109,8 @@ class DetailActivity : ComponentActivity() {
             Text(
                 text = stringResource(id = R.string.cast),
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(start = 4.dp)
+                modifier = Modifier.padding(start = 4.dp),
+                color = MyColorScheme.textColor
             )
             Spacer(modifier = Modifier.height(4.dp))
             LazyRow(
@@ -128,7 +132,7 @@ class DetailActivity : ComponentActivity() {
                 .padding(0.dp)
                 .width(138.dp),
             colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.background,
+                containerColor = MyColorScheme.cardBackground,
             ),
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 4.dp
@@ -144,16 +148,16 @@ class DetailActivity : ComponentActivity() {
                 Text(
                     text = data.name ?: "",
                     style = MaterialTheme.typography.titleMedium,
-                    color = Color.Black,
+                    color = MyColorScheme.textColor,
                     modifier = Modifier.padding(4.dp),
-                    maxLines = 1
+                    maxLines = 1,
                 )
                 Text(
                     text = data.character ?: "",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Black,
+                    color = MyColorScheme.textColor,
                     modifier = Modifier.padding(4.dp),
-                    maxLines = 1
+                    maxLines = 1,
                 )
             }
         }
@@ -165,7 +169,8 @@ class DetailActivity : ComponentActivity() {
             Text(
                 text = stringResource(id = R.string.guess_like),
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(start = 4.dp)
+                modifier = Modifier.padding(start = 4.dp),
+                color = MyColorScheme.textColor
             )
             Spacer(modifier = Modifier.height(4.dp))
             LazyRow(

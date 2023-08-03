@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -35,11 +36,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.shang.jetpackmoviecompose.globalData.UserSetting
+import com.shang.jetpackmoviecompose.ui.dialog.Theme
 import com.shang.jetpackmoviecompose.ui.favorites.FavoritesPage
 import com.shang.jetpackmoviecompose.ui.genre.GenreViewModel
 import com.shang.jetpackmoviecompose.ui.home.HomePage
 import com.shang.jetpackmoviecompose.ui.setting.SettingPage
 import com.shang.jetpackmoviecompose.ui.theme.JetpackMovieComposeTheme
+import com.shang.jetpackmoviecompose.ui.theme.MyColor
+import com.shang.jetpackmoviecompose.ui.theme.MyColorScheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -109,12 +114,12 @@ fun MyBottomNavigation(navController: NavController) {
      * 媽Ｂ的用material3,BottomNavigationItem的selectedContentColor會失效
      */
     BottomNavigation(
-        backgroundColor = MaterialTheme.colorScheme.background
+        backgroundColor = MyColorScheme.bottomTabBackground
     ) {
         items.forEachIndexed { index, item ->
             BottomNavigationItem(
                 selectedContentColor = Color(0xFFFFD306),
-                unselectedContentColor = Color.Black,
+                unselectedContentColor = MyColorScheme.textColor,
                 icon = {
                     Icon(ImageVector.vectorResource(id = item.icon), contentDescription = null)
                 },

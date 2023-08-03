@@ -3,12 +3,14 @@ package com.shang.jetpackmoviecompose.core
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.intercept.Interceptor
 import coil.request.ImageResult
 import com.shang.jetpackmoviecompose.globalData.Configuration
+import com.shang.jetpackmoviecompose.globalData.UserSetting
 import com.tencent.mmkv.MMKV
 import dagger.hilt.android.HiltAndroidApp
 
@@ -26,8 +28,6 @@ class JetpackMovieApplication : MultiDexApplication(), ImageLoaderFactory {
 
         context = this
         MMKV.initialize(this)
-//        AppCompatDelegate.setDefaultNightMode(UserSetting.theme)
-
     }
 
     override fun newImageLoader(): ImageLoader {

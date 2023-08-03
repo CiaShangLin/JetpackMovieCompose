@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shang.jetpackmoviecompose.ui.genre.GenrePage
+import com.shang.jetpackmoviecompose.ui.theme.MyColorScheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -43,7 +44,7 @@ fun HomePage(homeViewModel: HomeViewModel = hiltViewModel()) {
                 )
             },
             selectedTabIndex = pagerState.currentPage,
-            backgroundColor = MaterialTheme.colorScheme.background
+            backgroundColor = MyColorScheme.homeTabBackground
         ) {
             if (data?.genres.isNullOrEmpty()) {
                 Spacer(modifier = Modifier.size(0.dp))
@@ -51,7 +52,7 @@ fun HomePage(homeViewModel: HomeViewModel = hiltViewModel()) {
                 data?.genres?.forEachIndexed { index, genre ->
                     Tab(
                         selectedContentColor = Color(0xFFFFD306),
-                        unselectedContentColor = Color.Black,
+                        unselectedContentColor = MyColorScheme.textColor,
                         selected = pagerState.currentPage == index, onClick = {
                             coroutineScope.launch { pagerState.animateScrollToPage(index) }
                         }, text = {

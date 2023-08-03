@@ -13,3 +13,5 @@ val Pink40 = Color(0xFF7D5260)
 val SettingDividingLine= Color(0xFF383838)
 val RatioColor = Color(0xFF01b468)
 val ThemeRadioButton = Color(0xFFffd306)
+
+val Black_272727 = Color(0xFF272727)

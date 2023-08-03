@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -31,6 +30,7 @@ import com.shang.jetpackmovie.bean.IBaseMovie
 import com.shang.jetpackmoviecompose.ui.favorites.FavoritesViewModel
 import com.shang.jetpackmoviecompose.ui.favorites.IFavoritesRepository
 import com.shang.jetpackmoviecompose.ui.detail.DetailActivity
+import com.shang.jetpackmoviecompose.ui.theme.MyColorScheme
 import com.shang.jetpackmoviecompose.ui.theme.RatioColor
 import com.shang.jetpackmoviecompose.ui.theme.Typography
 
@@ -52,7 +52,7 @@ fun MovieViewHolder(
                 DetailActivity.start(context,data.getMovieID())
             },
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.background,
+            containerColor = MyColorScheme.cardBackground,
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp

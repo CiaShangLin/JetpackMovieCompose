@@ -1,14 +1,12 @@
 package com.shang.jetpackmoviecompose.ui.theme
 
 import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 
@@ -26,6 +24,28 @@ private val LightColorScheme = lightColorScheme(
     background = Color.White,
 )
 
+data class MyColor(
+    val bottomTabBackground: Color,
+    val cardBackground: Color,
+    val homeTabBackground: Color,
+    val textColor: Color
+)
+
+private val Light = MyColor(
+    bottomTabBackground = Color.White,
+    cardBackground = Color.White,
+    homeTabBackground = Color.White,
+    textColor = Color.Black
+)
+
+private val Dark = MyColor(
+    bottomTabBackground = Black_272727,
+    cardBackground = Black_272727,
+    homeTabBackground = Black_272727,
+    textColor = Color.White
+)
+
+var MyColorScheme = Light
 
 @Composable
 fun JetpackMovieComposeTheme(
@@ -34,10 +54,15 @@ fun JetpackMovieComposeTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = if(darkTheme){
+    val colorScheme = if (darkTheme) {
         DarkColorScheme
-    }else{
+    } else {
         LightColorScheme
+    }
+    MyColorScheme = if (darkTheme) {
+        Dark
+    } else {
+        Light
     }
 //    val colorScheme = when {
 //        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
