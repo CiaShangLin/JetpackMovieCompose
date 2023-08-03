@@ -19,5 +19,7 @@ interface MovieFavorDao {
     fun getAllMovieFavor(): Flow<List<MovieFavorEntity>>
 
     @Query("Select *  From MovieFavorEntity Where id = :id")
-    fun isFavorites(id: Int): Boolean
+    fun isFavorites(id: Int): Flow<MovieFavorEntity?>
+
+
 }

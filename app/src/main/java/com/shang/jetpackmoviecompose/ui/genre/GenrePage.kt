@@ -16,10 +16,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.shang.jetpackmovie.bean.MovieGenreBean
 import com.shang.jetpackmoviecompose.MovieViewHolder
+import com.shang.jetpackmoviecompose.ui.favorites.FavoritesViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun GenrePage(genre: MovieGenreBean.Genre, viewModel: GenreViewModel = hiltViewModel()) {
+fun GenrePage(
+    genre: MovieGenreBean.Genre,
+    viewModel: GenreViewModel = hiltViewModel(),
+    favoritesViewModel: FavoritesViewModel = hiltViewModel()
+) {
 
     viewModel.setGenre(genre)
     val data = viewModel.getMovieGenreDetail().collectAsLazyPagingItems()
@@ -31,7 +36,7 @@ fun GenrePage(genre: MovieGenreBean.Genre, viewModel: GenreViewModel = hiltViewM
         //refresh=true
     })
 
-    return Box(
+    Box(
         Modifier
             .fillMaxSize()
             .pullRefresh(pullRefreshState)
@@ -43,7 +48,7 @@ fun GenrePage(genre: MovieGenreBean.Genre, viewModel: GenreViewModel = hiltViewM
             contentPadding = PaddingValues(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 70.dp)
         ) {
             items(count = data.itemCount) {
-                MovieViewHolder(data = data[it]!!)
+                MovieViewHolder(data = data[it]!!,favoritesViewModel)
             }
         }
 
