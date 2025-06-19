@@ -11,35 +11,26 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".core.JetpackMovieApplication"
+        android:name=".JetpackMovieApplication"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.JetpackMovieCompose"
         tools:targetApi="31">
 
-        <activity
-            android:name=".ui.splash.SplashActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/SplashScreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.JetpackMovieCompose">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
         </activity>
 
-        <activity
-            android:name=".ui.detail.DetailActivity"
-            android:exported="true"
-            android:theme="@style/Theme.JetpackMovieCompose">
-        </activity>
+
 
     </application>
 

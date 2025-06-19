@@ -5,11 +5,5 @@
         <item name="android:statusBarColor">@color/white</item>
     </style>
 
-    <style name="SplashScreenTheme" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/bg_splash</item>
-        <item name="windowSplashScreenAnimationDuration">800</item>
-        <item name="postSplashScreenTheme">@style/Theme.JetpackMovieCompose</item>
-    </style>
 
 </resources>
