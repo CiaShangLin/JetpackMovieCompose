@@ -1,9 +1,14 @@
+import com.shang.buildsrc.deps.androidx
+import com.shang.buildsrc.deps.testDebugDeps
+import com.shang.buildsrc.deps.testDeps
+import com.shang.buildsrc.deps.testImplDeps
+import com.shang.buildsrc.plugs.BuildPlugins
+
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
-    // id("com.google.dagger.hilt.android")
+    id(com.shang.buildsrc.plugs.BuildPlugins.ANDROID_APPLICATION)
+    id(com.shang.buildsrc.plugs.BuildPlugins.KOTLIN_ANDROID)
+    id(com.shang.buildsrc.plugs.BuildPlugins.KAPT)
+    id(com.shang.buildsrc.plugs.BuildPlugins.KOTLIN_COMPOSE) version "2.0.0"
 }
 
 android {
@@ -53,26 +58,33 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core)
-    implementation(libs.androidx.lifecycle)
-    implementation(libs.activity.compose)
-    implementation(libs.material)
+    androidx()
+    testDeps()
+    testImplDeps()
+    testDebugDeps()
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(libs.compose.ui.test.manifest)
 
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.material)
-    implementation(libs.compose.material3)
 
-    implementation(libs.compose.compiler)
-    implementation(libs.lifecycle.runtime.compose)
-    implementation(libs.core.splashscreen)
+//    implementation(libs.androidx.core)
+//    implementation(libs.androidx.lifecycle)
+//    implementation(libs.activity.compose)
+//    implementation(libs.material)
+//
+//    testImplementation(libs.junit)
+//    androidTestImplementation(libs.androidx.test.junit)
+//    androidTestImplementation(libs.androidx.espresso.core)
+//    androidTestImplementation(libs.compose.ui.test.junit4)
+//    debugImplementation(libs.compose.ui.tooling)
+//    debugImplementation(libs.compose.ui.test.manifest)
+
+//    implementation(libs.compose.ui)
+//    implementation(libs.compose.ui.tooling.preview)
+//    implementation(libs.compose.material)
+//    implementation(libs.compose.material3)
+//
+//    implementation(libs.compose.compiler)
+//    implementation(libs.lifecycle.runtime.compose)
+//    implementation(libs.core.splashscreen)
 
     // 其餘依賴請依需求取消註解並調整語法
     // implementation("io.coil-kt:coil:2.4.0")
