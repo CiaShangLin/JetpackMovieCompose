@@ -16,7 +16,7 @@ plugins {
     id(plugs.BuildPlugins.ANDROID_APPLICATION)
     id(plugs.BuildPlugins.KOTLIN_ANDROID)
     id(plugs.BuildPlugins.KAPT)
-    id(plugs.BuildPlugins.KOTLIN_COMPOSE) version "2.0.0"
+    id(plugs.BuildPlugins.KOTLIN_COMPOSE) version "2.1.21"
 }
 
 android {
