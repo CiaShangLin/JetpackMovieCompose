@@ -1,8 +1,10 @@
 # 用於集中管理 Android 依賴版本的 TOML 檔案
 
 [versions]
+benchmarkCommon = "1.3.4"
 
 [libraries]
+androidx-benchmark-common = { group = "androidx.benchmark", name = "benchmark-common", version.ref = "benchmarkCommon" }
 
 [plugins]
 android-application = { id = "com.android.application", version = "8.9.1" }

@@ -1,4 +1,4 @@
-package com.shang.buildsrc.deps
+package deps
 
 object Dependencies {
     // AndroidX

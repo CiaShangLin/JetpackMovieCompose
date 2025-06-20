@@ -1,4 +1,4 @@
-package com.shang.buildsrc.deps
+package deps
 
 import org.gradle.api.artifacts.dsl.DependencyHandler
 

@@ -1,63 +1,93 @@
-import com.shang.buildsrc.deps.androidx
-import com.shang.buildsrc.deps.testDebugDeps
-import com.shang.buildsrc.deps.testDeps
-import com.shang.buildsrc.deps.testImplDeps
-import com.shang.buildsrc.plugs.BuildPlugins
+import build.BuildConfig
+import build.BuildCreator
+import build.BuildDimensions
+import deps.DependenciesVersions
+import deps.TestBuildConfig
+import deps.androidx
+import deps.testDebugDeps
+import deps.testDeps
+import deps.testImplDeps
+import flavors.BuildFlavor
+import signing.BuildSigning
+import signing.SigningTypes
+
 
 plugins {
-    id(com.shang.buildsrc.plugs.BuildPlugins.ANDROID_APPLICATION)
-    id(com.shang.buildsrc.plugs.BuildPlugins.KOTLIN_ANDROID)
-    id(com.shang.buildsrc.plugs.BuildPlugins.KAPT)
-    id(com.shang.buildsrc.plugs.BuildPlugins.KOTLIN_COMPOSE) version "2.0.0"
+    id(plugs.BuildPlugins.ANDROID_APPLICATION)
+    id(plugs.BuildPlugins.KOTLIN_ANDROID)
+    id(plugs.BuildPlugins.KAPT)
+    id(plugs.BuildPlugins.KOTLIN_COMPOSE) version "2.0.0"
 }
 
 android {
-    namespace = "com.shang.jetpackmoviecompose"
-    compileSdk = 36
+    namespace = BuildConfig.APP_ID
+    compileSdk = BuildConfig.COMPILE_SDK_VERSION
 
     defaultConfig {
-        applicationId = "com.shang.jetpackmoviecompose"
-        minSdk = 23
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        applicationId =  BuildConfig.APP_ID
+        minSdk = BuildConfig.MIN_SDK_VERSION
+        targetSdk =BuildConfig.TARGET_SDK_VERSION
+        versionCode = BuildConfig.VERSION_CODE
+        versionName = BuildConfig.VERSION_NAME
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = TestBuildConfig.TEST_INSTRUMENTATION_RUNNER
         vectorDrawables {
             useSupportLibrary = true
         }
     }
 
+    signingConfigs {
+        BuildSigning.Debug(project).create(this)
+        BuildSigning.Release(project).create(this)
+        BuildSigning.ReleaseExternalQA(project).create(this)
+    }
+
     buildTypes {
-        release {
-            isMinifyEnabled = true
+        BuildCreator.Debug(project).create(this).apply {
+            signingConfig = signingConfigs.getByName(SigningTypes.DEBUG)
+        }
+        BuildCreator.Release(project).create(this).apply {
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
             )
+            signingConfig = signingConfigs.getByName(SigningTypes.RELEASE)
+        }
+        BuildCreator.ReleaseExternalQA(project).create(this).apply {
+            signingConfig = signingConfigs.getByName(SigningTypes.RELEASE_EXTERNAL_QA)
         }
     }
+
+    flavorDimensions.add(BuildDimensions.APP)
+
+    productFlavors {
+        BuildFlavor.Dev.create(this)
+        BuildFlavor.Prod.create(this)
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
-    packagingOptions {
+    composeOptions {
+        kotlinCompilerExtensionVersion = DependenciesVersions.KOTLIN_COMPILER
+    }
+    packaging {
         resources {
-            excludes += setOf("/META-INF/{AL2.0,LGPL2.1}")
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
-    }
-    kapt {
-        correctErrorTypes = true
     }
 }
 
 dependencies {
+
     androidx()
     testDeps()
     testImplDeps()

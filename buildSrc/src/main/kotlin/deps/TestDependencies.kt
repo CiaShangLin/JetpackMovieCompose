@@ -1,4 +1,4 @@
-package com.shang.buildsrc.deps
+package deps
 
 object TestDependencies {
     const val JUNIT = "junit:junit:${DependenciesVersions.JUNIT}"
