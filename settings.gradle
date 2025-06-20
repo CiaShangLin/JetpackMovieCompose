@@ -14,4 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "JetpackMovieCompose"
 include ':app'
+include ':core'
+include ':feature'
+
 
