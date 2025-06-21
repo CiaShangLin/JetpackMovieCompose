@@ -7,7 +7,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 // Set of Material typography styles to start with
-//val Typography = Typography(
+// val Typography = Typography(
 //    bodyLarge = TextStyle(
 //        fontFamily = FontFamily.Default,
 //        fontWeight = FontWeight.Normal,
@@ -51,7 +51,7 @@ import androidx.compose.ui.unit.sp
 //    )
 //     */
 //
-//)
+// )
 
 // 對應React v6版本的字體系統
 val Typography = Typography(
@@ -61,7 +61,7 @@ val Typography = Typography(
         fontWeight = FontWeight.SemiBold,
         fontSize = 18.sp,
         lineHeight = 28.sp,
-        letterSpacing = 0.sp
+        letterSpacing = 0.sp,
     ),
 
     // 中標題 - 用於區塊標題 (對應React的text-base, 16px)
@@ -70,7 +70,7 @@ val Typography = Typography(
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
         lineHeight = 24.sp,
-        letterSpacing = 0.15.sp
+        letterSpacing = 0.15.sp,
     ),
 
     // 小標題 - 用於卡片標題 (對應React的text-sm, 14px)
@@ -79,7 +79,7 @@ val Typography = Typography(
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         lineHeight = 20.sp,
-        letterSpacing = 0.1.sp
+        letterSpacing = 0.1.sp,
     ),
 
     // 正文大 - 用於主要內容 (對應React的text-sm, 14px)
@@ -88,7 +88,7 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         lineHeight = 20.sp,
-        letterSpacing = 0.25.sp
+        letterSpacing = 0.25.sp,
     ),
 
     // 正文中 - 用於次要內容 (對應React的text-xs, 12px)
@@ -97,7 +97,7 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
         lineHeight = 16.sp,
-        letterSpacing = 0.4.sp
+        letterSpacing = 0.4.sp,
     ),
 
     // 正文小 - 用於輔助資訊 (對應React的text-xs, 12px但更小)
@@ -106,7 +106,7 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 11.sp,
         lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
+        letterSpacing = 0.5.sp,
     ),
 
     // 標籤大 - 用於按鈕文字
@@ -115,7 +115,7 @@ val Typography = Typography(
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         lineHeight = 20.sp,
-        letterSpacing = 0.1.sp
+        letterSpacing = 0.1.sp,
     ),
 
     // 標籤中 - 用於Tab標籤
@@ -124,7 +124,7 @@ val Typography = Typography(
         fontWeight = FontWeight.Medium,
         fontSize = 12.sp,
         lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
+        letterSpacing = 0.5.sp,
     ),
 
     // 標籤小 - 用於底部導覽標籤 (對應React的text-xs, 12px)
@@ -133,8 +133,8 @@ val Typography = Typography(
         fontWeight = FontWeight.Medium,
         fontSize = 10.sp,
         lineHeight = 14.sp,
-        letterSpacing = 0.5.sp
-    )
+        letterSpacing = 0.5.sp,
+    ),
 )
 
 // 電影應用特定的文字樣式擴展
@@ -145,7 +145,7 @@ object MovieTypography {
         fontWeight = FontWeight.Bold,
         fontSize = 12.sp,
         lineHeight = 16.sp,
-        letterSpacing = 0.sp
+        letterSpacing = 0.sp,
     )
 
     // 電影標題 - 支援多行顯示
@@ -154,7 +154,7 @@ object MovieTypography {
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         lineHeight = 18.sp,
-        letterSpacing = 0.1.sp
+        letterSpacing = 0.1.sp,
     )
 
     // 電影發行日期
@@ -163,6 +163,6 @@ object MovieTypography {
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
         lineHeight = 16.sp,
-        letterSpacing = 0.4.sp
+        letterSpacing = 0.4.sp,
     )
 }
