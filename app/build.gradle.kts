@@ -17,6 +17,7 @@ plugins {
     id(plugs.BuildPlugins.KOTLIN_ANDROID)
     id(plugs.BuildPlugins.KAPT)
     id(plugs.BuildPlugins.KOTLIN_COMPOSE) version "2.1.21"
+    id(plugs.BuildPlugins.KTLINT)
 }
 
 android {
@@ -24,9 +25,9 @@ android {
     compileSdk = BuildConfig.COMPILE_SDK_VERSION
 
     defaultConfig {
-        applicationId =  BuildConfig.APP_ID
+        applicationId = BuildConfig.APP_ID
         minSdk = BuildConfig.MIN_SDK_VERSION
-        targetSdk =BuildConfig.TARGET_SDK_VERSION
+        targetSdk = BuildConfig.TARGET_SDK_VERSION
         versionCode = BuildConfig.VERSION_CODE
         versionName = BuildConfig.VERSION_NAME
 
@@ -92,8 +93,6 @@ dependencies {
     testDeps()
     testImplDeps()
     testDebugDeps()
-
-
 
 //    implementation(libs.androidx.core)
 //    implementation(libs.androidx.lifecycle)

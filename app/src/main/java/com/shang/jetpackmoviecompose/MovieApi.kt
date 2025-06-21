@@ -1,8 +1,6 @@
 package com.shang.jetpackmoviecompose
 
-
-
-//interface MovieApi {
+// interface MovieApi {
 //
 //    @GET("genre/movie/list")
 //    suspend fun getMovieGenres(): ApiResponse<MovieGenreBean>
@@ -13,7 +11,7 @@ package com.shang.jetpackmoviecompose
 //    @GET("movie/{id}/credits")
 //    suspend fun getMovieActor(@Path("id") id: Int): ApiResponse<ActorBean>
 //
-////    similar
+// //    similar
 //    @GET("movie/{id}/recommendations")
 //    suspend fun getMovieRecommendations(@Path("id") id: Int): ApiResponse<MovieListBean>
 //
@@ -29,4 +27,4 @@ package com.shang.jetpackmoviecompose
 //
 //    @GET
 //    fun getPicture(@Url url: String): Call<ResponseBody>
-//}
+// }

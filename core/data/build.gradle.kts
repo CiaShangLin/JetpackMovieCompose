@@ -1,3 +1,5 @@
+import deps.testDeps
+import deps.testImplDeps
 import plugs.SharedLibraryGradlePlugin
 
 plugins {
@@ -12,5 +14,6 @@ android {
 }
 
 dependencies {
-
+    testDeps()
+    testImplDeps()
 }
