@@ -48,22 +48,17 @@ fun DependencyHandler.androidx() {
 //    implementation(Dependencies.navigationFragmentKtx)
 //    implementation(Dependencies.googleJson)
 }
-//
-//fun DependencyHandler.dataStore() {
-//    implementation(Dependencies.datastore)
-//    implementation(Dependencies.kotlinCollections)
-//}
-//
+
 fun DependencyHandler.kotlinx() {
     implementation(Dependencies.kotlinSerilaizations)
 }
-//
-//fun DependencyHandler.protoDataStore() {
-//    implementation(Dependencies.datastore)
-//    implementation(Dependencies.protoBufJavaLite)
-//    implementation(Dependencies.protoBufKotlinLite)
-//}
-//
+
+fun DependencyHandler.protoDataStore() {
+    implementation(Dependencies.datastore)
+    implementation(Dependencies.protoBufJavaLite)
+    implementation(Dependencies.protoBufKotlinLite)
+}
+
 fun DependencyHandler.chucker() {
     debugImplementation(Dependencies.chuckerDebug)
     releaseImplementation(Dependencies.chuckerRelease)

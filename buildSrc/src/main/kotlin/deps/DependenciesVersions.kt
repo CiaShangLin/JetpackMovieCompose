@@ -27,4 +27,7 @@ object DependenciesVersions {
     const val OKHTTP = "4.12.0"
     const val KOTLIN_SERIALIZATIONS = "1.6.2"
     const val CHUCKER = "4.1.0"
+    const val PROTO_BUF_JAVA = "4.27.3"
+    const val PROTO_BUF_KOTLIN = "4.27.3"
+    const val DATA_STORE = "1.1.1"
 }

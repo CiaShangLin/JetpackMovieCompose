@@ -51,4 +51,9 @@ object Dependencies {
     const val roomRuntime = "androidx.room:room-runtime:${DependenciesVersions.ROOM}"
     const val roomCompiler = "androidx.room:room-compiler:${DependenciesVersions.ROOM}"
     const val roomKtx = "androidx.room:room-ktx:${DependenciesVersions.ROOM}"
+
+    const val datastore = "androidx.datastore:datastore:${DependenciesVersions.DATA_STORE}"
+    const val protoBufJavaLite = "com.google.protobuf:protobuf-javalite:${DependenciesVersions.PROTO_BUF_JAVA}"
+    const val protoBufKotlinLite = "com.google.protobuf:protobuf-kotlin-lite:${DependenciesVersions.PROTO_BUF_KOTLIN}"
+    const val protoBufArtifact = "com.google.protobuf:protoc:${DependenciesVersions.PROTO_BUF_KOTLIN}"
 }
