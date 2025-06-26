@@ -20,6 +20,30 @@ object Dependencies {
     const val MATERIAL = "com.google.android.material:material:${DependenciesVersions.MATERIAL}"
 
 
+    // Networking
+    const val retrofit = "com.squareup.retrofit2:retrofit:${DependenciesVersions.RETROFIT}"
+    const val retrofitConverterGson =
+        "com.squareup.retrofit2:converter-gson:${DependenciesVersions.RETROFIT}"
+    const val retrofitKotlinCoroutinesAdapter =
+        "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${DependenciesVersions.RETROFIT_COROUTINE_ADAPTER_VERSION}"
+
+    const val okHttp = "com.squareup.okhttp3:okhttp:${DependenciesVersions.OKHTTP}"
+    const val okHttpLoggingInterceptor =
+        "com.squareup.okhttp3:logging-interceptor:${DependenciesVersions.OKHTTP}"
 
 
+    // Chucker
+    const val chuckerDebug = "com.github.chuckerteam.chucker:library:${DependenciesVersions.CHUCKER}"
+    const val chuckerRelease = "com.github.chuckerteam.chucker:library-no-op:${DependenciesVersions.CHUCKER}"
+
+    const val kotlinSerilaizations = "org.jetbrains.kotlinx:kotlinx-serialization-json:${DependenciesVersions.KOTLIN_SERIALIZATIONS}"
+
+    // Hilt
+    const val hiltAndroid = "com.google.dagger:hilt-android:${DependenciesVersions.HILT}"
+    const val hiltCompiler = "com.google.dagger:hilt-compiler:${DependenciesVersions.HILT}"
+    const val hiltAgp = "com.google.dagger:hilt-android-gradle-plugin:${DependenciesVersions.HILT}"
+    const val hiltCompose = "androidx.hilt:hilt-work:${DependenciesVersions.HILT_COMPOSE}"
+    const val hiltCompilerKapt = "androidx.hilt:hilt-compiler:${DependenciesVersions.HILT_COMPOSE}"
+    const val hiltNavigation =
+        "androidx.hilt:hilt-navigation-compose:${DependenciesVersions.HILT_COMPOSE}"
 }

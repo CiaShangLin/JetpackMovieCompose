@@ -1,3 +1,8 @@
+import deps.chucker
+import deps.hilt
+import deps.kotlinx
+import deps.okHttp
+import deps.retrofit
 import deps.testDeps
 import deps.testImplDeps
 import plugs.SharedLibraryGradlePlugin
@@ -14,6 +19,11 @@ android {
 }
 
 dependencies {
+    chucker()
+    retrofit()
+    okHttp()
+    kotlinx()
+    hilt()
     testDeps()
     testImplDeps()
 }

@@ -11,25 +11,25 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 //}
 //
 //
-//fun DependencyHandler.retrofit() {
-//    implementation(Dependencies.retrofit)
-//    implementation(Dependencies.retrofitConverterGson)
-//    implementation(Dependencies.retrofitKotlinCoroutinesAdapter)
-//}
-//
-//fun DependencyHandler.okHttp() {
-//    implementation(Dependencies.okHttp)
-//    implementation(Dependencies.okHttpLoggingInterceptor)
-//}
-//
-//fun DependencyHandler.hilt() {
-//    implementation(Dependencies.hiltAndroid)
-//    implementation(Dependencies.hiltCompose)
-//    implementation(Dependencies.hiltNavigation)
-//    kapt(Dependencies.hiltCompiler)
-//    kapt(Dependencies.hiltAgp)
-//    kapt(Dependencies.hiltCompilerKapt)
-//}
+fun DependencyHandler.retrofit() {
+    implementation(Dependencies.retrofit)
+    implementation(Dependencies.retrofitConverterGson)
+    implementation(Dependencies.retrofitKotlinCoroutinesAdapter)
+}
+
+fun DependencyHandler.okHttp() {
+    implementation(Dependencies.okHttp)
+    implementation(Dependencies.okHttpLoggingInterceptor)
+}
+
+fun DependencyHandler.hilt() {
+    implementation(Dependencies.hiltAndroid)
+    implementation(Dependencies.hiltCompose)
+    implementation(Dependencies.hiltNavigation)
+    kapt(Dependencies.hiltCompiler)
+    kapt(Dependencies.hiltAgp)
+    kapt(Dependencies.hiltCompilerKapt)
+}
 
 fun DependencyHandler.androidx() {
     implementation(Dependencies.ANDROIDX_CORE)
@@ -54,9 +54,9 @@ fun DependencyHandler.androidx() {
 //    implementation(Dependencies.kotlinCollections)
 //}
 //
-//fun DependencyHandler.kotlinx() {
-//    implementation(Dependencies.kotlinSerilaizations)
-//}
+fun DependencyHandler.kotlinx() {
+    implementation(Dependencies.kotlinSerilaizations)
+}
 //
 //fun DependencyHandler.protoDataStore() {
 //    implementation(Dependencies.datastore)
@@ -64,10 +64,10 @@ fun DependencyHandler.androidx() {
 //    implementation(Dependencies.protoBufKotlinLite)
 //}
 //
-//fun DependencyHandler.chucker() {
-//    debugImplementation(Dependencies.chuckerDebug)
-//    releaseImplementation(Dependencies.chuckerRelease)
-//}
+fun DependencyHandler.chucker() {
+    debugImplementation(Dependencies.chuckerDebug)
+    releaseImplementation(Dependencies.chuckerRelease)
+}
 
 
 fun DependencyHandler.testDeps() {
