@@ -43,10 +43,10 @@ fun DependencyHandler.androidx() {
     implementation(Dependencies.COMPOSE_MATERIAL)
     implementation(Dependencies.COMPOSE_MATERIAL3)
     implementation(Dependencies.COMPOSE_COMPILER)
-//    implementation(Dependencies.navigation)
-//    implementation(Dependencies.navigationCompose)
-//    implementation(Dependencies.navigationFragmentKtx)
-//    implementation(Dependencies.googleJson)
+    implementation(Dependencies.navigation)
+    implementation(Dependencies.navigationCompose)
+    implementation(Dependencies.navigationFragmentKtx)
+    implementation(Dependencies.googleJson)
 }
 
 fun DependencyHandler.kotlinx() {
