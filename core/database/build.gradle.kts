@@ -1,3 +1,5 @@
+import deps.hilt
+import deps.room
 import deps.testDeps
 import deps.testImplDeps
 import plugs.SharedLibraryGradlePlugin
@@ -14,6 +16,8 @@ android {
 }
 
 dependencies {
+    room()
+    hilt()
     testDeps()
     testImplDeps()
 }

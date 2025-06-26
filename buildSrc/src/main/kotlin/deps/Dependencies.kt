@@ -46,4 +46,9 @@ object Dependencies {
     const val hiltCompilerKapt = "androidx.hilt:hilt-compiler:${DependenciesVersions.HILT_COMPOSE}"
     const val hiltNavigation =
         "androidx.hilt:hilt-navigation-compose:${DependenciesVersions.HILT_COMPOSE}"
+
+    // Room
+    const val roomRuntime = "androidx.room:room-runtime:${DependenciesVersions.ROOM}"
+    const val roomCompiler = "androidx.room:room-compiler:${DependenciesVersions.ROOM}"
+    const val roomKtx = "androidx.room:room-ktx:${DependenciesVersions.ROOM}"
 }

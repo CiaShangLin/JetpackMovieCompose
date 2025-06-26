@@ -3,14 +3,14 @@ package deps
 import org.gradle.api.artifacts.dsl.DependencyHandler
 
 
-//fun DependencyHandler.room() {
-//    implementation(Dependencies.roomKtx)
-//    implementation(Dependencies.roomRuntime)
-//    kapt(Dependencies.roomCompiler)
-//    annotationProcessor(Dependencies.roomCompiler)
-//}
-//
-//
+fun DependencyHandler.room() {
+    implementation(Dependencies.roomKtx)
+    implementation(Dependencies.roomRuntime)
+    kapt(Dependencies.roomCompiler)
+    annotationProcessor(Dependencies.roomCompiler)
+}
+
+
 fun DependencyHandler.retrofit() {
     implementation(Dependencies.retrofit)
     implementation(Dependencies.retrofitConverterGson)
