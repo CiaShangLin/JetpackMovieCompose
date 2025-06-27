@@ -1,6 +1,7 @@
 package deps
 
 import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.kotlin.dsl.project
 
 
 fun DependencyHandler.room() {
@@ -80,6 +81,21 @@ fun DependencyHandler.testDebugDeps() {
     debugImplementation(TestDependencies.COMPOSE_UI_TEST_MANIFEST)
 }
 
+fun DependencyHandler.dataModule() {
+    moduleImplementation(project(":core:data"))
+}
+
+fun DependencyHandler.networkModule() {
+    moduleImplementation(project(":core:network"))
+}
+
+fun DependencyHandler.databaseModule() {
+    moduleImplementation(project(":core:database"))
+}
+
+fun DependencyHandler.datastoreModule() {
+    moduleImplementation(project(":core:datastore"))
+}
 
 
 

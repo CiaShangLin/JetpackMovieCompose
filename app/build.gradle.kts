@@ -4,6 +4,7 @@ import build.BuildDimensions
 import deps.DependenciesVersions
 import deps.TestBuildConfig
 import deps.androidx
+import deps.dataModule
 import deps.testDebugDeps
 import deps.testDeps
 import deps.testImplDeps
@@ -90,6 +91,7 @@ android {
 dependencies {
 
     androidx()
+    dataModule()
     testDeps()
     testImplDeps()
     testDebugDeps()

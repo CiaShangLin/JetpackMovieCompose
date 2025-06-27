@@ -1,3 +1,6 @@
+import deps.databaseModule
+import deps.datastoreModule
+import deps.networkModule
 import deps.testDeps
 import deps.testImplDeps
 import plugs.SharedLibraryGradlePlugin
@@ -14,6 +17,10 @@ android {
 }
 
 dependencies {
+
+    networkModule()
+    databaseModule()
+    datastoreModule()
     testDeps()
     testImplDeps()
 }
