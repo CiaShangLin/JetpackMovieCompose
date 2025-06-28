@@ -2,6 +2,7 @@ package deps
 
 object DependenciesVersions {
     const val KOTLIN_COMPILER = "2.1.21"
+    const val COMPOSE_BOM = "2025.05.00"
     const val COMPOSE = "1.8.3"
     const val MATERIAL3 = "1.3.2"
     const val MATERIAL = "1.12.0"

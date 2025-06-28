@@ -4,6 +4,9 @@ import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
 
 
+fun DependencyHandler.implementationPlatform(dependency: String) {
+    add("implementation", platform(dependency))
+}
 fun DependencyHandler.implementation(dependency: String) {
     add("implementation", dependency)
 }

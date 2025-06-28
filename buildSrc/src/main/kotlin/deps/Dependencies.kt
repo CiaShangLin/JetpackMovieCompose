@@ -9,12 +9,19 @@ object Dependencies {
     const val CORE_SPLASHSCREEN = "androidx.core:core-splashscreen:${DependenciesVersions.CORE_SPLASHSCREEN}"
 
     // Compose
-    const val COMPOSE_UI = "androidx.compose.ui:ui:${DependenciesVersions.COMPOSE}"
-    const val COMPOSE_UI_TOOLING = "androidx.compose.ui:ui-tooling:${DependenciesVersions.COMPOSE}"
-    const val COMPOSE_MATERIAL = "androidx.compose.material:material:${DependenciesVersions.COMPOSE}"
-    const val COMPOSE_MATERIAL3 = "androidx.compose.material3:material3:${DependenciesVersions.MATERIAL3}"
-    const val COMPOSE_COMPILER = "androidx.compose.compiler:compiler:${DependenciesVersions.COMPILER}"
-    const val COMPOSE_RUNTIME = "androidx.compose.runtime:runtime:${DependenciesVersions.COMPOSE}"
+    const val COMPOSE_BOM = "androidx.compose:compose-bom:${DependenciesVersions.COMPOSE_BOM}"
+    const val COMPOSE_FOUNDATION = "androidx.compose.foundation:foundation"
+    const val COMPOSE_UI = "androidx.compose.ui:ui"
+    const val COMPOSE_UI_TOOLING = "androidx.compose.ui:ui-tooling"
+    const val COMPOSE_ANIMATION = "androidx.compose.animation:animation"
+    const val COMPOSE_ANIMATION_CORE = "androidx.compose.animation:animation-core"
+    const val COMPOSE_FOUNDATION_LAYOUT = "androidx.compose.foundation:foundation-layout"
+    const val COMPOSE_MATERIAL = "androidx.compose.material:material"
+    const val COMPOSE_MATERIAL3 = "androidx.compose.material3:material3"
+    const val COMPOSE_RUNTIME = "androidx.compose.runtime:runtime"
+
+
+
 
     // Google Material
     const val MATERIAL = "com.google.android.material:material:${DependenciesVersions.MATERIAL}"

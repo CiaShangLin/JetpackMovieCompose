@@ -39,16 +39,21 @@ fun DependencyHandler.androidx() {
     implementation(Dependencies.LIFECYCLE_RUNTIME_COMPOSE)
     implementation(Dependencies.ACTIVITY_COMPOSE)
     implementation(Dependencies.CORE_SPLASHSCREEN)
+    implementationPlatform(Dependencies.COMPOSE_BOM)
+    implementation(Dependencies.COMPOSE_FOUNDATION)
     implementation(Dependencies.COMPOSE_UI)
     implementation(Dependencies.COMPOSE_UI_TOOLING)
+    implementation(Dependencies.COMPOSE_ANIMATION)
+    implementation(Dependencies.COMPOSE_ANIMATION_CORE)
+    implementation(Dependencies.COMPOSE_FOUNDATION_LAYOUT)
     implementation(Dependencies.COMPOSE_MATERIAL)
     implementation(Dependencies.COMPOSE_MATERIAL3)
-    implementation(Dependencies.COMPOSE_COMPILER)
     implementation(Dependencies.COMPOSE_RUNTIME)
     implementation(Dependencies.navigation)
     implementation(Dependencies.navigationCompose)
     implementation(Dependencies.navigationFragmentKtx)
     implementation(Dependencies.googleJson)
+
 }
 
 fun DependencyHandler.kotlinx() {
