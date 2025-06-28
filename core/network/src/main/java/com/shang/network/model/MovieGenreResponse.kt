@@ -1,4 +1,4 @@
-package com.shang.network
+package com.shang.network.model
 
 import android.annotation.SuppressLint
 import com.shang.model.MovieGenreBean

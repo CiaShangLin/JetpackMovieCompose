@@ -1,4 +1,4 @@
-package com.shang.network
+package com.shang.network.retrofit
 
 import com.shang.model.MovieGenreBean
 

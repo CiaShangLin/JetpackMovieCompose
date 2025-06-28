@@ -5,6 +5,7 @@ import deps.DependenciesVersions
 import deps.TestBuildConfig
 import deps.androidx
 import deps.dataModule
+import deps.hilt
 import deps.modelModule
 import deps.testDebugDeps
 import deps.testDeps
@@ -87,11 +88,13 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
 
 dependencies {
 
     androidx()
+    hilt()
     dataModule()
     modelModule()
     testDeps()

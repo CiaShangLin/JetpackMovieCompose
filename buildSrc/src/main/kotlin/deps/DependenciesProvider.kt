@@ -92,11 +92,11 @@ fun DependencyHandler.testDebugDeps() {
 }
 
 fun DependencyHandler.dataModule() {
-    moduleApi(project(":core:data"))
+    moduleImplementation(project(":core:data"))
 }
 
 fun DependencyHandler.networkModule() {
-    moduleApi(project(":core:network"))
+    moduleImplementation(project(":core:network"))
 }
 
 fun DependencyHandler.databaseModule() {
@@ -108,7 +108,7 @@ fun DependencyHandler.datastoreModule() {
 }
 
 fun DependencyHandler.modelModule() {
-    moduleApi(project(":core:model"))
+    moduleImplementation(project(":core:model"))
 }
 
 
