@@ -44,6 +44,7 @@ fun DependencyHandler.androidx() {
     implementation(Dependencies.COMPOSE_MATERIAL)
     implementation(Dependencies.COMPOSE_MATERIAL3)
     implementation(Dependencies.COMPOSE_COMPILER)
+    implementation(Dependencies.COMPOSE_RUNTIME)
     implementation(Dependencies.navigation)
     implementation(Dependencies.navigationCompose)
     implementation(Dependencies.navigationFragmentKtx)
@@ -52,6 +53,10 @@ fun DependencyHandler.androidx() {
 
 fun DependencyHandler.kotlinx() {
     implementation(Dependencies.kotlinSerilaizations)
+}
+
+fun DependencyHandler.coroutine() {
+    implementation(Dependencies.coroutines)
 }
 
 fun DependencyHandler.protoDataStore() {
@@ -82,11 +87,11 @@ fun DependencyHandler.testDebugDeps() {
 }
 
 fun DependencyHandler.dataModule() {
-    moduleImplementation(project(":core:data"))
+    moduleApi(project(":core:data"))
 }
 
 fun DependencyHandler.networkModule() {
-    moduleImplementation(project(":core:network"))
+    moduleApi(project(":core:network"))
 }
 
 fun DependencyHandler.databaseModule() {
@@ -96,6 +101,11 @@ fun DependencyHandler.databaseModule() {
 fun DependencyHandler.datastoreModule() {
     moduleImplementation(project(":core:datastore"))
 }
+
+fun DependencyHandler.modelModule() {
+    moduleApi(project(":core:model"))
+}
+
 
 
 

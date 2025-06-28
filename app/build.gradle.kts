@@ -5,6 +5,7 @@ import deps.DependenciesVersions
 import deps.TestBuildConfig
 import deps.androidx
 import deps.dataModule
+import deps.modelModule
 import deps.testDebugDeps
 import deps.testDeps
 import deps.testImplDeps
@@ -92,6 +93,7 @@ dependencies {
 
     androidx()
     dataModule()
+    modelModule()
     testDeps()
     testImplDeps()
     testDebugDeps()

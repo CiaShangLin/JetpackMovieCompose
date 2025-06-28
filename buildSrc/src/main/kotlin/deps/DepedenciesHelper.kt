@@ -35,3 +35,7 @@ fun DependencyHandler.annotationProcessor(dependency: String) {
 fun DependencyHandler.moduleImplementation(dependency: Dependency) {
     add("implementation", dependency)
 }
+
+fun DependencyHandler.moduleApi(dependency: Dependency) {
+    add("api", dependency)
+}

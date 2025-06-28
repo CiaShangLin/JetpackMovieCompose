@@ -11,9 +11,14 @@ import com.shang.jetpackmoviecompose.theme.JetpackMovieComposeTheme
 
 class MainActivity : ComponentActivity() {
 
+    private val viewModel: MainViewModel by lazy {
+        MainViewModel()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModel.getMovieGenres()
         setContent {
             JetpackMovieComposeTheme {
                 Scaffold { _ ->

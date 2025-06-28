@@ -14,7 +14,7 @@ object Dependencies {
     const val COMPOSE_MATERIAL = "androidx.compose.material:material:${DependenciesVersions.COMPOSE}"
     const val COMPOSE_MATERIAL3 = "androidx.compose.material3:material3:${DependenciesVersions.MATERIAL3}"
     const val COMPOSE_COMPILER = "androidx.compose.compiler:compiler:${DependenciesVersions.COMPILER}"
-
+    const val COMPOSE_RUNTIME = "androidx.compose.runtime:runtime:${DependenciesVersions.COMPOSE}"
 
     // Google Material
     const val MATERIAL = "com.google.android.material:material:${DependenciesVersions.MATERIAL}"
@@ -63,4 +63,7 @@ object Dependencies {
         "androidx.navigation:navigation-ui-ktx:${DependenciesVersions.NAVIGATION}"
     const val navigationCompose = "androidx.navigation:navigation-compose:${DependenciesVersions.NAVIGATION}"
     const val googleJson = "com.google.code.gson:gson:${DependenciesVersions.GOOGLE_GSON}"
+
+    const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${DependenciesVersions.KOTLIN_COROUTINES}"
+
 }

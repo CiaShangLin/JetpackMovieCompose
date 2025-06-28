@@ -28,6 +28,7 @@ class SharedLibraryGradlePlugin : Plugin<Project> {
         plugins.apply(BuildPlugins.KAPT)
         plugins.apply(BuildPlugins.KTLINT)
         plugins.apply(BuildPlugins.KOTLIN_SERIALIZATION)
+        //plugins.apply(BuildPlugins.KOTLIN_COMPOSE)
     }
 
     private fun Project.addAndroidConfigurations() {
@@ -68,7 +69,7 @@ class SharedLibraryGradlePlugin : Plugin<Project> {
             }
 
             buildFeatures {
-                compose = true
+                //compose = true
                 buildConfig = true
             }
 
