@@ -4,9 +4,7 @@ import build.BuildDimensions
 import deps.DependenciesVersions
 import deps.TestBuildConfig
 import deps.androidx
-import deps.dataModule
 import deps.hilt
-import deps.modelModule
 import deps.testDebugDeps
 import deps.testDeps
 import deps.testImplDeps
@@ -21,6 +19,7 @@ plugins {
     id(plugs.BuildPlugins.KAPT)
     id(plugs.BuildPlugins.KOTLIN_COMPOSE) version "2.1.21"
     id(plugs.BuildPlugins.KTLINT)
+    id(plugs.BuildPlugins.HILT)
 }
 
 android {
@@ -88,15 +87,14 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-
 }
 
 dependencies {
 
     androidx()
     hilt()
-    dataModule()
-    modelModule()
+//    dataModule()
+//    modelModule()
     testDeps()
     testImplDeps()
     testDebugDeps()
