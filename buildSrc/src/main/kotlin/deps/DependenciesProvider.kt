@@ -16,6 +16,7 @@ fun DependencyHandler.retrofit() {
     implementation(Dependencies.retrofit)
     implementation(Dependencies.retrofitConverterGson)
     implementation(Dependencies.retrofitKotlinCoroutinesAdapter)
+    implementation(Dependencies.retrofitKotlinxSerialization)
 }
 
 fun DependencyHandler.okHttp() {

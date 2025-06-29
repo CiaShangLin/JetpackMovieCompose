@@ -33,6 +33,7 @@ object Dependencies {
         "com.squareup.retrofit2:converter-gson:${DependenciesVersions.RETROFIT}"
     const val retrofitKotlinCoroutinesAdapter =
         "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${DependenciesVersions.RETROFIT_COROUTINE_ADAPTER_VERSION}"
+    const val retrofitKotlinxSerialization ="com.squareup.retrofit2:converter-kotlinx-serialization:${DependenciesVersions.RETROFIT}"
 
     const val okHttp = "com.squareup.okhttp3:okhttp:${DependenciesVersions.OKHTTP}"
     const val okHttpLoggingInterceptor =
