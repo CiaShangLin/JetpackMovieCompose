@@ -15,7 +15,7 @@ object DependenciesVersions {
     const val PAGING = "3.2.0"
     const val SANDWICH = "1.3.7"
     const val KOTLIN = "2.1.21"
-    const val HILT = "2.48.1"
+    const val HILT = "2.51.1"
     const val HILT_COMPOSE = "1.2.0"
     const val HILT_NAVIGATION_COMPOSE = "1.0.0"
     const val JUNIT = "4.13.2"
