@@ -13,4 +13,4 @@ class MovieDataSourceImp @Inject constructor(private val _movieApiService: Movie
         val bean: MovieGenreResponse = Json.Default.decodeFromString<MovieGenreResponse>(json)
         return bean.asExternalModel()
     }
- }
+}

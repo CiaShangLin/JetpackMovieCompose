@@ -14,11 +14,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
-const val BASE_URL = "https://api.example.com/"
+const val BASE_URL = "https://api.themoviedb.org/3/"
 
- @Module
- @InstallIn(SingletonComponent::class)
- class NetworkModule {
+@Module
+@InstallIn(SingletonComponent::class)
+class NetworkModule {
 
     @Provides
     @Singleton
@@ -70,4 +70,4 @@ const val BASE_URL = "https://api.example.com/"
     fun provideMovieDataSource(movieApiService: MovieApiService): MovieDataSource {
         return MovieDataSourceImp(movieApiService)
     }
- }
+}

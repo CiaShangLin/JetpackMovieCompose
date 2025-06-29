@@ -10,12 +10,12 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
- @InstallIn(SingletonComponent::class)
- class DataModule {
+@InstallIn(SingletonComponent::class)
+class DataModule {
 
     @Provides
     @Singleton
     fun provideMovieRepository(movieDataSource: MovieDataSource): MovieRepository {
         return MovieRepositoryImp(movieDataSource)
     }
- }
+}

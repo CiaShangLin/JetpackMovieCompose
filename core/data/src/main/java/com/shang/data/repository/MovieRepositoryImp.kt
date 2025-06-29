@@ -8,4 +8,4 @@ class MovieRepositoryImp @Inject constructor(private val _movieDataSource: Movie
     override suspend fun getMovieGenres(): MovieGenreBean {
         return _movieDataSource.getMovieGenres()
     }
- }
+}
