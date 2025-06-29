@@ -2,12 +2,14 @@ package com.shang.network.model
 
 import android.annotation.SuppressLint
 import com.shang.model.MovieGenreBean
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class MovieGenreResponse(
-    val genres: List<Genre>,
+    @SerialName("genres")
+    val genres: List<Genre> = listOf(),
 ) {
     /**
      * 電影類型
@@ -16,8 +18,10 @@ data class MovieGenreResponse(
      */
     @Serializable
     data class Genre(
-        val id: Int,
-        val name: String,
+        @SerialName("id")
+        val id: Int = 0,
+        @SerialName("name")
+        val name: String = "",
     )
 }
 
