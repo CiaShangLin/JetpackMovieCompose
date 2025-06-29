@@ -114,6 +114,11 @@ fun DependencyHandler.modelModule() {
     moduleImplementation(project(":core:model"))
 }
 
+fun DependencyHandler.commonModule() {
+    moduleImplementation(project(":core:common"))
+}
+
+
 
 
 

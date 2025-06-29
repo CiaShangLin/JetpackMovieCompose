@@ -1,4 +1,5 @@
 import deps.chucker
+import deps.commonModule
 import deps.hilt
 import deps.kotlinx
 import deps.modelModule
@@ -25,6 +26,7 @@ dependencies {
     kotlinx()
     hilt()
     modelModule()
+    commonModule()
     testDeps()
     testImplDeps()
 }

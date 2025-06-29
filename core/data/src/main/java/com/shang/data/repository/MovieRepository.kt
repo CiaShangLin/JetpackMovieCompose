@@ -1,7 +1,8 @@
 package com.shang.data.repository
 
 import com.shang.model.MovieGenreBean
+import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
-    suspend fun getMovieGenres(): MovieGenreBean
+    fun getMovieGenres(): Flow<MovieGenreBean>
 }
