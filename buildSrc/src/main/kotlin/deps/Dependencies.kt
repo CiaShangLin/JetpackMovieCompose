@@ -73,4 +73,6 @@ object Dependencies {
 
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${DependenciesVersions.KOTLIN_COROUTINES}"
 
+    const val workKtx = "androidx.work:work-runtime-ktx:${DependenciesVersions.WORK}"
+
 }

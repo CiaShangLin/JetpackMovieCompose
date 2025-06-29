@@ -34,4 +34,5 @@ object DependenciesVersions {
     const val NAVIGATION = "2.7.7"
     const val GOOGLE_GSON = "2.11.0"
     const val KOTLIN_COROUTINES = "1.3.9"
+    const val WORK = "2.7.1"
 }

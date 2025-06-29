@@ -54,6 +54,7 @@ fun DependencyHandler.androidx() {
     implementation(Dependencies.navigationCompose)
     implementation(Dependencies.navigationFragmentKtx)
     implementation(Dependencies.googleJson)
+    implementation(Dependencies.workKtx)
 
 }
 
