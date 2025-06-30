@@ -7,6 +7,7 @@ import org.gradle.kotlin.dsl.project
 fun DependencyHandler.room() {
     implementation(Dependencies.roomKtx)
     implementation(Dependencies.roomRuntime)
+    implementation(Dependencies.roomPaging)
     kapt(Dependencies.roomCompiler)
     annotationProcessor(Dependencies.roomCompiler)
 }
