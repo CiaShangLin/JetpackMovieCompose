@@ -8,8 +8,7 @@ fun DependencyHandler.room() {
     implementation(Dependencies.roomKtx)
     implementation(Dependencies.roomRuntime)
     //implementation(Dependencies.roomPaging)
-    ksp(Dependencies.roomCompiler)
-    annotationProcessor(Dependencies.roomCompiler)
+    kapt(Dependencies.roomCompiler)
 }
 
 
