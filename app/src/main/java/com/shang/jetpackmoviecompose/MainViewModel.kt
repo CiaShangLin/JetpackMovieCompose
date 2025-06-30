@@ -6,7 +6,6 @@ import com.shang.common.UiState
 import com.shang.data.repository.MovieRepository
 import com.shang.model.MovieGenreBean
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -17,7 +16,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val movieRepository: MovieRepository) :
     ViewModel() {
 
-    val data: StateFlow<MainUiState> = movieRepository.getMovieGenres(Dispatchers.IO)
+    val data: StateFlow<MainUiState> = movieRepository.getMovieGenres()
         .map { uiState ->
             when (uiState) {
                 is UiState.Error -> MainUiState.Error(uiState.error)

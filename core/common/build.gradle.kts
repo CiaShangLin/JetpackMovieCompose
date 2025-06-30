@@ -1,4 +1,5 @@
 import deps.coroutine
+import deps.hilt
 import deps.testDeps
 import deps.testImplDeps
 import plugs.SharedLibraryGradlePlugin
@@ -15,6 +16,7 @@ android {
 
 dependencies {
     coroutine()
+    hilt()
     testDeps()
     testImplDeps()
 }

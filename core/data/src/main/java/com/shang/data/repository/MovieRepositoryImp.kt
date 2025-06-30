@@ -1,6 +1,5 @@
 package com.shang.data.repository
 
-import android.util.Log
 import com.shang.common.UiState
 import com.shang.model.MovieGenreBean
 import com.shang.network.retrofit.MovieDataSource
@@ -10,8 +9,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class MovieRepositoryImp @Inject constructor(private val _movieDataSource: MovieDataSource) : MovieRepository {
-    override fun getMovieGenres(dispatcher: CoroutineDispatcher): Flow<UiState<MovieGenreBean>> {
+class MovieRepositoryImp @Inject constructor(
+    private val _movieDataSource: MovieDataSource,
+    private val _ioDispatcher: CoroutineDispatcher,
+) : MovieRepository {
+    override fun getMovieGenres(): Flow<UiState<MovieGenreBean>> {
         return flow {
             emit(UiState.Loading)
             val response = _movieDataSource.getMovieGenres()
@@ -20,6 +22,6 @@ class MovieRepositoryImp @Inject constructor(private val _movieDataSource: Movie
             } else {
                 emit(UiState.Error(Exception(response.errorMessage)))
             }
-        }.flowOn(dispatcher)
+        }.flowOn(_ioDispatcher)
     }
 }
