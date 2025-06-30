@@ -29,13 +29,9 @@ class MovieRepositoryImp @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-    override fun getAllMovies(): Flow<List<MovieBean>> {
+    override fun getDatabaseMovies(): Flow<List<MovieBean>> {
         return flow {
-            emit(
-                movieDao.getAllMovies().map {
-                    it.asExtendedModel()
-                },
-            )
+            emit(movieDao.getAllMovies().map { it.asExtendedModel() })
         }.flowOn(ioDispatcher)
     }
 }

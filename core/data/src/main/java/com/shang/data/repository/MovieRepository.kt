@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface MovieRepository {
     fun getMovieGenres(): Flow<UiState<MovieGenreBean>>
 
-    fun getAllMovies(): Flow<List<MovieBean>>
+    fun getDatabaseMovies(): Flow<List<MovieBean>>
 }

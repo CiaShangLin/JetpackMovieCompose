@@ -1,6 +1,7 @@
 import deps.commonModule
 import deps.coroutine
 import deps.databaseModule
+import deps.datastoreModule
 import deps.hilt
 import deps.modelModule
 import deps.networkModule
@@ -24,7 +25,7 @@ dependencies {
     networkModule()
     hilt()
     databaseModule()
-//    datastoreModule()
+    datastoreModule()
     modelModule()
     commonModule()
     testDeps()
