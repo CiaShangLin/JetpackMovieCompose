@@ -1,6 +1,7 @@
 package com.shang.database.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import com.shang.database.entity.MovieEntity
 
@@ -10,6 +11,6 @@ interface MovieDao {
     @Query("SELECT * FROM MovieEntity")
     fun getAllMovies(): List<MovieEntity>
 
-//    @Insert
-//    fun insertMovie(movie: MovieEntity)
+    @Insert
+    fun insertMovie(movie: MovieEntity)
 }
