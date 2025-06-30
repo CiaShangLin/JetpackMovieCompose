@@ -2,7 +2,6 @@ package com.shang.data.repository
 
 import com.shang.common.UiState
 import com.shang.database.dao.MovieDao
-import com.shang.database.entity.MovieEntity
 import com.shang.database.entity.asExtendedModel
 import com.shang.model.MovieBean
 import com.shang.model.MovieGenreBean

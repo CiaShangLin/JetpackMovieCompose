@@ -27,7 +27,7 @@ data class MovieEntity(
     val timestamp: Int,
 )
 
- fun MovieEntity.asExtendedModel(): MovieBean {
+fun MovieEntity.asExtendedModel(): MovieBean {
     return MovieBean(
         id = id,
         title = title,
@@ -36,4 +36,4 @@ data class MovieEntity(
         releaseDate = releaseDate,
         timestamp = timestamp,
     )
- }
+}
