@@ -57,7 +57,7 @@ object Dependencies {
 
     // Room
     const val roomRuntime = "androidx.room:room-runtime:${DependenciesVersions.ROOM}"
-    const val roomCompiler = "androidx.room:room-compiler-processing:${DependenciesVersions.ROOM}"
+    const val roomCompiler = "androidx.room:room-compiler:${DependenciesVersions.ROOM}"
     const val roomKtx = "androidx.room:room-ktx:${DependenciesVersions.ROOM}"
     const val roomPaging = "androidx.room:room-ktx:${DependenciesVersions.ROOM}"
 

@@ -8,7 +8,6 @@ import deps.commonModule
 import deps.dataModule
 import deps.hilt
 import deps.modelModule
-import deps.room
 import deps.testDebugDeps
 import deps.testDeps
 import deps.testImplDeps
@@ -94,8 +93,6 @@ android {
 }
 
 dependencies {
-    room()
-
     androidx()
     hilt()
     dataModule()
