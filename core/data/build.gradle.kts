@@ -1,3 +1,4 @@
+import deps.commonModule
 import deps.coroutine
 import deps.hilt
 import deps.modelModule
@@ -24,6 +25,7 @@ dependencies {
 //    databaseModule()
 //    datastoreModule()
     modelModule()
+    commonModule()
     testDeps()
     testImplDeps()
 }
