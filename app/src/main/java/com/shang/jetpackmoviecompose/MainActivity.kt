@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,6 +38,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
     val state by viewModel.data.collectAsStateWithLifecycle()
+    val dbData by viewModel.dbData.collectAsStateWithLifecycle()
     Scaffold { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             when (state) {
@@ -49,6 +51,15 @@ fun MainScreen(viewModel: MainViewModel) {
                 is MainUiState.Success -> {
                     Text("Success : ${(state as MainUiState.Success).data}", style = TextStyle(color = Color.Black))
                 }
+            }
+
+            Text("Database Movies:${dbData.size}", style = TextStyle(color = Color.Black))
+            Button(
+                onClick = {
+                    viewModel.insertMovie()
+                },
+            ) {
+                Text("Click Me", style = TextStyle(color = Color.Black))
             }
         }
     }

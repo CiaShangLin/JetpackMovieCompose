@@ -1,4 +1,3 @@
 package com.shang.datastore
 
-class A {
-}
+class A

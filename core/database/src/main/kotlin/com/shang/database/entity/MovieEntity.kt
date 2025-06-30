@@ -7,7 +7,7 @@ import com.shang.model.MovieBean
 
 @Entity(tableName = "MovieEntity")
 data class MovieEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int,
 

@@ -1,6 +1,7 @@
 package com.shang.data.repository
 
 import com.shang.common.UiState
+import com.shang.data.model.asEntity
 import com.shang.database.dao.MovieDao
 import com.shang.database.entity.asExtendedModel
 import com.shang.model.MovieBean
@@ -33,5 +34,9 @@ class MovieRepositoryImp @Inject constructor(
         return flow {
             emit(movieDao.getAllMovies().map { it.asExtendedModel() })
         }.flowOn(ioDispatcher)
+    }
+
+    override suspend fun insertMovie(movie: MovieBean) {
+        movieDao.insertMovie(movie.asEntity())
     }
 }

@@ -9,4 +9,6 @@ interface MovieRepository {
     fun getMovieGenres(): Flow<UiState<MovieGenreBean>>
 
     fun getDatabaseMovies(): Flow<List<MovieBean>>
+
+    suspend fun insertMovie(movie: MovieBean)
 }
