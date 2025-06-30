@@ -7,6 +7,7 @@ object BuildPlugins {
     const val ANDROID = "android"
     const val ANDROID_LIBRARY = "android-library"
     const val KAPT = "org.jetbrains.kotlin.kapt"
+    const val KSP = "com.google.devtools.ksp"
     const val HILT = "com.google.dagger.hilt.android"
     const val KTLINT = "ktlint-settings"
     const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlin.plugin.serialization"

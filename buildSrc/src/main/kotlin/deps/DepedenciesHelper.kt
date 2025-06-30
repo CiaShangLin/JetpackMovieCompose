@@ -31,6 +31,10 @@ fun DependencyHandler.kapt(dependency: String) {
     add("kapt", dependency)
 }
 
+fun DependencyHandler.ksp(dependency: String) {
+    add("ksp", dependency)
+}
+
 fun DependencyHandler.annotationProcessor(dependency: String) {
     add("annotationProcessor", dependency)
 }
