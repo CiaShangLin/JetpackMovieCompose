@@ -1,4 +1,6 @@
+import deps.commonModule
 import deps.hilt
+import deps.modelModule
 import deps.room
 import deps.testDeps
 import deps.testImplDeps
@@ -6,7 +8,6 @@ import plugs.SharedLibraryGradlePlugin
 
 plugins {
     id(plugs.BuildPlugins.ANDROID_LIBRARY)
-    id(plugs.BuildPlugins.KOTLIN_COMPOSE) version "2.1.21"
 }
 
 apply<SharedLibraryGradlePlugin>()
@@ -16,6 +17,9 @@ android {
 }
 
 dependencies {
+
+    modelModule()
+    commonModule()
     room()
     hilt()
     testDeps()

@@ -4,6 +4,7 @@ import com.shang.common.di.CommonDispatcher
 import com.shang.common.di.Dispatcher
 import com.shang.data.repository.MovieRepository
 import com.shang.data.repository.MovieRepositoryImp
+import com.shang.database.dao.MovieDao
 import com.shang.network.retrofit.MovieDataSource
 import dagger.Module
 import dagger.Provides
@@ -20,8 +21,9 @@ class DataModule {
     @Singleton
     fun provideMovieRepository(
         movieDataSource: MovieDataSource,
+        movieDao: MovieDao,
         @Dispatcher(CommonDispatcher.IO) dispatcher: CoroutineDispatcher,
     ): MovieRepository {
-        return MovieRepositoryImp(movieDataSource, dispatcher)
+        return MovieRepositoryImp(movieDataSource, movieDao, dispatcher)
     }
 }

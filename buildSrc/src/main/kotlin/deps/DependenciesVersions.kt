@@ -11,7 +11,7 @@ object DependenciesVersions {
     const val CORE_SPLASHSCREEN = "1.0.1"
     const val ACTIVITY_COMPOSE = "1.10.1"
     const val ANDROIDX_CORE = "1.16.0"
-    const val ROOM = "2.5.0"
+    const val ROOM = "2.6.1"
     const val PAGING = "3.2.0"
     const val SANDWICH = "1.3.7"
     const val KOTLIN = "2.1.21"
