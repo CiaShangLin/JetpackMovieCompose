@@ -1,4 +1,4 @@
-package com.shang.moviedetial
+package com.shang.moviedetail
 
 import org.junit.Test
 

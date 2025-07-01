@@ -1,4 +1,4 @@
-package com.shang.moviedetial
+package com.shang.moviedetail
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
