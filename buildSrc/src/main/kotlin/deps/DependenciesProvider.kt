@@ -130,6 +130,10 @@ fun DependencyHandler.homeModule() {
     moduleImplementation(project(":feature:home"))
 }
 
+fun DependencyHandler.settingModule() {
+    moduleImplementation(project(":feature:setting"))
+}
+
 
 
 

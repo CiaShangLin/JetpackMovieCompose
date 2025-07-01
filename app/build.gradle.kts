@@ -10,6 +10,7 @@ import deps.designsystemModule
 import deps.hilt
 import deps.homeModule
 import deps.modelModule
+import deps.settingModule
 import deps.testDebugDeps
 import deps.testDeps
 import deps.testImplDeps
@@ -108,6 +109,7 @@ dependencies {
 
     // feature modules
     homeModule()
+    settingModule()
 
     testDeps()
     testImplDeps()
