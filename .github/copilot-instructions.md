@@ -181,6 +181,10 @@ fun `should return cached user when network fails`() = runTest {
 }
 ```
 
+### 程式碼註解
+- 使用 KDoc 提供清晰的 API 文檔
+- 使用繁體中文註解關鍵邏輯
+
 ## 程式碼審查重點
 
 ### 必檢項目
