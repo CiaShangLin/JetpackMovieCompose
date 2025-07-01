@@ -23,7 +23,7 @@ object Dependencies {
     const val COMPOSE_MATERIAL3_ADAPTIVE_LAYOUT = "androidx.compose.material3.adaptive:adaptive-layout"
     const val COMPOSE_ADAPTIVE_NAVIGATION = "androidx.compose.material3.adaptive:adaptive-navigation"
     const val COMPOSE_ADAPTIVE_NAVIGATION_SUITE = "androidx.compose.material3:material3-adaptive-navigation-suite"
-
+    const val COMPOSE_MATERIAL_ICON_EXTENDED = "androidx.compose.material:material-icons-extended"
 
     // Google Material
     const val MATERIAL = "com.google.android.material:material:${DependenciesVersions.MATERIAL}"
