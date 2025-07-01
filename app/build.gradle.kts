@@ -11,6 +11,11 @@ import deps.hilt
 import deps.homeModule
 import deps.modelModule
 import deps.settingModule
+import deps.searchModule
+import deps.collectModule
+import deps.historyModule
+import deps.moviedetailModule
+import deps.actorModule
 import deps.testDebugDeps
 import deps.testDeps
 import deps.testImplDeps
@@ -110,6 +115,11 @@ dependencies {
     // feature modules
     homeModule()
     settingModule()
+    searchModule()
+    collectModule()
+    historyModule()
+    moviedetailModule()
+    actorModule()
 
     testDeps()
     testImplDeps()

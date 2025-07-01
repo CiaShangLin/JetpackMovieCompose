@@ -134,6 +134,27 @@ fun DependencyHandler.settingModule() {
     moduleImplementation(project(":feature:setting"))
 }
 
+fun DependencyHandler.searchModule() {
+    moduleImplementation(project(":feature:search"))
+}
+
+fun DependencyHandler.collectModule() {
+    moduleImplementation(project(":feature:collect"))
+}
+
+fun DependencyHandler.historyModule() {
+    moduleImplementation(project(":feature:history"))
+}
+
+fun DependencyHandler.moviedetailModule() {
+    moduleImplementation(project(":feature:moviedetail"))
+}
+
+
+fun DependencyHandler.actorModule() {
+    moduleImplementation(project(":feature:actor"))
+}
+
 
 
 
