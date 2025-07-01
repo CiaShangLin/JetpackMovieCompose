@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">火箭電影</string>
-    <string name="title_home">首頁</string>
-    <string name="title_favor">收藏</string>
-    <string name="title_setting">設定</string>
+    <string name="nav_home">首頁</string>
+    <string name="nav_search">搜尋</string>
+    <string name="nav_history">歷史</string>
+    <string name="nav_favor">收藏</string>
+    <string name="nav_setting">設定</string>
     <string name="release_date">上映日</string>
     <string name="pull_down_refresh">請下拉刷新</string>
 

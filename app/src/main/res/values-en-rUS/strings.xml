@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">JetpackMovie</string>
-    <string name="title_home">Home</string>
-    <string name="title_favor">Favor</string>
-    <string name="title_setting">Setting</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_history">History</string>
+    <string name="nav_favor">Favor</string>
+    <string name="nav_setting">Setting</string>
     <string name="release_date">ReleaseDate</string>
     <string name="pull_down_refresh">pull_down_refresh</string>
 
