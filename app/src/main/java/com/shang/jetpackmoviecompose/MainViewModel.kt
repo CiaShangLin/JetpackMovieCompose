@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shang.common.UiState
 import com.shang.data.repository.MovieRepository
+import com.shang.data.repository.UserDataRepository
 import com.shang.model.MovieBean
 import com.shang.model.MovieGenreBean
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,8 +17,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val movieRepository: MovieRepository) :
+class MainViewModel @Inject constructor(
+    private val movieRepository: MovieRepository,
+    private val userDataRepository: UserDataRepository,
+) :
     ViewModel() {
+
+    val userData = userDataRepository.userData.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = null,
+    )
 
     val data: StateFlow<MainUiState> = movieRepository.getMovieGenres()
         .map { uiState ->
@@ -49,6 +59,20 @@ class MainViewModel @Inject constructor(private val movieRepository: MovieReposi
         )
         viewModelScope.launch(Dispatchers.IO) {
             movieRepository.insertMovie(movieBean)
+        }
+    }
+
+    fun setUserDataShow() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val showCompleted = userData.value?.showCompleted ?: false
+            userDataRepository.setShowCompleted(!showCompleted)
+        }
+    }
+
+    fun setUserDataVersion() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val version = userData.value?.version ?: 1
+            userDataRepository.setVersion(version + 1)
         }
     }
 }

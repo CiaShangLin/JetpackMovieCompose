@@ -39,6 +39,7 @@ class MainActivity : ComponentActivity() {
 fun MainScreen(viewModel: MainViewModel) {
     val state by viewModel.data.collectAsStateWithLifecycle()
     val dbData by viewModel.dbData.collectAsStateWithLifecycle()
+    val userData by viewModel.userData.collectAsStateWithLifecycle()
     Scaffold { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             when (state) {
@@ -60,6 +61,21 @@ fun MainScreen(viewModel: MainViewModel) {
                 },
             ) {
                 Text("Click Me", style = TextStyle(color = Color.Black))
+            }
+            Text("$userData", style = TextStyle(color = Color.Black))
+            Button(
+                onClick = {
+                    viewModel.setUserDataShow()
+                },
+            ) {
+                Text("User Data set Show", style = TextStyle(color = Color.Black))
+            }
+            Button(
+                onClick = {
+                    viewModel.setUserDataVersion()
+                },
+            ) {
+                Text("User Data set Version", style = TextStyle(color = Color.Black))
             }
         }
     }
