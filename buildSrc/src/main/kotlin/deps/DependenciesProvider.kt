@@ -118,6 +118,15 @@ fun DependencyHandler.commonModule() {
     moduleImplementation(project(":core:common"))
 }
 
+fun DependencyHandler.designsystemModule() {
+    moduleImplementation(project(":core:designsystem"))
+}
+
+
+fun DependencyHandler.uiModule() {
+    moduleImplementation(project(":core:ui"))
+}
+
 
 
 
