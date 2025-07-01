@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.shang.datastore";
+option java_multiple_files = true;
+
+message UserPreferences {
+    bool show_completed = 1;
+    int32 version = 2;
+}
