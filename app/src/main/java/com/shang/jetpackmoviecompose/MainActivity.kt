@@ -90,34 +90,18 @@ fun MainScreen() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = "home",
+                startDestination = MainNavItem.HOME.route,
             ) {
-                composable(route = "home") {
+                composable(route = MainNavItem.HOME.route) {
                     HomeScreen()
                 }
-                composable(route = "setting") {
-                    SettingScreen()
-                }
-                composable(route = "search") {
+                composable(route = MainNavItem.SEARCH.route) {
                     SearchScreen()
+                }
+                composable(route = MainNavItem.SETTING.route) {
+                    SettingScreen()
                 }
             }
         }
-//
-//        NavigationSuiteScaffold(
-//            navigationSuiteItems = {
-//
-//            },
-//        ) {
-//
-//        }
-//        NavigationBar {
-//            NavigationBarItem()
-//            NavigationRailItem()
-//        }
-//
-//        NavigationRail() {
-//
-//        }
     }
 }

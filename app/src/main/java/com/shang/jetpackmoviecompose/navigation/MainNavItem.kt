@@ -27,7 +27,7 @@ enum class MainNavItem(
         unselectedIcon = Icons.Outlined.Home,
         iconTextId = R.string.nav_home,
         titleTextId = R.string.nav_home,
-        route = "Home",
+        route = "home",
     ),
 
     SEARCH(
@@ -35,7 +35,7 @@ enum class MainNavItem(
         unselectedIcon = Icons.Outlined.Search,
         iconTextId = R.string.nav_search,
         titleTextId = R.string.nav_search,
-        route = "Search",
+        route = "search",
     ),
 
     SETTING(
@@ -43,6 +43,6 @@ enum class MainNavItem(
         unselectedIcon = Icons.Outlined.Settings,
         iconTextId = R.string.nav_setting,
         titleTextId = R.string.nav_setting,
-        route = "Setting",
-        ),
+        route = "setting",
+    ),
 }
