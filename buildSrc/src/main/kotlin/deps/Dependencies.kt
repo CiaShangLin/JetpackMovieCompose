@@ -19,9 +19,9 @@ object Dependencies {
     const val COMPOSE_MATERIAL = "androidx.compose.material:material"
     const val COMPOSE_MATERIAL3 = "androidx.compose.material3:material3"
     const val COMPOSE_RUNTIME = "androidx.compose.runtime:runtime"
-
-
-
+    const val COMPOSE_ADAPTIVE_NAVIGATION = "androidx.compose.material3:adaptive-navigation"
+    const val COMPOSE_MATERIAL3_ADAPTIVE_LAYOUT = "androidx.compose.material3.adaptive:adaptive-layout"
+    const val COMPOSE_MATERIAL3_ADAPTIVE = "androidx.compose.material3.adaptive:adaptive"
 
     // Google Material
     const val MATERIAL = "com.google.android.material:material:${DependenciesVersions.MATERIAL}"

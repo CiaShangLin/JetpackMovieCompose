@@ -41,6 +41,11 @@ fun DependencyHandler.androidx() {
     implementation(Dependencies.LIFECYCLE_RUNTIME_COMPOSE)
     implementation(Dependencies.ACTIVITY_COMPOSE)
     implementation(Dependencies.CORE_SPLASHSCREEN)
+    implementation(Dependencies.navigation)
+    implementation(Dependencies.navigationCompose)
+    implementation(Dependencies.navigationFragmentKtx)
+    implementation(Dependencies.googleJson)
+    implementation(Dependencies.workKtx)
     implementationPlatform(Dependencies.COMPOSE_BOM)
     implementation(Dependencies.COMPOSE_FOUNDATION)
     implementation(Dependencies.COMPOSE_UI)
@@ -51,12 +56,9 @@ fun DependencyHandler.androidx() {
     implementation(Dependencies.COMPOSE_MATERIAL)
     implementation(Dependencies.COMPOSE_MATERIAL3)
     implementation(Dependencies.COMPOSE_RUNTIME)
-    implementation(Dependencies.navigation)
-    implementation(Dependencies.navigationCompose)
-    implementation(Dependencies.navigationFragmentKtx)
-    implementation(Dependencies.googleJson)
-    implementation(Dependencies.workKtx)
-
+    implementation(Dependencies.COMPOSE_ADAPTIVE_NAVIGATION)
+    implementation(Dependencies.COMPOSE_MATERIAL3_ADAPTIVE_LAYOUT)
+    implementation(Dependencies.COMPOSE_MATERIAL3_ADAPTIVE)
 }
 
 fun DependencyHandler.kotlinx() {
@@ -149,7 +151,6 @@ fun DependencyHandler.historyModule() {
 fun DependencyHandler.moviedetailModule() {
     moduleImplementation(project(":feature:moviedetail"))
 }
-
 
 fun DependencyHandler.actorModule() {
     moduleImplementation(project(":feature:actor"))
