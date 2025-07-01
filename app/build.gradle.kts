@@ -8,6 +8,7 @@ import deps.commonModule
 import deps.dataModule
 import deps.designsystemModule
 import deps.hilt
+import deps.homeModule
 import deps.modelModule
 import deps.testDebugDeps
 import deps.testDeps
@@ -97,11 +98,17 @@ android {
 dependencies {
     androidx()
     hilt()
+
+    // core modules
     dataModule()
     modelModule()
     commonModule()
     designsystemModule()
     uiModule()
+
+    // feature modules
+    homeModule()
+
     testDeps()
     testImplDeps()
     testDebugDeps()

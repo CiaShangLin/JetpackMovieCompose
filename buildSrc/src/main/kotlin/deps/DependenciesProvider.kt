@@ -122,9 +122,12 @@ fun DependencyHandler.designsystemModule() {
     moduleImplementation(project(":core:designsystem"))
 }
 
-
 fun DependencyHandler.uiModule() {
     moduleImplementation(project(":core:ui"))
+}
+
+fun DependencyHandler.homeModule() {
+    moduleImplementation(project(":feature:home"))
 }
 
 
