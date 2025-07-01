@@ -6,11 +6,13 @@ import deps.TestBuildConfig
 import deps.androidx
 import deps.commonModule
 import deps.dataModule
+import deps.designsystemModule
 import deps.hilt
 import deps.modelModule
 import deps.testDebugDeps
 import deps.testDeps
 import deps.testImplDeps
+import deps.uiModule
 import flavors.BuildFlavor
 import signing.BuildSigning
 import signing.SigningTypes
@@ -98,6 +100,8 @@ dependencies {
     dataModule()
     modelModule()
     commonModule()
+    designsystemModule()
+    uiModule()
     testDeps()
     testImplDeps()
     testDebugDeps()
