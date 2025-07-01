@@ -29,7 +29,7 @@ object DependenciesVersions {
     const val PROTO_BUF_JAVA = "4.27.3"
     const val PROTO_BUF_KOTLIN = "4.27.3"
     const val DATA_STORE = "1.1.1"
-    const val NAVIGATION = "2.7.7"
+    const val NAVIGATION = "2.9.0"
     const val GOOGLE_GSON = "2.11.0"
     const val KOTLIN_COROUTINES = "1.3.9"
     const val WORK = "2.7.1"

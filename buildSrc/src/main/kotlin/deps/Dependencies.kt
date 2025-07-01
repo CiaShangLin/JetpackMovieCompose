@@ -69,10 +69,6 @@ object Dependencies {
     const val protoBufKotlinLite = "com.google.protobuf:protobuf-kotlin-lite:${DependenciesVersions.PROTO_BUF_KOTLIN}"
     const val protoBufArtifact = "com.google.protobuf:protoc:${DependenciesVersions.PROTO_BUF_KOTLIN}"
 
-    const val navigationFragmentKtx =
-        "androidx.navigation:navigation-fragment-ktx:${DependenciesVersions.NAVIGATION}"
-    const val navigation =
-        "androidx.navigation:navigation-ui-ktx:${DependenciesVersions.NAVIGATION}"
     const val navigationCompose = "androidx.navigation:navigation-compose:${DependenciesVersions.NAVIGATION}"
     const val googleJson = "com.google.code.gson:gson:${DependenciesVersions.GOOGLE_GSON}"
 
