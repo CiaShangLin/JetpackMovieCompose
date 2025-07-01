@@ -18,5 +18,4 @@ dependencies {
     androidx()
     testDeps()
     testImplDeps()
-    testImplementation(kotlin("test"))
 }

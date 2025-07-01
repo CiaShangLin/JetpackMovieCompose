@@ -1,5 +1,6 @@
 package com.shang.setting
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
