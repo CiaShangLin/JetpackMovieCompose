@@ -24,18 +24,37 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 
-/**
- * Now in Android navigation default values.
- */
 object JMNavigationDefaults {
+    /**
+     * 導覽元件未選取時的內容顏色
+     */
     @Composable
     fun navigationContentColor() = MaterialTheme.colorScheme.onSurfaceVariant
 
+    /**
+     * 導覽元件選取時的內容顏色
+     */
     @Composable
     fun navigationSelectedItemColor() = MaterialTheme.colorScheme.primary
 
+    /**
+     * 導覽元件指示器顏色
+     */
     @Composable
     fun navigationIndicatorColor() = MaterialTheme.colorScheme.primaryContainer
+
+    /**
+     * 導覽列/抽屜/軌道的背景顏色
+     * 建議使用 primaryContainer 以提升可視性，並自動隨主題切換
+     */
+    @Composable
+    fun navigationContainerColor() = MaterialTheme.colorScheme.primaryContainer
+
+    /**
+     * 導覽列/抽屜/軌道的內容顏色
+     */
+    @Composable
+    fun navigationOnContainerColor() = MaterialTheme.colorScheme.onSurface
 }
 
 @Composable
@@ -80,12 +99,12 @@ fun JMNavigationSuiteScaffold(
         layoutType = layoutType,
         containerColor = Color.Transparent,
         navigationSuiteColors = NavigationSuiteDefaults.colors(
-            navigationBarContainerColor = MaterialTheme.colorScheme.primaryContainer,
-            navigationBarContentColor = MaterialTheme.colorScheme.onPrimary,
-            navigationRailContainerColor = MaterialTheme.colorScheme.primaryContainer,
-            navigationRailContentColor = MaterialTheme.colorScheme.onPrimary,
-            navigationDrawerContainerColor = MaterialTheme.colorScheme.primaryContainer,
-            navigationDrawerContentColor = MaterialTheme.colorScheme.onPrimary,
+            navigationBarContainerColor = JMNavigationDefaults.navigationContainerColor(),
+            navigationBarContentColor = JMNavigationDefaults.navigationOnContainerColor(),
+            navigationRailContainerColor = JMNavigationDefaults.navigationContainerColor(),
+            navigationRailContentColor = JMNavigationDefaults.navigationOnContainerColor(),
+            navigationDrawerContainerColor = JMNavigationDefaults.navigationContainerColor(),
+            navigationDrawerContentColor = JMNavigationDefaults.navigationOnContainerColor(),
         ),
     ) {
         content()
