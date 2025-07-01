@@ -22,9 +22,9 @@ plugins {
     id(plugs.BuildPlugins.ANDROID_APPLICATION)
     id(plugs.BuildPlugins.KOTLIN_ANDROID)
     id(plugs.BuildPlugins.KAPT)
-    id(plugs.BuildPlugins.KOTLIN_COMPOSE) version "2.1.21"
+    id(plugs.BuildPlugins.KOTLIN_COMPOSE) version deps.DependenciesVersions.KOTLIN_COMPILER
     id(plugs.BuildPlugins.KTLINT)
-    id(plugs.BuildPlugins.HILT)
+    id(plugs.BuildPlugins.HILT) version deps.DependenciesVersions.HILT
 }
 
 android {
