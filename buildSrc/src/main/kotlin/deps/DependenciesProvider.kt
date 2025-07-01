@@ -59,6 +59,7 @@ fun DependencyHandler.androidx() {
     implementation(Dependencies.COMPOSE_ADAPTIVE_NAVIGATION)
     implementation(Dependencies.COMPOSE_MATERIAL3_ADAPTIVE_LAYOUT)
     implementation(Dependencies.COMPOSE_MATERIAL3_ADAPTIVE)
+    implementation(Dependencies.COMPOSE_ADAPTIVE_NAVIGATION_SUITE)
 }
 
 fun DependencyHandler.kotlinx() {
