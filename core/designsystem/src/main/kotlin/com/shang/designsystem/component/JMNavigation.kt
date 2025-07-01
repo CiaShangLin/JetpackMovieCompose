@@ -35,13 +35,14 @@ object JMNavigationDefaults {
      * 導覽元件選取時的內容顏色
      */
     @Composable
-    fun navigationSelectedItemColor() = MaterialTheme.colorScheme.primary
+    fun navigationSelectedItemColor() = MaterialTheme.colorScheme.onPrimaryContainer
 
     /**
      * 導覽元件指示器顏色
+     * 建議設為 primary，確保與 container 對比明顯，符合 Material3 標準
      */
     @Composable
-    fun navigationIndicatorColor() = MaterialTheme.colorScheme.primaryContainer
+    fun navigationIndicatorColor() = MaterialTheme.colorScheme.primary
 
     /**
      * 導覽列/抽屜/軌道的背景顏色
@@ -142,7 +143,7 @@ class JMNavigationSuiteScope internal constructor(
  * JMNavigationSuiteScaffold 預覽範例。
  * 展示兩個 navigation item，並以 Box 作為內容。
  */
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewJMNavigationSuiteScaffold() {
     JMNavigationSuiteScaffold(
