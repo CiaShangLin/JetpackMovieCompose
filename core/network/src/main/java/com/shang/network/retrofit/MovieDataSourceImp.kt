@@ -1,5 +1,6 @@
 package com.shang.network.retrofit
 
+import com.shang.model.ConfigurationBean
 import com.shang.model.MovieGenreBean
 import com.shang.network.extension.mapData
 import com.shang.network.extension.safeApiCall
@@ -9,6 +10,15 @@ import javax.inject.Inject
 
 class MovieDataSourceImp @Inject constructor(private val _movieApiService: MovieApiService) :
     MovieDataSource {
+
+    override suspend fun getConfiguration(): NetworkResponse<ConfigurationBean> {
+        return safeApiCall {
+            _movieApiService.getConfiguration()
+        }.mapData { response ->
+            response.asExternalModel()
+        }
+    }
+
     override suspend fun getMovieGenres(): NetworkResponse<MovieGenreBean> {
         return safeApiCall {
             _movieApiService.getMovieGenres()

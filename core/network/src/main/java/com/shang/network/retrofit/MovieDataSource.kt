@@ -1,9 +1,16 @@
 package com.shang.network.retrofit
 
+import com.shang.model.ConfigurationBean
 import com.shang.model.MovieGenreBean
 import com.shang.network.model.NetworkResponse
 
 interface MovieDataSource {
+
+    /**
+     *  獲取電影配置
+     */
+    suspend fun getConfiguration(): NetworkResponse<ConfigurationBean>
+
     /**
      * 獲取電影類型
      * @return 電影類型列表
