@@ -44,6 +44,8 @@ fun DependencyHandler.androidx() {
     implementation(Dependencies.navigationCompose)
     implementation(Dependencies.googleJson)
     implementation(Dependencies.workKtx)
+    implementation(Dependencies.pagingRuntime)
+    implementation(Dependencies.pagingCompose)
     implementationPlatform(Dependencies.COMPOSE_BOM)
     implementation(Dependencies.COMPOSE_FOUNDATION)
     implementation(Dependencies.COMPOSE_UI)
@@ -68,6 +70,7 @@ fun DependencyHandler.kotlinx() {
 fun DependencyHandler.coroutine() {
     implementation(Dependencies.coroutines)
 }
+
 
 fun DependencyHandler.protoDataStore() {
     implementation(Dependencies.datastore)

@@ -76,4 +76,8 @@ object Dependencies {
 
     const val workKtx = "androidx.work:work-runtime-ktx:${DependenciesVersions.WORK}"
 
+
+    //Paging
+    const val pagingRuntime = "androidx.paging:paging-runtime:${DependenciesVersions.PAGING}"
+    const val pagingCompose = "androidx.paging:paging-compose:${DependenciesVersions.PAGING}"
 }

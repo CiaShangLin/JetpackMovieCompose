@@ -12,7 +12,7 @@ object DependenciesVersions {
     const val ACTIVITY_COMPOSE = "1.10.1"
     const val ANDROIDX_CORE = "1.16.0"
     const val ROOM = "2.6.1"
-    const val PAGING = "3.2.0"
+    const val PAGING = "3.3.6"
     const val SANDWICH = "1.3.7"
     const val HILT = "2.51.1"
     const val HILT_COMPOSE = "1.2.0"
