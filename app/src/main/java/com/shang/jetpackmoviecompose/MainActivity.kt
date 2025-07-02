@@ -18,7 +18,6 @@ import com.shang.designsystem.component.JMBackground
 import com.shang.designsystem.component.JMNavigationSuiteScaffold
 import com.shang.designsystem.theme.JetpackMovieComposeTheme
 import com.shang.home.HomeScreen
-import com.shang.home.navigation.HomeRoute
 import com.shang.jetpackmoviecompose.navigation.MainNavItem
 import com.shang.search.SearchScreen
 import com.shang.setting.SettingScreen
@@ -36,19 +35,24 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             JetpackMovieComposeTheme {
-                MainScreen(navController)
+                MainScreen(navController, viewModel)
             }
         }
     }
 }
 
 @Composable
-fun MainScreen(navController: NavHostController) {
+fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
     val currentRoute = navController.currentBackStackEntryFlow
         .collectAsState(
-            initial = navController.currentDestination?.route ?: MainNavItem.HOME.route
+            initial = navController.currentDestination?.route ?: MainNavItem.HOME.route,
         ).value
+//
+//    val movieGenreBean = viewModel.data.collectAsStateWithLifecycle()
 
+//    LaunchedEffect(Unit) {
+//        Log.d("DEBUG", "$movieGenreBean")
+//    }
     JMBackground() {
         JMNavigationSuiteScaffold(
             navigationSuiteItems = {
