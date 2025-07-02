@@ -99,6 +99,10 @@ fun DependencyHandler.testDebugDeps() {
     debugImplementation(TestDependencies.COMPOSE_UI_TEST_MANIFEST)
 }
 
+fun DependencyHandler.domainModule() {
+    moduleImplementation(project(":core:domain"))
+}
+
 fun DependencyHandler.dataModule() {
     moduleImplementation(project(":core:data"))
 }
