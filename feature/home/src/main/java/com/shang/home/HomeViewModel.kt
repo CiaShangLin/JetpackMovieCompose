@@ -3,6 +3,7 @@ package com.shang.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shang.common.UiState
+import com.shang.data.repository.MovieRepository
 import com.shang.data.repository.UserDataRepository
 import com.shang.domain.usecase.GetConfigurationUseCase
 import com.shang.model.ConfigurationBean
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     getConfigurationUseCase: GetConfigurationUseCase,
     private val userDataRepository: UserDataRepository,
+    private val movieRepository: MovieRepository,
 ) : ViewModel() {
     // {"id":28,"name":"Action"}
 
@@ -30,5 +32,14 @@ class HomeViewModel @Inject constructor(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = null,
+    )
+
+    val discoverMovie = movieRepository.getDiscoverMovie(
+        withGenres = "28",
+        page = 1,
+    ).stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = UiState.Loading,
     )
 }

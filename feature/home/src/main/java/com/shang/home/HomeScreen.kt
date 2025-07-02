@@ -14,6 +14,7 @@ import com.shang.common.UiState
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     val configurationState = viewModel.configuration.collectAsStateWithLifecycle()
     val userData = viewModel.userData.collectAsStateWithLifecycle()
+    val movie by viewModel.discoverMovie.collectAsStateWithLifecycle()
 
     Column {
         Text("Home Scree", style = TextStyle(color = MaterialTheme.colorScheme.error))
@@ -26,6 +27,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
         Text("----------", style = TextStyle(color = MaterialTheme.colorScheme.error))
 
+        Text("Discover Movie: $movie", style = TextStyle(color = MaterialTheme.colorScheme.primary))
         // Text("userData:$userData", style = TextStyle(color = MaterialTheme.colorScheme.error))
     }
 }
