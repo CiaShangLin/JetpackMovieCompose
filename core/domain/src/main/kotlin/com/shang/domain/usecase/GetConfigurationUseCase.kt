@@ -1,6 +1,5 @@
 package com.shang.domain.usecase
 
-import android.util.Log
 import com.shang.common.UiState
 import com.shang.common.di.CommonDispatcher
 import com.shang.common.di.Dispatcher
@@ -55,5 +54,4 @@ class GetConfigurationUseCase @Inject constructor(
                     }
                 }
             }
-
 }
