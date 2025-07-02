@@ -1,21 +1,42 @@
 package com.shang.network.extension
 
 import com.shang.network.model.NetworkResponse
+import okio.IOException
+import retrofit2.HttpException
 import retrofit2.Response
 
 suspend fun <T> safeApiCall(
     apiCall: suspend () -> Response<T>,
 ): NetworkResponse<T> {
-    val response = apiCall.invoke()
-    return if (response.isSuccessful) {
+    return try {
+        val response = apiCall.invoke()
+        if (response.isSuccessful) {
+            NetworkResponse(
+                code = response.code(),
+                data = response.body(),
+            )
+        } else {
+            NetworkResponse(
+                code = response.code(),
+                error = response.errorBody()?.string(),
+            )
+        }
+    }  catch (e: IOException) {
+        // 網路失敗，如連線錯誤、timeout
         NetworkResponse(
-            code = response.code(),
-            data = response.body(),
+            code = -1,
+            error = "NETWORK_ERROR: ${e.message}",
         )
-    } else {
+    } catch (e: HttpException) {
+        // retrofit 拋出 HTTP 相關錯誤（如 500，但其實 response.errorBody 應該能處理）
         NetworkResponse(
-            code = response.code(),
-            error = response.errorBody()?.string(),
+            code = e.code(),
+            error = "HTTP_EXCEPTION: ${e.message}",
+        )
+    } catch (e: Exception) {
+        NetworkResponse(
+            code = -1,
+            error = "UNKNOWN_ERROR: ${e.message}",
         )
     }
 }
