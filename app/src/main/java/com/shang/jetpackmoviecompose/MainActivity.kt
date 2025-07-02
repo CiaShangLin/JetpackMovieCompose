@@ -18,6 +18,7 @@ import com.shang.designsystem.component.JMBackground
 import com.shang.designsystem.component.JMNavigationSuiteScaffold
 import com.shang.designsystem.theme.JetpackMovieComposeTheme
 import com.shang.home.HomeScreen
+import com.shang.home.navigation.HomeRoute
 import com.shang.jetpackmoviecompose.navigation.MainNavItem
 import com.shang.search.SearchScreen
 import com.shang.setting.SettingScreen
@@ -44,7 +45,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(navController: NavHostController) {
     val currentRoute = navController.currentBackStackEntryFlow
-        .collectAsState(initial = navController.currentDestination?.route ?: MainNavItem.HOME.route).value
+        .collectAsState(
+            initial = navController.currentDestination?.route ?: MainNavItem.HOME.route
+        ).value
 
     JMBackground() {
         JMNavigationSuiteScaffold(
@@ -75,7 +78,9 @@ fun MainScreen(navController: NavHostController) {
                                 contentDescription = stringResource(item.iconTextId),
                             )
                         },
-                        label = { Text(stringResource(item.iconTextId)) },
+                        label = {
+                            Text(stringResource(item.titleTextId))
+                        },
                     )
                 }
             },
