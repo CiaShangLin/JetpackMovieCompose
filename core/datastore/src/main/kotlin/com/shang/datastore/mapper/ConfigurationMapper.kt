@@ -1,5 +1,6 @@
-package com.shang.datastore
+package com.shang.datastore.mapper
 
+import com.shang.datastore.ConfigurationProto
 import com.shang.model.ConfigurationBean
 
 fun ConfigurationBean.toProto(): ConfigurationProto {
@@ -19,4 +20,23 @@ fun ConfigurationBean.Images.toProto(): ConfigurationProto.Images {
         .setSecureBaseUrl(this.secureBaseUrl)
         .addAllStillSizes(this.stillSizes)
         .build()
+}
+
+fun ConfigurationProto.toModel(): ConfigurationBean {
+    return ConfigurationBean(
+        changeKeys = this.changeKeysList,
+        images = this.images.toModel(),
+    )
+}
+
+fun ConfigurationProto.Images.toModel(): ConfigurationBean.Images {
+    return ConfigurationBean.Images(
+        backdropSizes = this.backdropSizesList,
+        baseUrl = this.baseUrl,
+        logoSizes = this.logoSizesList,
+        posterSizes = this.posterSizesList,
+        profileSizes = this.profileSizesList,
+        secureBaseUrl = this.secureBaseUrl,
+        stillSizes = this.stillSizesList,
+    )
 }
