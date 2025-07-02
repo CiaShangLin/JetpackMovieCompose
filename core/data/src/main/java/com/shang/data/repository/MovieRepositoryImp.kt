@@ -4,6 +4,7 @@ import com.shang.common.UiState
 import com.shang.data.model.asEntity
 import com.shang.database.dao.MovieDao
 import com.shang.database.entity.asExtendedModel
+import com.shang.model.ConfigurationBean
 import com.shang.model.MovieBean
 import com.shang.model.MovieGenreBean
 import com.shang.network.retrofit.MovieDataSource
@@ -18,6 +19,19 @@ class MovieRepositoryImp @Inject constructor(
     private val movieDao: MovieDao,
     private val ioDispatcher: CoroutineDispatcher,
 ) : MovieRepository {
+
+    override fun getConfiguration(): Flow<UiState<ConfigurationBean>> {
+        return flow {
+            emit(UiState.Loading)
+            val response = movieDataSource.getConfiguration()
+            if (response.isSuccess && response.data != null) {
+                emit(UiState.Success(response.data!!))
+            } else {
+                emit(UiState.Error(Exception(response.errorMessage)))
+            }
+        }
+    }
+
     override fun getMovieGenres(): Flow<UiState<MovieGenreBean>> {
         return flow {
             emit(UiState.Loading)
