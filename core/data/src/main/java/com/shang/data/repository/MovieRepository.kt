@@ -14,5 +14,7 @@ interface MovieRepository {
 
     fun getDatabaseMovies(): Flow<List<MovieBean>>
 
+    fun getDiscoverMovie(withGenres: String, page: Int): Flow<UiState<String>>
+
     suspend fun insertMovie(movie: MovieBean)
 }

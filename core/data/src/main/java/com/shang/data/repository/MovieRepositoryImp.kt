@@ -50,6 +50,18 @@ class MovieRepositoryImp @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
+    override fun getDiscoverMovie(withGenres: String, page: Int): Flow<UiState<String>> {
+        return flow {
+            emit(UiState.Loading)
+            val response = movieDataSource.getDiscoverMovie(withGenres, page)
+            if (response.isSuccess && response.data != null) {
+                emit(UiState.Success(response.data!!))
+            } else {
+                emit(UiState.Error(Exception(response.errorMessage)))
+            }
+        }.flowOn(ioDispatcher)
+    }
+
     override suspend fun insertMovie(movie: MovieBean) {
         movieDao.insertMovie(movie.asEntity())
     }
