@@ -1,5 +1,6 @@
 package com.shang.data.repository
 
+import com.shang.model.ConfigurationBean
 import com.shang.model.UserData
 import kotlinx.coroutines.flow.Flow
 
@@ -10,4 +11,6 @@ interface UserDataRepository {
     suspend fun setShowCompleted(showCompleted: Boolean)
 
     suspend fun setVersion(version: Int)
+
+    suspend fun setConfiguration(configuration: ConfigurationBean)
 }

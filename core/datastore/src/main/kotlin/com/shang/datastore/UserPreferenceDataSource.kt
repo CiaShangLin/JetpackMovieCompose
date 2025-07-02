@@ -1,6 +1,7 @@
 package com.shang.datastore
 
 import androidx.datastore.core.DataStore
+import com.shang.model.ConfigurationBean
 import com.shang.model.UserData
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -29,6 +30,14 @@ class UserPreferenceDataSource @Inject constructor(
             it.copy {
                 this.version = version
             }
+        }
+    }
+
+    suspend fun setConfiguration(configurationBean: ConfigurationBean) {
+        userPreferences.updateData {
+            it.toBuilder()
+                .setConfiguration(configurationBean.toProto())
+                .build()
         }
     }
 }
