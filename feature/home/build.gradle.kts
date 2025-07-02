@@ -1,4 +1,9 @@
 import deps.androidx
+import deps.commonModule
+import deps.dataModule
+import deps.domainModule
+import deps.hilt
+import deps.modelModule
 import deps.testDeps
 import deps.testImplDeps
 import plugs.SharedLibraryGradlePlugin
@@ -16,6 +21,11 @@ android {
 
 dependencies {
     androidx()
+    hilt()
+    modelModule()
+    commonModule()
+    dataModule()
+    domainModule()
     testDeps()
     testImplDeps()
 }

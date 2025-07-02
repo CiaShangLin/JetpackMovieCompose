@@ -1,0 +1,26 @@
+package com.shang.home
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.shang.common.UiState
+import com.shang.domain.usecase.GetConfigurationUseCase
+import com.shang.model.ConfigurationBean
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
+
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    getConfigurationUseCase: GetConfigurationUseCase,
+) : ViewModel() {
+    // {"id":28,"name":"Action"}
+
+    val configuration: StateFlow<UiState<ConfigurationBean>> = getConfigurationUseCase()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = UiState.Loading,
+        )
+}
