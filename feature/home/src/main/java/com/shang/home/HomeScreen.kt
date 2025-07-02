@@ -1,7 +1,6 @@
 package com.shang.home
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -10,7 +9,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.shang.common.UiState
-import com.shang.model.ConfigurationBean
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
@@ -28,12 +26,6 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
         Text("----------", style = TextStyle(color = MaterialTheme.colorScheme.error))
 
-        Text("userData:$userData", style = TextStyle(color = MaterialTheme.colorScheme.error))
-
-        Button(onClick = {
-            viewModel.setConfiguration((configurationState.value as UiState.Success<ConfigurationBean>).data)
-        }) {
-            Text("Click Me", style = TextStyle(color = MaterialTheme.colorScheme.onPrimary))
-        }
+        // Text("userData:$userData", style = TextStyle(color = MaterialTheme.colorScheme.error))
     }
 }

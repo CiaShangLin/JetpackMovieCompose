@@ -6,12 +6,10 @@ import com.shang.common.UiState
 import com.shang.data.repository.UserDataRepository
 import com.shang.domain.usecase.GetConfigurationUseCase
 import com.shang.model.ConfigurationBean
-import com.shang.model.UserData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,12 +29,6 @@ class HomeViewModel @Inject constructor(
     val userData = userDataRepository.userData.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = UserData(),
+        initialValue = null,
     )
-
-    fun setConfiguration(configuration: ConfigurationBean) {
-        viewModelScope.launch {
-            userDataRepository.setConfiguration(configuration)
-        }
-    }
 }
