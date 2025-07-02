@@ -21,7 +21,7 @@ suspend fun <T> safeApiCall(
                 error = response.errorBody()?.string(),
             )
         }
-    }  catch (e: IOException) {
+    } catch (e: IOException) {
         // 網路失敗，如連線錯誤、timeout
         NetworkResponse(
             code = -1,

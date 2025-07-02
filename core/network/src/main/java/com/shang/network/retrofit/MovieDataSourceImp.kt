@@ -4,6 +4,7 @@ import com.shang.model.ConfigurationBean
 import com.shang.model.MovieGenreBean
 import com.shang.network.extension.mapData
 import com.shang.network.extension.safeApiCall
+import com.shang.network.model.DiscoverMovieResponse
 import com.shang.network.model.NetworkResponse
 import com.shang.network.model.asExternalModel
 import javax.inject.Inject
@@ -24,6 +25,14 @@ class MovieDataSourceImp @Inject constructor(private val _movieApiService: Movie
             _movieApiService.getMovieGenres()
         }.mapData { response ->
             response.asExternalModel()
+        }
+    }
+
+    override suspend fun getDiscoverMovie(withGenres: String, page: Int): NetworkResponse<DiscoverMovieResponse> {
+        return safeApiCall {
+            _movieApiService.getDiscoverMovie(withGenres, page)
+        }.mapData { response ->
+            response
         }
     }
 }

@@ -16,4 +16,12 @@ interface MovieDataSource {
      * @return 電影類型列表
      */
     suspend fun getMovieGenres(): NetworkResponse<MovieGenreBean>
+
+    /**
+     * 獲取電影列表
+     * @param withGenres 電影類型
+     * @param page 分頁
+     * @return 電影列表
+     */
+    suspend fun getDiscoverMovie(withGenres: String, page: Int): NetworkResponse<String>
 }
