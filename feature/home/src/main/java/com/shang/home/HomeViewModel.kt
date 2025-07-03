@@ -2,6 +2,7 @@ package com.shang.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.shang.common.UiState
 import com.shang.data.repository.MovieRepository
 import com.shang.data.repository.UserDataRepository
@@ -42,4 +43,7 @@ class HomeViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = UiState.Loading,
     )
+
+    val pager = movieRepository.getMovieGenrePager("28")
+        .cachedIn(viewModelScope)
 }

@@ -8,13 +8,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.text.TextStyle
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.shang.common.UiState
+import com.shang.model.MovieListBean
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     val configurationState = viewModel.configuration.collectAsStateWithLifecycle()
     val userData = viewModel.userData.collectAsStateWithLifecycle()
     val movie by viewModel.discoverMovie.collectAsStateWithLifecycle()
+    val pager: LazyPagingItems<MovieListBean.Result> = viewModel.pager.collectAsLazyPagingItems()
 
     Column {
         Text("Home Scree", style = TextStyle(color = MaterialTheme.colorScheme.error))
@@ -27,7 +31,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
         Text("----------", style = TextStyle(color = MaterialTheme.colorScheme.error))
 
-        Text("Discover Movie: $movie", style = TextStyle(color = MaterialTheme.colorScheme.primary))
+        Text("Discover Movie: ${pager.loadState} ${pager.itemCount}", style = TextStyle(color = MaterialTheme.colorScheme.primary))
         // Text("userData:$userData", style = TextStyle(color = MaterialTheme.colorScheme.error))
     }
 }
