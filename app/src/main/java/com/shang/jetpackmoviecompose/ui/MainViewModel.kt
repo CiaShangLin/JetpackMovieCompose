@@ -1,4 +1,4 @@
-package com.shang.jetpackmoviecompose
+package com.shang.jetpackmoviecompose.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +23,7 @@ class MainViewModel @Inject constructor(
             )
         }.stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.Companion.WhileSubscribed(5_000),
             initialValue = MainUiState.Loading,
         )
 }

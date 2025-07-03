@@ -1,4 +1,4 @@
-package com.shang.jetpackmoviecompose
+package com.shang.jetpackmoviecompose.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -28,6 +28,8 @@ import androidx.navigation.compose.rememberNavController
 import com.shang.designsystem.component.JMBackground
 import com.shang.designsystem.component.JMNavigationSuiteScaffold
 import com.shang.designsystem.theme.JetpackMovieComposeTheme
+import com.shang.jetpackmoviecompose.ui.MainUiState
+import com.shang.jetpackmoviecompose.ui.MainViewModel
 import com.shang.jetpackmoviecompose.navigation.MainNavItem
 import dagger.hilt.android.AndroidEntryPoint
 

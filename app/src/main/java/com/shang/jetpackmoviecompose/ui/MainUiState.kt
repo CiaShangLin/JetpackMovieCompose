@@ -1,4 +1,4 @@
-package com.shang.jetpackmoviecompose
+package com.shang.jetpackmoviecompose.ui
 
 import com.shang.model.ConfigurationBean
 
