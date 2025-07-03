@@ -9,6 +9,7 @@ import deps.collectModule
 import deps.commonModule
 import deps.dataModule
 import deps.designsystemModule
+import deps.domainModule
 import deps.hilt
 import deps.historyModule
 import deps.homeModule
@@ -107,6 +108,7 @@ dependencies {
 
     // core modules
     dataModule()
+    domainModule()
     modelModule()
     commonModule()
     designsystemModule()
