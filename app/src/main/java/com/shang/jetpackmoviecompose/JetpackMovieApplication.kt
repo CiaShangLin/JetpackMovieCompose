@@ -1,4 +1,4 @@
-package com.shang.jetpackmoviecompose.core
+package com.shang.jetpackmoviecompose
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
