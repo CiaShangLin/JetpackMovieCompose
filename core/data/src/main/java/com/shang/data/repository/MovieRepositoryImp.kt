@@ -36,14 +36,13 @@ class MovieRepositoryImp @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-    override fun getMovieGenres(): Flow<UiState<MovieGenreBean>> {
+    override fun getMovieGenres(): Flow<Result<MovieGenreBean>> {
         return flow {
-            emit(UiState.Loading)
             val response = movieDataSource.getMovieGenres()
-            if (response.isSuccess && response.data != null) {
-                emit(UiState.Success(response.data!!))
+            if (response.isSuccess) {
+                emit(Result.success(response.data!!))
             } else {
-                emit(UiState.Error(Exception(response.error)))
+                emit(Result.failure(Exception(response.error)))
             }
         }.flowOn(ioDispatcher)
     }

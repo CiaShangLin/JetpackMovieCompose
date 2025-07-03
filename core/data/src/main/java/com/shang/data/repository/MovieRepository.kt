@@ -12,7 +12,7 @@ interface MovieRepository {
 
     fun getConfiguration(): Flow<Result<ConfigurationBean>>
 
-    fun getMovieGenres(): Flow<UiState<MovieGenreBean>>
+    fun getMovieGenres(): Flow<Result<MovieGenreBean>>
 
     fun getDatabaseMovies(): Flow<List<MovieBean>>
 
