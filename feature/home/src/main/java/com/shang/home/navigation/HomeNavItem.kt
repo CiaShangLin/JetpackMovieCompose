@@ -2,9 +2,13 @@ package com.shang.home.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Collections
+import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.rounded.Collections
+import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
@@ -27,6 +31,14 @@ enum class HomeNavItem(
         route = "home",
     ),
 
+    COLLECTION(
+        selectedIcon = Icons.Rounded.Collections,
+        unselectedIcon = Icons.Outlined.Collections,
+        iconTextId = R.string.nav_favor,
+        titleTextId = R.string.nav_favor,
+        route = "collection",
+    ),
+
     SEARCH(
         selectedIcon = Icons.Rounded.Search,
         unselectedIcon = Icons.Outlined.Search,
@@ -35,17 +47,9 @@ enum class HomeNavItem(
         route = "search",
     ),
 
-    COLLECTION(
-        selectedIcon = Icons.Rounded.Search, // Placeholder, replace with actual collection icons
-        unselectedIcon = Icons.Outlined.Search, // Placeholder, replace with actual collection icons
-        iconTextId = R.string.nav_favor,
-        titleTextId = R.string.nav_favor,
-        route = "collection",
-    ),
-
     HISTORY(
-        selectedIcon = Icons.Rounded.Search, // Placeholder, replace with actual history icons
-        unselectedIcon = Icons.Outlined.Search, // Placeholder, replace with actual history icons
+        selectedIcon = Icons.Rounded.History,
+        unselectedIcon = Icons.Outlined.History,
         iconTextId = R.string.nav_history,
         titleTextId = R.string.nav_history,
         route = "history",
