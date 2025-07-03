@@ -1,7 +1,11 @@
 package com.shang.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.shang.common.UiState
 import com.shang.data.model.asEntity
+import com.shang.data.paging.MovieGenrePagingSource
 import com.shang.database.dao.MovieDao
 import com.shang.database.entity.asExtendedModel
 import com.shang.model.ConfigurationBean
@@ -61,6 +65,21 @@ class MovieRepositoryImp @Inject constructor(
                 emit(UiState.Error(Exception(response.errorMessage)))
             }
         }.flowOn(ioDispatcher)
+    }
+
+    override fun getMovieGenrePager(withGenres: String): Flow<PagingData<MovieListBean.Result>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+                initialLoadSize = 20,
+                prefetchDistance = 2,
+            ),
+            pagingSourceFactory = {
+                MovieGenrePagingSource(movieDataSource, withGenres)
+            },
+        ).flow
+            .flowOn(ioDispatcher)
     }
 
     override suspend fun insertMovie(movie: MovieBean) {

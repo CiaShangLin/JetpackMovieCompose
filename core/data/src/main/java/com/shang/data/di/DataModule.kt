@@ -2,6 +2,7 @@ package com.shang.data.di
 
 import com.shang.common.di.CommonDispatcher
 import com.shang.common.di.Dispatcher
+import com.shang.data.paging.MovieGenrePagingSource
 import com.shang.data.repository.MovieRepository
 import com.shang.data.repository.MovieRepositoryImp
 import com.shang.data.repository.UserDataRepository
@@ -36,5 +37,14 @@ class DataModule {
         userPreferenceDataSource: UserPreferenceDataSource,
     ): UserDataRepository {
         return UserDataRepositoryImp(userPreferenceDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieGenrePagingSource(
+        movieDataSource: MovieDataSource,
+        withGenres: String,
+    ): MovieGenrePagingSource {
+        return MovieGenrePagingSource(movieDataSource, withGenres)
     }
 }
