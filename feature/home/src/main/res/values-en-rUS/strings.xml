@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="nav_home">Home</string>
-    <string name="nav_search">Search</string>
-    <string name="nav_history">History</string>
-    <string name="nav_favor">Favor</string>
-    <string name="nav_setting">Setting</string>
-</resources>

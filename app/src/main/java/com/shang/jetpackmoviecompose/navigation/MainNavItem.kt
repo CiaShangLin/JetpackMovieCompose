@@ -1,4 +1,4 @@
-package com.shang.home.navigation
+package com.shang.jetpackmoviecompose.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
@@ -13,9 +13,9 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.shang.home.R
+import com.shang.jetpackmoviecompose.R
 
-enum class HomeNavItem(
+enum class MainNavItem(
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
     @StringRes val iconTextId: Int,
