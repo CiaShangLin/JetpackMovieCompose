@@ -5,24 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.shang.designsystem.component.JMBackground
-import com.shang.designsystem.component.JMNavigationSuiteScaffold
 import com.shang.designsystem.theme.JetpackMovieComposeTheme
 import com.shang.home.HomeScreen
-import com.shang.jetpackmoviecompose.navigation.MainNavItem
-import com.shang.search.SearchScreen
-import com.shang.setting.SettingScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,7 +41,7 @@ fun MainScreen(mainUiState: MainUiState) {
     JMBackground {
         when (mainUiState) {
             is MainUiState.Loading -> {
-                //空的因為splash本身就是Loading
+                // 空的因為splash本身就是Loading
             }
             is MainUiState.Error -> {
                 ErrorScreen()
@@ -63,69 +52,7 @@ fun MainScreen(mainUiState: MainUiState) {
 }
 
 @Composable
-fun ErrorScreen(){
+fun ErrorScreen() {
     // 這裡可以做一個Error錯誤刷新POP窗，可以考慮要不要掉slapsh，或是POP窗，或是UI
     Text("ERROR")
-}
-
-
-@Composable
-fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
-    val currentRoute = navController.currentBackStackEntryFlow
-        .collectAsState(
-            initial = navController.currentDestination?.route ?: MainNavItem.HOME.route,
-        ).value
-
-    JMBackground() {
-        JMNavigationSuiteScaffold(
-            navigationSuiteItems = {
-                MainNavItem.entries.forEach { item ->
-                    item(
-                        selected = currentRoute == item.route,
-                        onClick = {
-                            if (currentRoute != item.route) {
-                                navController.navigate(item.route) {
-                                    popUpTo(navController.graph.startDestinationId) {
-                                        saveState = true
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            }
-                        },
-                        icon = {
-                            Icon(
-                                item.unselectedIcon,
-                                contentDescription = stringResource(item.iconTextId),
-                            )
-                        },
-                        selectedIcon = {
-                            Icon(
-                                item.selectedIcon,
-                                contentDescription = stringResource(item.iconTextId),
-                            )
-                        },
-                        label = {
-                            Text(stringResource(item.titleTextId))
-                        },
-                    )
-                }
-            },
-        ) {
-            NavHost(
-                navController = navController,
-                startDestination = MainNavItem.HOME.route,
-            ) {
-                composable(route = MainNavItem.HOME.route) {
-                    HomeScreen()
-                }
-                composable(route = MainNavItem.SEARCH.route) {
-                    SearchScreen()
-                }
-                composable(route = MainNavItem.SETTING.route) {
-                    SettingScreen()
-                }
-            }
-        }
-    }
 }
