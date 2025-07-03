@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
 
-    fun getConfiguration(): Flow<UiState<ConfigurationBean>>
+    fun getConfiguration(): Flow<Result<ConfigurationBean>>
 
     fun getMovieGenres(): Flow<UiState<MovieGenreBean>>
 

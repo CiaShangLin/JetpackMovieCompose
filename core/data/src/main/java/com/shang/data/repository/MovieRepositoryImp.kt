@@ -25,16 +25,15 @@ class MovieRepositoryImp @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher,
 ) : MovieRepository {
 
-    override fun getConfiguration(): Flow<UiState<ConfigurationBean>> {
+    override fun getConfiguration(): Flow<Result<ConfigurationBean>> {
         return flow {
-            emit(UiState.Loading)
             val response = movieDataSource.getConfiguration()
-            if (response.isSuccess && response.data != null) {
-                emit(UiState.Success(response.data!!))
+            if (response.isSuccess) {
+                emit(Result.success(response.data!!))
             } else {
-                emit(UiState.Error(Exception(response.error)))
+                emit(Result.failure(response.error!!))
             }
-        }
+        }.flowOn(ioDispatcher)
     }
 
     override fun getMovieGenres(): Flow<UiState<MovieGenreBean>> {
