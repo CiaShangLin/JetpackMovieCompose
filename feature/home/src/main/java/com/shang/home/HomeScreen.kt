@@ -1,30 +1,69 @@
 package com.shang.home
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.text.TextStyle
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.collectAsLazyPagingItems
-import com.shang.model.MovieListBean
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
-    val configurationState = viewModel.configuration.collectAsStateWithLifecycle()
-    val userData = viewModel.userData.collectAsStateWithLifecycle()
-    val movie by viewModel.discoverMovie.collectAsStateWithLifecycle()
-    val pager: LazyPagingItems<MovieListBean.Result> = viewModel.pager.collectAsLazyPagingItems()
-
-    Column {
-        Text("Home Scree", style = TextStyle(color = MaterialTheme.colorScheme.error))
-
-        Text("----------", style = TextStyle(color = MaterialTheme.colorScheme.error))
-
-        Text("Discover Movie: ${pager.loadState} ${pager.itemCount}", style = TextStyle(color = MaterialTheme.colorScheme.primary))
-        // Text("userData:$userData", style = TextStyle(color = MaterialTheme.colorScheme.error))
-    }
 }
+
+// @Composable
+// fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
+//    val currentRoute = navController.currentBackStackEntryFlow
+//        .collectAsState(
+//            initial = navController.currentDestination?.route ?: MainNavItem.HOME.route,
+//        ).value
+//
+//    JMBackground() {
+//        JMNavigationSuiteScaffold(
+//            navigationSuiteItems = {
+//                MainNavItem.entries.forEach { item ->
+//                    item(
+//                        selected = currentRoute == item.route,
+//                        onClick = {
+//                            if (currentRoute != item.route) {
+//                                navController.navigate(item.route) {
+//                                    popUpTo(navController.graph.startDestinationId) {
+//                                        saveState = true
+//                                    }
+//                                    launchSingleTop = true
+//                                    restoreState = true
+//                                }
+//                            }
+//                        },
+//                        icon = {
+//                            Icon(
+//                                item.unselectedIcon,
+//                                contentDescription = stringResource(item.iconTextId),
+//                            )
+//                        },
+//                        selectedIcon = {
+//                            Icon(
+//                                item.selectedIcon,
+//                                contentDescription = stringResource(item.iconTextId),
+//                            )
+//                        },
+//                        label = {
+//                            Text(stringResource(item.titleTextId))
+//                        },
+//                    )
+//                }
+//            },
+//        ) {
+//            NavHost(
+//                navController = navController,
+//                startDestination = MainNavItem.HOME.route,
+//            ) {
+//                composable(route = MainNavItem.HOME.route) {
+//                    HomeScreen()
+//                }
+//                composable(route = MainNavItem.SEARCH.route) {
+//                    SearchScreen()
+//                }
+//                composable(route = MainNavItem.SETTING.route) {
+//                    SettingScreen()
+//                }
+//            }
+//        }
+//    }
+// }
