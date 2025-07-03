@@ -32,7 +32,7 @@ class MovieRepositoryImp @Inject constructor(
             if (response.isSuccess && response.data != null) {
                 emit(UiState.Success(response.data!!))
             } else {
-                emit(UiState.Error(Exception(response.errorMessage)))
+                emit(UiState.Error(Exception(response.error)))
             }
         }
     }
@@ -44,7 +44,7 @@ class MovieRepositoryImp @Inject constructor(
             if (response.isSuccess && response.data != null) {
                 emit(UiState.Success(response.data!!))
             } else {
-                emit(UiState.Error(Exception(response.errorMessage)))
+                emit(UiState.Error(Exception(response.error)))
             }
         }.flowOn(ioDispatcher)
     }
@@ -62,7 +62,7 @@ class MovieRepositoryImp @Inject constructor(
             if (response.isSuccess && response.data != null) {
                 emit(UiState.Success(response.data!!))
             } else {
-                emit(UiState.Error(Exception(response.errorMessage)))
+                emit(UiState.Error(Exception(response.error)))
             }
         }.flowOn(ioDispatcher)
     }
