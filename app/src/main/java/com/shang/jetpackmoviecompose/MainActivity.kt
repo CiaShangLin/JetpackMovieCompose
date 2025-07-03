@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -39,19 +40,34 @@ class MainActivity : ComponentActivity() {
             splashScreen.setKeepOnScreenCondition {
                 configuration.value is MainUiState.Loading
             }
-            val navController = rememberNavController()
             JetpackMovieComposeTheme {
-                MainScreen()
+                MainScreen(configuration.value)
             }
         }
     }
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(mainUiState: MainUiState) {
     JMBackground {
+        when (mainUiState) {
+            is MainUiState.Loading -> {
+                //空的因為splash本身就是Loading
+            }
+            is MainUiState.Error -> {
+                ErrorScreen()
+            }
+            is MainUiState.Success -> HomeScreen()
+        }
     }
 }
+
+@Composable
+fun ErrorScreen(){
+    // 這裡可以做一個Error錯誤刷新POP窗，可以考慮要不要掉slapsh，或是POP窗，或是UI
+    Text("ERROR")
+}
+
 
 @Composable
 fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
