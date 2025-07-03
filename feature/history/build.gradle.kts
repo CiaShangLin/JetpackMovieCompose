@@ -1,4 +1,5 @@
 import deps.androidx
+import deps.kotlinx
 import deps.testDeps
 import deps.testImplDeps
 import plugs.SharedLibraryGradlePlugin
@@ -16,6 +17,7 @@ android {
 
 dependencies {
     androidx()
+    kotlinx()
     testDeps()
     testImplDeps()
 }

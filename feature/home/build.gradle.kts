@@ -4,6 +4,7 @@ import deps.dataModule
 import deps.designsystemModule
 import deps.domainModule
 import deps.hilt
+import deps.kotlinx
 import deps.modelModule
 import deps.testDeps
 import deps.testImplDeps
@@ -23,6 +24,7 @@ android {
 dependencies {
     androidx()
     hilt()
+    kotlinx()
     // module dependencies
     designsystemModule()
     modelModule()

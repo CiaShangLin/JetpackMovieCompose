@@ -12,7 +12,7 @@ data object HomeRoute
 
 fun NavController.navigateToHome(navOptions: NavOptions) = navigate(route = HomeRoute, navOptions)
 
-fun NavGraphBuilder.composableHomeScreen() {
+fun NavGraphBuilder.homeScreen() {
     composable<HomeRoute>() {
         HomeScreen()
     }

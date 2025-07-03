@@ -20,15 +20,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.shang.collect.navigation.collectScreen
 import com.shang.designsystem.component.JMBackground
 import com.shang.designsystem.component.JMNavigationSuiteScaffold
 import com.shang.designsystem.theme.JetpackMovieComposeTheme
+import com.shang.history.navigation.historyScreen
+import com.shang.home.navigation.HomeRoute
+import com.shang.home.navigation.homeScreen
 import com.shang.jetpackmoviecompose.navigation.MainNavItem
+import com.shang.search.navigation.searchScreen
+import com.shang.setting.navigation.settingsScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -85,15 +91,23 @@ fun ErrorScreen() {
 @Composable
 fun SuccessScreen(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route ?: MainNavItem.HOME.route
+    val currentDestination = navBackStackEntry?.destination
 
     JMNavigationSuiteScaffold(
         navigationSuiteItems = {
             MainNavItem.entries.forEach { item ->
+
                 item(
-                    selected = currentRoute == item.route,
+                    selected = currentDestination?.hierarchy?.any { destination ->
+                        destination.route == item.route.simpleName
+                    } == true,
                     onClick = {
-                        if (currentRoute != item.route) {
+                        // 檢查是否為當前路由
+                        val isCurrentRoute = currentDestination?.hierarchy?.any { destination ->
+                            destination.route == item.route.simpleName
+                        } == true
+
+                        if (!isCurrentRoute) {
                             navController.navigate(item.route) {
                                 popUpTo(navController.graph.startDestinationId) {
                                     saveState = true
@@ -124,23 +138,13 @@ fun SuccessScreen(navController: NavHostController) {
     ) {
         NavHost(
             navController = navController,
-            startDestination = MainNavItem.HOME.route,
+            startDestination = HomeRoute,
         ) {
-            composable(route = MainNavItem.HOME.route) {
-                // HomeContent(viewModel)
-            }
-            composable(route = MainNavItem.COLLECTION.route) {
-                // SettingContent()
-            }
-            composable(route = MainNavItem.SEARCH.route) {
-                // SearchContent()
-            }
-            composable(route = MainNavItem.HISTORY.route) {
-                // SettingContent()
-            }
-            composable(route = MainNavItem.SETTING.route) {
-                // SettingContent()
-            }
+            homeScreen()
+            collectScreen()
+            searchScreen()
+            historyScreen()
+            settingsScreen()
         }
     }
 }

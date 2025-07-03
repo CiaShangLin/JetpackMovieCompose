@@ -13,6 +13,7 @@ import deps.domainModule
 import deps.hilt
 import deps.historyModule
 import deps.homeModule
+import deps.kotlinx
 import deps.modelModule
 import deps.moviedetailModule
 import deps.searchModule
@@ -33,6 +34,7 @@ plugins {
     id(plugs.BuildPlugins.KOTLIN_COMPOSE) version deps.DependenciesVersions.KOTLIN_COMPILER
     id(plugs.BuildPlugins.KTLINT)
     id(plugs.BuildPlugins.HILT) version deps.DependenciesVersions.HILT
+    id(plugs.BuildPlugins.KOTLIN_SERIALIZATION)
 }
 
 android {
@@ -105,6 +107,7 @@ android {
 dependencies {
     androidx()
     hilt()
+    kotlinx()
 
     // core modules
     dataModule()
