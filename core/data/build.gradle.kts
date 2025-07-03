@@ -5,6 +5,7 @@ import deps.datastoreModule
 import deps.hilt
 import deps.modelModule
 import deps.networkModule
+import deps.paging3
 import deps.testDeps
 import deps.testImplDeps
 import plugs.SharedLibraryGradlePlugin
@@ -20,7 +21,7 @@ android {
 }
 
 dependencies {
-
+    paging3()
     coroutine()
     networkModule()
     hilt()

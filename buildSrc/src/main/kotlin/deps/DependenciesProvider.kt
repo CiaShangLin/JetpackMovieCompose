@@ -71,6 +71,10 @@ fun DependencyHandler.coroutine() {
     implementation(Dependencies.coroutines)
 }
 
+fun DependencyHandler.paging3() {
+    implementation(Dependencies.pagingRuntime)
+    implementation(Dependencies.pagingCompose)
+}
 
 fun DependencyHandler.protoDataStore() {
     implementation(Dependencies.datastore)
