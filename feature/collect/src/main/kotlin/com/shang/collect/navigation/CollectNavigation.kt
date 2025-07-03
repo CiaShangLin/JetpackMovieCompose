@@ -5,15 +5,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.shang.collect.CollectScreen
-import kotlinx.serialization.Serializable
 
-@Serializable
-data object CollectRoute
+const val COLLECT_ROUTE = "collect_route"
 
-fun NavController.navigateToCollect(navOptions: NavOptions) = navigate(route = CollectRoute, navOptions)
+fun NavController.navigateToCollect(navOptions: NavOptions) = navigate(route = COLLECT_ROUTE, navOptions)
 
 fun NavGraphBuilder.collectScreen() {
-    composable<CollectRoute>() {
+    composable(route = COLLECT_ROUTE) {
         CollectScreen()
     }
 }

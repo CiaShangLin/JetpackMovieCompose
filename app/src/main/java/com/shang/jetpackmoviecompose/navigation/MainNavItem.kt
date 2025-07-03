@@ -13,20 +13,19 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.shang.collect.navigation.CollectRoute
-import com.shang.history.navigation.HistoryRoute
-import com.shang.home.navigation.HomeRoute
+import com.shang.collect.navigation.COLLECT_ROUTE
+import com.shang.history.navigation.HISTORY_ROUTE
+import com.shang.home.navigation.HOME_ROUTE
 import com.shang.jetpackmoviecompose.R
-import com.shang.search.navigation.SearchRoute
-import com.shang.setting.navigation.SettingsRoute
-import kotlin.reflect.KClass
+import com.shang.search.navigation.SEARCH_ROUTE
+import com.shang.setting.navigation.SETTINGS_ROUTE
 
 enum class MainNavItem(
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
     @StringRes val iconTextId: Int,
     @StringRes val titleTextId: Int,
-    val route: KClass<*>,
+    val route: String,
 ) {
 
     HOME(
@@ -34,15 +33,15 @@ enum class MainNavItem(
         unselectedIcon = Icons.Outlined.Home,
         iconTextId = R.string.nav_home,
         titleTextId = R.string.nav_home,
-        route = HomeRoute::class,
+        route = HOME_ROUTE,
     ),
 
-    COLLECTION(
+    COLLECT(
         selectedIcon = Icons.Rounded.Collections,
         unselectedIcon = Icons.Outlined.Collections,
         iconTextId = R.string.nav_favor,
         titleTextId = R.string.nav_favor,
-        route = CollectRoute::class,
+        route = COLLECT_ROUTE,
     ),
 
     SEARCH(
@@ -50,7 +49,7 @@ enum class MainNavItem(
         unselectedIcon = Icons.Outlined.Search,
         iconTextId = R.string.nav_search,
         titleTextId = R.string.nav_search,
-        route = SearchRoute::class,
+        route = SEARCH_ROUTE,
     ),
 
     HISTORY(
@@ -58,7 +57,7 @@ enum class MainNavItem(
         unselectedIcon = Icons.Outlined.History,
         iconTextId = R.string.nav_history,
         titleTextId = R.string.nav_history,
-        route = HistoryRoute::class,
+        route = HISTORY_ROUTE,
     ),
 
     SETTING(
@@ -66,6 +65,6 @@ enum class MainNavItem(
         unselectedIcon = Icons.Outlined.Settings,
         iconTextId = R.string.nav_setting,
         titleTextId = R.string.nav_setting,
-        route = SettingsRoute::class,
+        route = SETTINGS_ROUTE,
     ),
 }

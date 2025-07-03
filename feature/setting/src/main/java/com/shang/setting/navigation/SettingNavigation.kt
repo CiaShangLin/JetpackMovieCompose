@@ -5,15 +5,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.shang.setting.SettingScreen
-import kotlinx.serialization.Serializable
 
-@Serializable
-data object SettingsRoute
+const val SETTINGS_ROUTE = "setting_route"
 
-fun NavController.navigateToSetting(navOptions: NavOptions) = navigate(route = SettingsRoute, navOptions)
+fun NavController.navigateToSetting(navOptions: NavOptions) = navigate(route = SETTINGS_ROUTE, navOptions)
 
 fun NavGraphBuilder.settingsScreen() {
-    composable<SettingsRoute>() {
+    composable(route = SETTINGS_ROUTE) {
         SettingScreen()
     }
 }

@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -30,7 +29,6 @@ import com.shang.designsystem.component.JMBackground
 import com.shang.designsystem.component.JMNavigationSuiteScaffold
 import com.shang.designsystem.theme.JetpackMovieComposeTheme
 import com.shang.history.navigation.historyScreen
-import com.shang.home.navigation.HomeRoute
 import com.shang.home.navigation.homeScreen
 import com.shang.jetpackmoviecompose.navigation.MainNavItem
 import com.shang.search.navigation.searchScreen
@@ -96,18 +94,10 @@ fun SuccessScreen(navController: NavHostController) {
     JMNavigationSuiteScaffold(
         navigationSuiteItems = {
             MainNavItem.entries.forEach { item ->
-
                 item(
-                    selected = currentDestination?.hierarchy?.any { destination ->
-                        destination.route == item.route.simpleName
-                    } == true,
+                    selected = currentDestination?.route == item.route,
                     onClick = {
-                        // 檢查是否為當前路由
-                        val isCurrentRoute = currentDestination?.hierarchy?.any { destination ->
-                            destination.route == item.route.simpleName
-                        } == true
-
-                        if (!isCurrentRoute) {
+                        if (currentDestination?.route != item.route) {
                             navController.navigate(item.route) {
                                 popUpTo(navController.graph.startDestinationId) {
                                     saveState = true
@@ -138,7 +128,7 @@ fun SuccessScreen(navController: NavHostController) {
     ) {
         NavHost(
             navController = navController,
-            startDestination = HomeRoute,
+            startDestination = MainNavItem.HOME.route,
         ) {
             homeScreen()
             collectScreen()

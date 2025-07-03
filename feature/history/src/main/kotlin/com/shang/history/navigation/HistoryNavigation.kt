@@ -5,15 +5,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.shang.history.HistoryScreen
-import kotlinx.serialization.Serializable
 
-@Serializable
-data object HistoryRoute
+const val HISTORY_ROUTE = "history_route"
 
-fun NavController.navigateToHistory(navOptions: NavOptions) = navigate(route = HistoryRoute, navOptions)
+fun NavController.navigateToHistory(navOptions: NavOptions) = navigate(route = HISTORY_ROUTE, navOptions)
 
 fun NavGraphBuilder.historyScreen() {
-    composable<HistoryRoute>() {
+    composable(route = HISTORY_ROUTE) {
         HistoryScreen()
     }
 }

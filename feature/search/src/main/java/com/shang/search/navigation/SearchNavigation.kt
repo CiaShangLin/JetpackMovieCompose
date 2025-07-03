@@ -5,15 +5,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.shang.search.SearchScreen
-import kotlinx.serialization.Serializable
 
-@Serializable
-data object SearchRoute
+const val SEARCH_ROUTE = "search_route"
 
-fun NavController.navigateToSearch(navOptions: NavOptions) = navigate(route = SearchRoute, navOptions)
+fun NavController.navigateToSearch(navOptions: NavOptions) = navigate(route = SEARCH_ROUTE, navOptions)
 
 fun NavGraphBuilder.searchScreen() {
-    composable<SearchRoute>() {
+    composable(route = SEARCH_ROUTE) {
         SearchScreen()
     }
 }
