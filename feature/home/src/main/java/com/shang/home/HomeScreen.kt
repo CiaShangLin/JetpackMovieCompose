@@ -10,7 +10,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.shang.common.UiState
 import com.shang.model.MovieListBean
 
 @Composable
@@ -22,12 +21,6 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
     Column {
         Text("Home Scree", style = TextStyle(color = MaterialTheme.colorScheme.error))
-
-        when (val state = configurationState.value) {
-            is UiState.Loading -> Text("Loading...", style = TextStyle(color = MaterialTheme.colorScheme.primary))
-            is UiState.Success -> Text("Home Screen : ${state.data}", style = TextStyle(color = MaterialTheme.colorScheme.onSurface))
-            is UiState.Error -> Text("Error: ${state.error}", style = TextStyle(color = MaterialTheme.colorScheme.error))
-        }
 
         Text("----------", style = TextStyle(color = MaterialTheme.colorScheme.error))
 

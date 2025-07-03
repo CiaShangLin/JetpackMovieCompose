@@ -7,10 +7,8 @@ import com.shang.common.UiState
 import com.shang.data.repository.MovieRepository
 import com.shang.data.repository.UserDataRepository
 import com.shang.domain.usecase.GetConfigurationUseCase
-import com.shang.model.ConfigurationBean
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -22,7 +20,7 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     // {"id":28,"name":"Action"}
 
-    val configuration: StateFlow<UiState<ConfigurationBean>> = getConfigurationUseCase()
+    val configuration = getConfigurationUseCase()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
