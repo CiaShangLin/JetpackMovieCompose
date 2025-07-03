@@ -1,8 +1,8 @@
 package com.shang.network.model
 
-import kotlinx.serialization.Serializable
-
+import com.shang.model.MovieListBean
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * 首頁電影標籤電影
@@ -10,13 +10,13 @@ import kotlinx.serialization.SerialName
 @Serializable
 data class DiscoverMovieResponse(
     @SerialName("page")
-    val page: Int? = 0,
+    val page: Int? = 1,
     @SerialName("results")
     val results: List<Result>? = listOf(),
     @SerialName("total_pages")
     val totalPages: Int? = 0,
     @SerialName("total_results")
-    val totalResults: Int? = 0
+    val totalResults: Int? = 0,
 ) {
     @Serializable
     data class Result(
@@ -47,6 +47,34 @@ data class DiscoverMovieResponse(
         @SerialName("vote_average")
         val voteAverage: Double? = 0.0,
         @SerialName("vote_count")
-        val voteCount: Int? = 0
+        val voteCount: Int? = 0,
+    )
+}
+
+fun DiscoverMovieResponse.asExternalModel(): MovieListBean {
+    return MovieListBean(
+        page = page ?: 1,
+        results = results?.map { it.asExternalModel() } ?: listOf(),
+        totalPages = totalPages ?: 0,
+        totalResults = totalResults ?: 0,
+    )
+}
+
+fun DiscoverMovieResponse.Result.asExternalModel(): MovieListBean.Result {
+    return MovieListBean.Result(
+        adult = adult ?: false,
+        backdropPath = backdropPath ?: "",
+        genreIds = genreIds ?: listOf(),
+        id = id ?: 0,
+        originalLanguage = originalLanguage ?: "",
+        originalTitle = originalTitle ?: "",
+        overview = overview ?: "",
+        popularity = popularity ?: 0.0,
+        posterPath = posterPath ?: "",
+        releaseDate = releaseDate ?: "",
+        title = title ?: "",
+        video = video ?: false,
+        voteAverage = voteAverage ?: 0.0,
+        voteCount = voteCount ?: 0,
     )
 }

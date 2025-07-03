@@ -2,9 +2,9 @@ package com.shang.network.retrofit
 
 import com.shang.model.ConfigurationBean
 import com.shang.model.MovieGenreBean
+import com.shang.model.MovieListBean
 import com.shang.network.extension.mapData
 import com.shang.network.extension.safeApiCall
-import com.shang.network.model.DiscoverMovieResponse
 import com.shang.network.model.NetworkResponse
 import com.shang.network.model.asExternalModel
 import javax.inject.Inject
@@ -28,11 +28,11 @@ class MovieDataSourceImp @Inject constructor(private val _movieApiService: Movie
         }
     }
 
-    override suspend fun getDiscoverMovie(withGenres: String, page: Int): NetworkResponse<DiscoverMovieResponse> {
+    override suspend fun getDiscoverMovie(withGenres: String, page: Int): NetworkResponse<MovieListBean> {
         return safeApiCall {
             _movieApiService.getDiscoverMovie(withGenres, page)
         }.mapData { response ->
-            response
+            response.asExternalModel()
         }
     }
 }

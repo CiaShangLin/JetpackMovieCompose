@@ -2,6 +2,7 @@ package com.shang.network.retrofit
 
 import com.shang.model.ConfigurationBean
 import com.shang.model.MovieGenreBean
+import com.shang.model.MovieListBean
 import com.shang.network.model.NetworkResponse
 
 interface MovieDataSource {
@@ -23,5 +24,5 @@ interface MovieDataSource {
      * @param page 分頁
      * @return 電影列表
      */
-    suspend fun getDiscoverMovie(withGenres: String, page: Int): NetworkResponse<String>
+    suspend fun getDiscoverMovie(withGenres: String, page: Int): NetworkResponse<MovieListBean>
 }
