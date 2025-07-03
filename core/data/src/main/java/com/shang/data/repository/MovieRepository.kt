@@ -4,6 +4,7 @@ import com.shang.common.UiState
 import com.shang.model.ConfigurationBean
 import com.shang.model.MovieBean
 import com.shang.model.MovieGenreBean
+import com.shang.model.MovieListBean
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
@@ -14,7 +15,7 @@ interface MovieRepository {
 
     fun getDatabaseMovies(): Flow<List<MovieBean>>
 
-    fun getDiscoverMovie(withGenres: String, page: Int): Flow<UiState<String>>
+    fun getDiscoverMovie(withGenres: String, page: Int): Flow<UiState<MovieListBean>>
 
     suspend fun insertMovie(movie: MovieBean)
 }

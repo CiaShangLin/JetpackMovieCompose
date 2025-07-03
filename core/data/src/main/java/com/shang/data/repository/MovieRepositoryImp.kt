@@ -7,6 +7,7 @@ import com.shang.database.entity.asExtendedModel
 import com.shang.model.ConfigurationBean
 import com.shang.model.MovieBean
 import com.shang.model.MovieGenreBean
+import com.shang.model.MovieListBean
 import com.shang.network.retrofit.MovieDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -50,7 +51,7 @@ class MovieRepositoryImp @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-    override fun getDiscoverMovie(withGenres: String, page: Int): Flow<UiState<String>> {
+    override fun getDiscoverMovie(withGenres: String, page: Int): Flow<UiState<MovieListBean>> {
         return flow {
             emit(UiState.Loading)
             val response = movieDataSource.getDiscoverMovie(withGenres, page)
