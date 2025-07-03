@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.stringResource
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -31,13 +32,24 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val splashScreen = installSplashScreen()
         enableEdgeToEdge()
         setContent {
+            val configuration = viewModel.configuration.collectAsState()
+            splashScreen.setKeepOnScreenCondition {
+                configuration.value is MainUiState.Loading
+            }
             val navController = rememberNavController()
             JetpackMovieComposeTheme {
-                MainScreen(navController, viewModel)
+                MainScreen()
             }
         }
+    }
+}
+
+@Composable
+fun MainScreen() {
+    JMBackground {
     }
 }
 
@@ -47,12 +59,7 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
         .collectAsState(
             initial = navController.currentDestination?.route ?: MainNavItem.HOME.route,
         ).value
-//
-//    val movieGenreBean = viewModel.data.collectAsStateWithLifecycle()
 
-//    LaunchedEffect(Unit) {
-//        Log.d("DEBUG", "$movieGenreBean")
-//    }
     JMBackground() {
         JMNavigationSuiteScaffold(
             navigationSuiteItems = {
