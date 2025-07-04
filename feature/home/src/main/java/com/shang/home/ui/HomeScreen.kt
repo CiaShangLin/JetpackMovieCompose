@@ -10,6 +10,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -18,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.shang.designsystem.component.JMScrollableTabRow
@@ -29,7 +29,7 @@ import com.shang.model.MovieGenreBean
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
-    val movieGenresState by viewModel.movieGenres.collectAsStateWithLifecycle()
+    val movieGenresState by viewModel.movieGenres.collectAsState()
 
     when (val state = movieGenresState) {
         is HomeUiState.Loading -> HomeLoadingScreen()
@@ -103,7 +103,7 @@ fun HomeScreenPager(
 ) {
     val movieList = viewModel.movieList.collectAsLazyPagingItems()
 
-    LazyColumn {
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(movieList.itemCount) {
             Text("Movie Item: ${movieList[it]?.title ?: "Loading..."}")
         }
