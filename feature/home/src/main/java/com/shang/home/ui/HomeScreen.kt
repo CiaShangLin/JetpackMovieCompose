@@ -1,10 +1,13 @@
 package com.shang.home.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Text
@@ -18,12 +21,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.shang.designsystem.component.JMScrollableTabRow
 import com.shang.designsystem.component.JMTab
 import com.shang.model.MovieGenreBean
+import com.shang.ui.MovieCard
 
 @Composable
 fun HomeScreen(
@@ -103,9 +108,25 @@ fun HomeScreenPager(
 ) {
     val movieList = viewModel.movieList.collectAsLazyPagingItems()
 
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
+//    LazyColumn(modifier = Modifier.fillMaxSize()) {
+//        items(movieList.itemCount) {
+//            Text("Movie Item: ${movieList[it]?.title ?: "Loading..."}")
+//        }
+//    }
+
+    LazyVerticalGrid(
+        modifier = Modifier.fillMaxSize(),
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(8.dp), // 外部間距
+        verticalArrangement = Arrangement.spacedBy(8.dp), // 垂直間距
+        horizontalArrangement = Arrangement.spacedBy(8.dp), // 水平間距
+    ) {
         items(movieList.itemCount) {
-            Text("Movie Item: ${movieList[it]?.title ?: "Loading..."}")
+            MovieCard(
+                modifier = Modifier,
+                data = movieList[it]!!,
+            )
+//            Text("Movie Item: ${movieList[it]?.title ?: "Loading..."} $it")
         }
     }
 }
