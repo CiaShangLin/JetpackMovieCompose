@@ -15,13 +15,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.shang.designsystem.component.JMScrollableTabRow
 import com.shang.designsystem.component.JMTab
 import com.shang.home.ui.HomeUiState
 import com.shang.model.MovieGenreBean
-import kotlin.text.get
 
 @Composable
 fun HomeScreen(
@@ -31,7 +31,7 @@ fun HomeScreen(
 
     when (val state = movieGenresState) {
         is HomeUiState.Loading -> HomeLoadingScreen()
-        is HomeUiState.Success -> HomeContent(state.movieGenres)
+        is HomeUiState.Success -> HomeSuccessScreen(state.movieGenres)
         is HomeUiState.Error -> HomeErrorScreen()
     }
 }
@@ -51,7 +51,7 @@ fun HomeErrorScreen() {
 }
 
 @Composable
-fun HomeContent(movieGenres: MovieGenreBean) {
+fun HomeSuccessScreen(movieGenres: MovieGenreBean) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     val pageState = rememberPagerState(
@@ -85,12 +85,30 @@ fun HomeContent(movieGenres: MovieGenreBean) {
             state = pageState,
             modifier = Modifier.fillMaxSize(),
         ) { page ->
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text("Content for ${movieGenres.genres[page].name} $page")
-            }
+            HomeScreenPager(page=page,movieGenres.genres[page])
         }
     }
+}
+
+@Composable
+fun HomeScreenPager(page: Int, genre: MovieGenreBean.MovieGenre){
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text("Content for ${genre.name} $page")
+    }
+}
+
+@Preview
+@Composable
+fun HomeScreenPreview() {
+    val mockGenres = MovieGenreBean(
+        genres = listOf(
+            MovieGenreBean.MovieGenre(id = 1, name = "Action"),
+            MovieGenreBean.MovieGenre(id = 2, name = "Comedy"),
+            MovieGenreBean.MovieGenre(id = 3, name = "Drama"),
+        )
+    )
+    HomeSuccessScreen(mockGenres)
 }
