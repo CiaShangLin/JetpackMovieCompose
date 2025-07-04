@@ -1,4 +1,5 @@
 import deps.androidx
+import deps.modelModule
 import deps.testDeps
 import deps.testImplDeps
 import plugs.SharedLibraryGradlePlugin
@@ -16,6 +17,7 @@ android {
 
 dependencies {
     androidx()
+    modelModule()
     testDeps()
     testImplDeps()
 }
