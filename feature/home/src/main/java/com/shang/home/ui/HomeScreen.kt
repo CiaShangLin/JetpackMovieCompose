@@ -9,6 +9,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.shang.designsystem.component.JMScrollableTabRow
 import com.shang.designsystem.component.JMTab
 import com.shang.model.MovieGenreBean
@@ -90,12 +92,21 @@ fun HomeSuccessScreen(movieGenres: MovieGenreBean) {
 }
 
 @Composable
-fun HomeScreenPager(page: Int, genre: MovieGenreBean.MovieGenre) {
+fun HomeScreenPager(
+    page: Int,
+    genre: MovieGenreBean.MovieGenre,
+    viewModel: HomeContentViewModel = hiltViewModel(),
+) {
+    val id by viewModel.movieGenres.collectAsState()
+    LaunchedEffect(genre) {
+        viewModel.setMovieGenre(genre)
+    }
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
-        Text("Content for ${genre.name} $page")
+        // Text("Content for  $page")
+        Text("Content for  $page $id")
     }
 }
 
