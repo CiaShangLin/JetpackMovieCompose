@@ -4,12 +4,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.shang.designsystem.component.JMScrollableTabRow
 import com.shang.designsystem.component.JMTab
 import com.shang.model.MovieGenreBean
@@ -95,18 +96,17 @@ fun HomeSuccessScreen(movieGenres: MovieGenreBean) {
 fun HomeScreenPager(
     page: Int,
     genre: MovieGenreBean.MovieGenre,
-    viewModel: HomeContentViewModel = hiltViewModel(),
+    viewModel: HomeContentViewModel = hiltViewModel<HomeContentViewModel, HomeContentViewModel.Factory>(
+        key = "HomeContentViewModel_${page}_${genre.id}",
+        creationCallback = { factory -> factory.create(genre) },
+    ),
 ) {
-    val id by viewModel.movieGenres.collectAsState()
-    LaunchedEffect(genre) {
-        viewModel.setMovieGenre(genre)
-    }
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        // Text("Content for  $page")
-        Text("Content for  $page $id")
+    val movieList = viewModel.movieList.collectAsLazyPagingItems()
+
+    LazyColumn {
+        items(movieList.itemCount) {
+            Text("Movie Item: ${movieList[it]?.title ?: "Loading..."}")
+        }
     }
 }
 
