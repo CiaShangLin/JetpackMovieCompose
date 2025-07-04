@@ -80,4 +80,11 @@ object Dependencies {
     //Paging
     const val pagingRuntime = "androidx.paging:paging-runtime:${DependenciesVersions.PAGING}"
     const val pagingCompose = "androidx.paging:paging-compose:${DependenciesVersions.PAGING}"
+
+    // Coil
+    const val coil = "io.coil-kt.coil3:coil-compose:${DependenciesVersions.COIL}"
+    const val coilNetwork = "io.coil-kt.coil3:coil-network-okhttp:${DependenciesVersions.COIL}"
+
+
+
 }

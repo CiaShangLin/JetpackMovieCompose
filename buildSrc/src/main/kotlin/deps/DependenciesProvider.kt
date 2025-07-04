@@ -46,6 +46,8 @@ fun DependencyHandler.androidx() {
     implementation(Dependencies.workKtx)
     implementation(Dependencies.pagingRuntime)
     implementation(Dependencies.pagingCompose)
+    implementation(Dependencies.coil)
+    implementation(Dependencies.coilNetwork)
     implementationPlatform(Dependencies.COMPOSE_BOM)
     implementation(Dependencies.COMPOSE_FOUNDATION)
     implementation(Dependencies.COMPOSE_UI)
