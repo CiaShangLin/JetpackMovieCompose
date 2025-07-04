@@ -8,6 +8,7 @@ import deps.kotlinx
 import deps.modelModule
 import deps.testDeps
 import deps.testImplDeps
+import deps.uiModule
 import plugs.SharedLibraryGradlePlugin
 
 plugins {
@@ -31,6 +32,7 @@ dependencies {
     commonModule()
     dataModule()
     domainModule()
+    uiModule()
 
     testDeps()
     testImplDeps()
