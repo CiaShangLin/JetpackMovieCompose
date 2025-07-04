@@ -1,10 +1,9 @@
-package com.shang.home
+package com.shang.home.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shang.data.repository.MovieRepository
 import com.shang.data.repository.UserDataRepository
-import com.shang.home.ui.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -30,7 +29,7 @@ class HomeViewModel @Inject constructor(
         }
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
+            started = SharingStarted.Companion.WhileSubscribed(5000),
             initialValue = HomeUiState.Loading,
         )
 

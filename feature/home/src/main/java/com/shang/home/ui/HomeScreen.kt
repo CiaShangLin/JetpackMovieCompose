@@ -1,4 +1,4 @@
-package com.shang.home
+package com.shang.home.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,7 +20,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.shang.designsystem.component.JMScrollableTabRow
 import com.shang.designsystem.component.JMTab
-import com.shang.home.ui.HomeUiState
 import com.shang.model.MovieGenreBean
 
 @Composable
@@ -85,13 +84,13 @@ fun HomeSuccessScreen(movieGenres: MovieGenreBean) {
             state = pageState,
             modifier = Modifier.fillMaxSize(),
         ) { page ->
-            HomeScreenPager(page=page,movieGenres.genres[page])
+            HomeScreenPager(page = page, movieGenres.genres[page])
         }
     }
 }
 
 @Composable
-fun HomeScreenPager(page: Int, genre: MovieGenreBean.MovieGenre){
+fun HomeScreenPager(page: Int, genre: MovieGenreBean.MovieGenre) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
@@ -108,7 +107,7 @@ fun HomeScreenPreview() {
             MovieGenreBean.MovieGenre(id = 1, name = "Action"),
             MovieGenreBean.MovieGenre(id = 2, name = "Comedy"),
             MovieGenreBean.MovieGenre(id = 3, name = "Drama"),
-        )
+        ),
     )
     HomeSuccessScreen(mockGenres)
 }

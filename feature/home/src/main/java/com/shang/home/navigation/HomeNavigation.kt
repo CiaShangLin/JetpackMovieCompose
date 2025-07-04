@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.shang.home.HomeScreen
+import com.shang.home.ui.HomeScreen
 
 const val HOME_ROUTE = "home_route"
 
