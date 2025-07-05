@@ -1,4 +1,5 @@
 import deps.androidx
+import deps.dataModule
 import deps.hilt
 import deps.modelModule
 import deps.testDeps
@@ -19,6 +20,7 @@ android {
 dependencies {
     androidx()
     hilt()
+    dataModule()
     modelModule()
     testDeps()
     testImplDeps()
