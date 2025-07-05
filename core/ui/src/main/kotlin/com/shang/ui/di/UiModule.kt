@@ -3,6 +3,8 @@ package com.shang.ui.di
 import android.content.Context
 import coil3.ImageLoader
 import coil3.request.crossfade
+import com.shang.data.repository.UserDataRepository
+import com.shang.ui.coil.HostInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,8 +18,17 @@ object UiModule {
 
     @Provides
     @Singleton
-    fun provideImageLoaderFactory(@ApplicationContext context: Context): ImageLoader {
+    fun provideHostInterceptor(userDataRepository: UserDataRepository): HostInterceptor {
+        return HostInterceptor(userDataRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideImageLoaderFactory(@ApplicationContext context: Context, hostInterceptor: HostInterceptor): ImageLoader {
         return ImageLoader.Builder(context)
+            .components {
+                add(hostInterceptor)
+            }
             .crossfade(true)
             .build()
     }
