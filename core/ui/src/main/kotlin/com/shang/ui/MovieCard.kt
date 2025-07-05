@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
@@ -26,9 +26,9 @@ fun MovieCard(
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .clip(MaterialTheme.shapes.medium) // 先裁切，這樣背景和邊框都會被裁切
             .background(
-                color = MaterialTheme.colorScheme.secondaryContainer, // 使用 secondaryContainer 提升層次感
-                shape = MaterialTheme.shapes.medium, // 建議使用主題 shape，提升一致性
+                color = MaterialTheme.colorScheme.secondaryContainer,
             )
             .border(
                 width = 1.dp,
@@ -36,7 +36,7 @@ fun MovieCard(
                 shape = MaterialTheme.shapes.medium,
             ),
     ) {
-        MovieCover(model = DEMO_URL)
+        MovieCover(model = data.posterPath)
     }
 }
 
@@ -47,9 +47,8 @@ fun MovieCover(model: Any) {
         contentDescription = null,
         modifier = Modifier
             .fillMaxSize() // 圖片拉滿父容器
-            .aspectRatio(3f / 4f)
-            .background(Color.Red),
-        contentScale = ContentScale.Fit, // 裁切填滿
+            .aspectRatio(3f / 4f),
+        contentScale = ContentScale.FillBounds,
     )
 }
 
