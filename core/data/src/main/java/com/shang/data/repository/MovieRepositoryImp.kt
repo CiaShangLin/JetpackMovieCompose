@@ -3,7 +3,7 @@ package com.shang.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.shang.common.UiState
+import androidx.paging.map
 import com.shang.data.model.asEntity
 import com.shang.data.paging.MovieGenrePagingSource
 import com.shang.database.dao.MovieCollectDao
@@ -13,8 +13,10 @@ import com.shang.model.MovieListBean
 import com.shang.network.retrofit.MovieDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MovieRepositoryImp @Inject constructor(
@@ -45,24 +47,6 @@ class MovieRepositoryImp @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-//    override fun getDatabaseMovies(): Flow<List<MovieBean>> {
-//        return flow {
-//            emit(movieDao.getAllMovies().map { it.asExtendedModel() })
-//        }.flowOn(ioDispatcher)
-//    }
-
-    override fun getDiscoverMovie(withGenres: String, page: Int): Flow<UiState<MovieListBean>> {
-        return flow {
-            emit(UiState.Loading)
-            val response = movieDataSource.getDiscoverMovie(withGenres, page)
-            if (response.isSuccess && response.data != null) {
-                emit(UiState.Success(response.data!!))
-            } else {
-                emit(UiState.Error(Exception(response.error)))
-            }
-        }.flowOn(ioDispatcher)
-    }
-
     override fun getMovieGenrePager(withGenres: String): Flow<PagingData<MovieListBean.Result>> {
         return Pager(
             config = PagingConfig(
@@ -78,12 +62,24 @@ class MovieRepositoryImp @Inject constructor(
             .flowOn(ioDispatcher)
     }
 
-    override fun collectedMovieIds(): Flow<List<Int>> {
-        return movieDao.collectedMovieIds()
+    override fun getMovieListPager(withGenres: String): Flow<PagingData<MovieListBean.Result>> {
+        val collectIdsFlow = movieDao.collectedMovieIds()
+            .map { it.toSet() }
+            .flowOn(ioDispatcher)
+        return getMovieGenrePager(withGenres)
+            .combine(collectIdsFlow) { pagingData, collectIds ->
+                pagingData.map { movie ->
+                    movie.copy(isCollect = collectIds.contains(movie.id))
+                }
+            }
             .flowOn(ioDispatcher)
     }
 
     override suspend fun insertMovie(movie: MovieListBean.Result) {
         movieDao.insertMovie(movie.asEntity())
+    }
+
+    override suspend fun deleteMovie(movie: MovieListBean.Result) {
+        movieDao.deleteMovie(movie.asEntity())
     }
 }
