@@ -23,5 +23,7 @@ data class MovieListBean(
         val voteCount: Int = 0,
         // 是否收藏
         var isCollect: Boolean = false,
+        // 收藏時間戳
+        val timestamp: Long = 0L,
     )
 }

@@ -24,7 +24,7 @@ data class MovieCollectEntity(
     val releaseDate: String,
 
     @ColumnInfo(name = "timestamp")
-    val timestamp: Int,
+    val timestamp: Long,
 )
 
 fun MovieCollectEntity.asExtendedModel(): MovieListBean.Result {
@@ -34,5 +34,7 @@ fun MovieCollectEntity.asExtendedModel(): MovieListBean.Result {
         posterPath = posterPath,
         voteAverage = voteAverage,
         releaseDate = releaseDate,
+        timestamp = timestamp,
+        isCollect = true,
     )
 }

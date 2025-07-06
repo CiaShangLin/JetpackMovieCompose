@@ -10,6 +10,6 @@ fun MovieListBean.Result.asEntity(): MovieCollectEntity {
         posterPath = posterPath,
         voteAverage = voteAverage,
         releaseDate = releaseDate,
-        timestamp = 0,
+        timestamp = System.currentTimeMillis(),
     )
 }
