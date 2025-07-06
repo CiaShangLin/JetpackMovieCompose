@@ -21,7 +21,7 @@ data class MovieListBean(
         val video: Boolean = false,
         val voteAverage: Double = 0.0,
         val voteCount: Int = 0,
-        //是否收藏
+        // 是否收藏
         var isCollect: Boolean = false,
     )
 }
