@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.shang.model.MovieBean
 
-@Entity(tableName = "MovieEntity")
-data class MovieEntity(
+@Entity(tableName = "MovieCollectEntity")
+data class MovieCollectEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int,
@@ -27,7 +27,7 @@ data class MovieEntity(
     val timestamp: Int,
 )
 
-fun MovieEntity.asExtendedModel(): MovieBean {
+fun MovieCollectEntity.asExtendedModel(): MovieBean {
     return MovieBean(
         id = id,
         title = title,

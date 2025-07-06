@@ -2,7 +2,8 @@ package com.shang.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.shang.database.dao.MovieDao
+import com.shang.database.dao.MovieCollectDao
+import com.shang.database.dao.MovieHistoryDao
 import com.shang.database.room.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -29,7 +30,13 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideMovieDao(database: AppDatabase): MovieDao {
-        return database.createMovieDao()
+    fun provideMovieCollectDao(database: AppDatabase): MovieCollectDao {
+        return database.createMovieCollectDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieHistoryDao(database: AppDatabase): MovieHistoryDao {
+        return database.createMovieHistoryDao()
     }
 }
