@@ -120,23 +120,22 @@ fun MovieReleaseTitle(releaseDate: String) {
 fun MovieRating(modifier: Modifier) {
     Row(
         modifier = modifier
-            .background(MaterialTheme.colorScheme.onSurface, shape = MaterialTheme.shapes.medium)
+            .background(MaterialTheme.colorScheme.secondaryContainer, shape = MaterialTheme.shapes.medium)
             .padding(horizontal = 8.dp, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = Icons.Rounded.Star,
             contentDescription = "Rating",
-            modifier = Modifier
-                .size(16.dp),
-            tint = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier.size(16.dp),
+            tint = MaterialTheme.colorScheme.onSecondaryContainer,
         )
         Spacer(modifier = Modifier.size(4.dp))
         Text(
             "8.7",
             modifier = Modifier.padding(end = 4.dp),
             style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
         )
     }
 }
