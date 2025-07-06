@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class MovieRepositoryImp @Inject constructor(
     private val movieDataSource: MovieDataSource,
-    private val movieDao: MovieCollectDao,
+    private val movieCollectDao: MovieCollectDao,
     private val ioDispatcher: CoroutineDispatcher,
 ) : MovieRepository {
 
@@ -44,7 +44,7 @@ class MovieRepositoryImp @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-    override fun getMovieGenrePager(withGenres: String): Flow<PagingData<MovieListBean.Result>> {
+    override fun getMovieListPager(withGenres: String): Flow<PagingData<MovieListBean.Result>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 20,
@@ -60,14 +60,14 @@ class MovieRepositoryImp @Inject constructor(
     }
 
     override fun getCollectedMovieIds(): Flow<List<Int>> {
-        return movieDao.collectedMovieIds().flowOn(ioDispatcher)
+        return movieCollectDao.collectedMovieIds().flowOn(ioDispatcher)
     }
 
-    override suspend fun insertMovie(movie: MovieListBean.Result) {
-        movieDao.insertMovie(movie.asEntity())
+    override suspend fun insertMovie(movieResult: MovieListBean.Result) {
+        movieCollectDao.insertMovieCollect(movieResult.asEntity())
     }
 
-    override suspend fun deleteMovie(movie: MovieListBean.Result) {
-        movieDao.deleteMovie(movie.asEntity())
+    override suspend fun deleteMovie(movieResult: MovieListBean.Result) {
+        movieCollectDao.deleteMovie(movieResult.asEntity())
     }
 }

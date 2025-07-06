@@ -41,7 +41,7 @@ class GetHomeMovieListUseCase @Inject constructor(
      */
     operator fun invoke(withGenres: String, viewModelScope: CoroutineScope): Flow<PagingData<MovieListBean.Result>> {
         // 不需要 cachedIn，讓調用方決定
-        val pagerFlow = movieRepository.getMovieGenrePager(withGenres)
+        val pagerFlow = movieRepository.getMovieListPager(withGenres)
             .flowOn(ioDispatcher)
             .cachedIn(viewModelScope)
 

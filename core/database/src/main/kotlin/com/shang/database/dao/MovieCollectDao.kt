@@ -15,10 +15,10 @@ interface MovieCollectDao {
     suspend fun getAllMovies(): List<MovieCollectEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovie(movie: MovieCollectEntity)
+    suspend fun insertMovieCollect(entity: MovieCollectEntity)
 
     @Delete
-    suspend fun deleteMovie(movie: MovieCollectEntity)
+    suspend fun deleteMovie(entity: MovieCollectEntity)
 
     /**
      * 取得所有已收藏電影的 id

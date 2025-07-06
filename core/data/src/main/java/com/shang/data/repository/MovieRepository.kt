@@ -12,11 +12,12 @@ interface MovieRepository {
 
     fun getMovieGenres(): Flow<Result<MovieGenreBean>>
 
-    fun getMovieGenrePager(withGenres: String): Flow<PagingData<MovieListBean.Result>>
+    fun getMovieListPager(withGenres: String): Flow<PagingData<MovieListBean.Result>>
 
-    suspend fun insertMovie(movie: MovieListBean.Result)
+    // MovieCollectDao
+    suspend fun insertMovie(movieResult: MovieListBean.Result)
 
-    suspend fun deleteMovie(movie: MovieListBean.Result)
+    suspend fun deleteMovie(movieResult: MovieListBean.Result)
 
     fun getCollectedMovieIds(): Flow<List<Int>>
 }
