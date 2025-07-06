@@ -1,12 +1,14 @@
 package com.shang.domain.usecase
 
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import androidx.paging.map
 import com.shang.common.di.CommonDispatcher
 import com.shang.common.di.Dispatcher
 import com.shang.data.repository.MovieRepository
 import com.shang.model.MovieListBean
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
@@ -38,13 +40,14 @@ class GetHomeMovieListUseCase @Inject constructor(
      * - 只在 IO 執行緒執行耗時操作
      * - 收藏狀態變動時自動觸發 UI 刷新
      */
-    operator fun invoke(withGenres: String): Flow<PagingData<MovieListBean.Result>> {
+    operator fun invoke(withGenres: String, coroutineScope: CoroutineScope): Flow<PagingData<MovieListBean.Result>> {
         // 取得分頁資料 Flow
         val pagerFlow = movieRepository.getMovieGenrePager(withGenres)
             .flowOn(ioDispatcher)
+            .cachedIn(coroutineScope)
 
         // 取得收藏電影 id 集合，轉為 Set 提升查詢效率
-        val collectIdsFlow = movieRepository.collectedMovieIds()
+        val collectIdsFlow = movieRepository.getCollectedMovieIds()
             .map { it.toSet() } // 轉為 Set，contains 查詢從 O(n) 優化為 O(1)
             .flowOn(ioDispatcher)
 
@@ -52,7 +55,6 @@ class GetHomeMovieListUseCase @Inject constructor(
         return pagerFlow
             .combine(collectIdsFlow) { pagingData, collectIds ->
                 pagingData.map { movie ->
-                    // 直接使用 movie.id，移除不必要的 toString() 轉換
                     movie.copy(isCollect = collectIds.contains(movie.id))
                 }
             }

@@ -2,7 +2,6 @@ package com.shang.home.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import com.shang.data.repository.MovieRepository
 import com.shang.domain.usecase.GetHomeMovieListUseCase
 import com.shang.model.MovieGenreBean
@@ -16,7 +15,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel(assistedFactory = HomeContentViewModel.Factory::class)
 class HomeContentViewModel @AssistedInject constructor(
     private val movieRepository: MovieRepository,
-    private val getMovieGenreUseCase: GetHomeMovieListUseCase,
+    getMovieGenreUseCase: GetHomeMovieListUseCase,
     @Assisted val movieGenre: MovieGenreBean.MovieGenre,
 ) : ViewModel() {
 
@@ -25,15 +24,16 @@ class HomeContentViewModel @AssistedInject constructor(
         fun create(movieGenre: MovieGenreBean.MovieGenre): HomeContentViewModel
     }
 
-//    val movieList: Flow<PagingData<MovieListBean.Result>> = movieRepository.getMovieGenrePager(movieGenre.id.toString())
-//        .cachedIn(viewModelScope)
-
-    val movieList = getMovieGenreUseCase(movieGenre.id.toString())
-        .cachedIn(viewModelScope)
+    val movieList =
+        getMovieGenreUseCase(movieGenre.id.toString(), coroutineScope = viewModelScope)
 
     fun insertMovie(movie: MovieListBean.Result) {
         viewModelScope.launch {
-            movieRepository.insertMovie(movie)
+            if (movie.isCollect) {
+                movieRepository.deleteMovie(movie)
+            } else {
+                movieRepository.insertMovie(movie)
+            }
         }
     }
 }

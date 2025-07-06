@@ -3,7 +3,6 @@ package com.shang.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.map
 import com.shang.data.model.asEntity
 import com.shang.data.paging.MovieGenrePagingSource
 import com.shang.database.dao.MovieCollectDao
@@ -13,10 +12,8 @@ import com.shang.model.MovieListBean
 import com.shang.network.retrofit.MovieDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MovieRepositoryImp @Inject constructor(
@@ -62,17 +59,8 @@ class MovieRepositoryImp @Inject constructor(
             .flowOn(ioDispatcher)
     }
 
-    override fun getMovieListPager(withGenres: String): Flow<PagingData<MovieListBean.Result>> {
-        val collectIdsFlow = movieDao.collectedMovieIds()
-            .map { it.toSet() }
-            .flowOn(ioDispatcher)
-        return getMovieGenrePager(withGenres)
-            .combine(collectIdsFlow) { pagingData, collectIds ->
-                pagingData.map { movie ->
-                    movie.copy(isCollect = collectIds.contains(movie.id))
-                }
-            }
-            .flowOn(ioDispatcher)
+    override fun getCollectedMovieIds(): Flow<List<Int>> {
+        return movieDao.collectedMovieIds().flowOn(ioDispatcher)
     }
 
     override suspend fun insertMovie(movie: MovieListBean.Result) {
