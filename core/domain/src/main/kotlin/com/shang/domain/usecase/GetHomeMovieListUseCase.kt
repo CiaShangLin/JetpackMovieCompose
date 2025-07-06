@@ -18,11 +18,14 @@ import javax.inject.Inject
 /**
  * 取得首頁電影清單 UseCase
  *
- * 功能特色：
- * - 收藏狀態異動時自動刷新 UI
- * - 使用 Set 結構提升收藏狀態查詢效率
- * - 完整錯誤處理機制
- * - 符合 Clean Architecture 原則
+ * 1. 從 [MovieRepository] 取得指定類型的電影分頁資料流
+ * 2. 取得已收藏電影 id 清單，並標記每部電影的收藏狀態
+ * 3. 支援依賴注入與 IO Dispatcher 切換，確保效能與可測試性
+ *
+ * @param movieRepository 電影資料來源 Repository
+ * @param ioDispatcher 執行 IO 操作的協程 Dispatcher
+ *
+ * @constructor 由 DI 框架注入依賴
  */
 class GetHomeMovieListUseCase @Inject constructor(
     private val movieRepository: MovieRepository,
@@ -30,28 +33,24 @@ class GetHomeMovieListUseCase @Inject constructor(
 ) {
 
     /**
-     * 取得帶有即時收藏狀態的電影分頁資料
+     * 取得首頁電影分頁資料流，並標記每部電影是否已收藏
      *
-     * @param withGenres 指定要查詢的電影類型
-     * @return Flow<PagingData<MovieListBean.Result>> 每筆資料帶有即時收藏狀態
-     *
-     * 效能優化：
-     * - 使用 Set 進行 O(1) 查詢效率
-     * - 只在 IO 執行緒執行耗時操作
-     * - 收藏狀態變動時自動觸發 UI 刷新
+     * @param withGenres 指定查詢的電影類型 id 字串
+     * @param viewModelScope 提供 cachedIn 的 CoroutineScope，交由呼叫端決定生命週期
+     * @return Flow<PagingData<MovieListBean.Result>> 分頁資料流，已標記 isCollect 狀態
      */
-    operator fun invoke(withGenres: String, coroutineScope: CoroutineScope): Flow<PagingData<MovieListBean.Result>> {
-        // 取得分頁資料 Flow
+    operator fun invoke(withGenres: String, viewModelScope: CoroutineScope): Flow<PagingData<MovieListBean.Result>> {
+        // 不需要 cachedIn，讓調用方決定
         val pagerFlow = movieRepository.getMovieGenrePager(withGenres)
             .flowOn(ioDispatcher)
-            .cachedIn(coroutineScope)
+            .cachedIn(viewModelScope)
 
-        // 取得收藏電影 id 集合，轉為 Set 提升查詢效率
+        // 取得已收藏電影 id 清單，轉為 Set 以提升 contains 查詢效能
         val collectIdsFlow = movieRepository.getCollectedMovieIds()
-            .map { it.toSet() } // 轉為 Set，contains 查詢從 O(n) 優化為 O(1)
+            .map { it.toSet() }
             .flowOn(ioDispatcher)
 
-        // combine 兩個 Flow，確保收藏狀態異動時自動刷新
+        // 合併分頁資料與收藏 id，標記每部電影的 isCollect 狀態
         return pagerFlow
             .combine(collectIdsFlow) { pagingData, collectIds ->
                 pagingData.map { movie ->

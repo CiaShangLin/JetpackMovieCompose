@@ -25,7 +25,7 @@ class HomeContentViewModel @AssistedInject constructor(
     }
 
     val movieList =
-        getMovieGenreUseCase(movieGenre.id.toString(), coroutineScope = viewModelScope)
+        getMovieGenreUseCase(movieGenre.id.toString(), viewModelScope)
 
     fun insertMovie(movie: MovieListBean.Result) {
         viewModelScope.launch {
