@@ -18,10 +18,10 @@ fun CollectScreen(viewModel: CollectViewModel = hiltViewModel()) {
     val allMovieCollect by viewModel.allMovieCollect.collectAsStateWithLifecycle()
     Text("Collect Screen : $allMovieCollect", style = TextStyle(color = MaterialTheme.colorScheme.error))
 
-    when (allMovieCollect) {
-        is CollectUiState.Error -> TODO()
-        CollectUiState.Loading -> TODO()
-        is CollectUiState.Success -> TODO()
+    when (val result = allMovieCollect) {
+        is CollectUiState.Error -> CollectErrorScreen(message = "")
+        CollectUiState.Loading -> CollectLoadingScreen()
+        is CollectUiState.Success -> CollectSuccessScreen(result.movieCollectList)
     }
 }
 
