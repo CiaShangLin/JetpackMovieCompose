@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import com.shang.common.UiState
 import com.shang.data.model.asEntity
 import com.shang.data.paging.MovieGenrePagingSource
-import com.shang.database.dao.MovieDao
+import com.shang.database.dao.MovieCollectDao
 import com.shang.database.entity.asExtendedModel
 import com.shang.model.ConfigurationBean
 import com.shang.model.MovieBean
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 class MovieRepositoryImp @Inject constructor(
     private val movieDataSource: MovieDataSource,
-    private val movieDao: MovieDao,
+    private val movieDao: MovieCollectDao,
     private val ioDispatcher: CoroutineDispatcher,
 ) : MovieRepository {
 
