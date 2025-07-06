@@ -1,6 +1,7 @@
 package com.shang.database.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -15,6 +16,9 @@ interface MovieCollectDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovie(movie: MovieCollectEntity)
+
+    @Delete
+    suspend fun deleteMovie(movie: MovieCollectEntity)
 
     /**
      * 取得所有已收藏電影的 id
