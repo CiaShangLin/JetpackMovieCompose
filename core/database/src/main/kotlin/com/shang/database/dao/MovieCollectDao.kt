@@ -27,4 +27,11 @@ interface MovieCollectDao {
      */
     @Query("SELECT id FROM MovieCollectEntity")
     fun collectedMovieIds(): Flow<List<Int>>
+
+    /**
+     * 透過 id 查詢單一電影收藏實體
+     * 返回值為 nullable，若無資料則返回 null
+     */
+    @Query("SELECT * FROM MovieCollectEntity WHERE id = :id")
+    fun getMovieCollectEntityById(id: Int): MovieCollectEntity?
 }
