@@ -7,9 +7,7 @@ import com.shang.common.UiState
 import com.shang.data.model.asEntity
 import com.shang.data.paging.MovieGenrePagingSource
 import com.shang.database.dao.MovieCollectDao
-import com.shang.database.entity.asExtendedModel
 import com.shang.model.ConfigurationBean
-import com.shang.model.MovieBean
 import com.shang.model.MovieGenreBean
 import com.shang.model.MovieListBean
 import com.shang.network.retrofit.MovieDataSource
@@ -47,11 +45,11 @@ class MovieRepositoryImp @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-    override fun getDatabaseMovies(): Flow<List<MovieBean>> {
-        return flow {
-            emit(movieDao.getAllMovies().map { it.asExtendedModel() })
-        }.flowOn(ioDispatcher)
-    }
+//    override fun getDatabaseMovies(): Flow<List<MovieBean>> {
+//        return flow {
+//            emit(movieDao.getAllMovies().map { it.asExtendedModel() })
+//        }.flowOn(ioDispatcher)
+//    }
 
     override fun getDiscoverMovie(withGenres: String, page: Int): Flow<UiState<MovieListBean>> {
         return flow {
@@ -80,7 +78,12 @@ class MovieRepositoryImp @Inject constructor(
             .flowOn(ioDispatcher)
     }
 
-    override suspend fun insertMovie(movie: MovieBean) {
+    override fun collectedMovieIds(): Flow<List<Int>> {
+        return movieDao.collectedMovieIds()
+            .flowOn(ioDispatcher)
+    }
+
+    override suspend fun insertMovie(movie: MovieListBean.Result) {
         movieDao.insertMovie(movie.asEntity())
     }
 }
