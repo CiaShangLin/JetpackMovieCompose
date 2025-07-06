@@ -23,8 +23,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil3.request.ImageRequest
+import coil3.request.error
+import coil3.request.placeholder
 import com.shang.designsystem.component.JMAsyncImage
 import com.shang.model.MovieListBean
 
@@ -35,6 +39,8 @@ const val DEMO_URL =
 fun MovieCard(
     data: MovieListBean.Result,
     modifier: Modifier = Modifier,
+    movieClick: (MovieListBean.Result) -> Unit = {},
+    collectClick: (MovieListBean.Result) -> Unit = {},
 ) {
     Box(
         modifier = modifier
@@ -72,7 +78,11 @@ fun MovieCard(
 @Composable
 fun MovieCover(model: Any) {
     JMAsyncImage(
-        model = model, // 使用傳入的圖片路徑
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(model)
+            .placeholder(R.drawable.icon_movie_card_loading)
+            .error(R.drawable.icon_movie_card_error)
+            .build(),
         contentDescription = null,
         modifier = Modifier
             .fillMaxSize() // 圖片拉滿父容器
