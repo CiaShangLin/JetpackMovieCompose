@@ -21,5 +21,5 @@ interface MovieRepository {
 
     fun getCollectedMovieIds(): Flow<List<Int>>
 
-    suspend fun getAllMovieCollect(): Flow<List<MovieListBean.Result>>
+    fun getAllMovieCollect(): Flow<List<MovieListBean.Result>>
 }

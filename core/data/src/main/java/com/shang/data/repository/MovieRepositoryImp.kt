@@ -65,7 +65,7 @@ class MovieRepositoryImp @Inject constructor(
         return movieCollectDao.collectedMovieIds().flowOn(ioDispatcher)
     }
 
-    override suspend fun getAllMovieCollect(): Flow<List<MovieListBean.Result>> {
+    override fun getAllMovieCollect(): Flow<List<MovieListBean.Result>> {
         return movieCollectDao.getAllMovies()
             .map {
                 it.map { entity ->
