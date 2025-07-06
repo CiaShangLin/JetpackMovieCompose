@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import com.shang.data.model.asEntity
 import com.shang.data.paging.MovieGenrePagingSource
 import com.shang.database.dao.MovieCollectDao
+import com.shang.database.entity.asExtendedModel
 import com.shang.model.ConfigurationBean
 import com.shang.model.MovieGenreBean
 import com.shang.model.MovieListBean
@@ -14,6 +15,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MovieRepositoryImp @Inject constructor(
@@ -61,6 +63,16 @@ class MovieRepositoryImp @Inject constructor(
 
     override fun getCollectedMovieIds(): Flow<List<Int>> {
         return movieCollectDao.collectedMovieIds().flowOn(ioDispatcher)
+    }
+
+    override suspend fun getAllMovieCollect(): Flow<List<MovieListBean.Result>> {
+        return movieCollectDao.getAllMovies()
+            .map {
+                it.map { entity ->
+                    entity.asExtendedModel()
+                }
+            }
+            .flowOn(ioDispatcher)
     }
 
     override suspend fun insertMovie(movieResult: MovieListBean.Result) {

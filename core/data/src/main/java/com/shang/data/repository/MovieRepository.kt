@@ -20,4 +20,6 @@ interface MovieRepository {
     suspend fun deleteMovie(movieResult: MovieListBean.Result)
 
     fun getCollectedMovieIds(): Flow<List<Int>>
+
+    suspend fun getAllMovieCollect(): Flow<List<MovieListBean.Result>>
 }
