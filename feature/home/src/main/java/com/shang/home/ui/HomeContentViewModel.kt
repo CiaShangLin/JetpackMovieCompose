@@ -10,6 +10,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @HiltViewModel(assistedFactory = HomeContentViewModel.Factory::class)
@@ -27,12 +28,12 @@ class HomeContentViewModel @AssistedInject constructor(
     val movieList =
         getMovieGenreUseCase(movieGenre.id.toString(), viewModelScope)
 
-    fun insertMovie(movie: MovieListBean.Result) {
-        viewModelScope.launch {
-            if (movie.isCollect) {
-                movieRepository.deleteMovie(movie)
+    fun toggleMovieCollectStatus(movieResult: MovieListBean.Result) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (movieResult.isCollect) {
+                movieRepository.deleteMovie(movieResult)
             } else {
-                movieRepository.insertMovie(movie)
+                movieRepository.insertMovie(movieResult)
             }
         }
     }

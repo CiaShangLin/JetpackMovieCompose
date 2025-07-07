@@ -125,11 +125,10 @@ fun HomeScreenPager(
             MovieCard(
                 modifier = Modifier,
                 data = movieList[it]!!,
-                collectClick = { movie ->
-                    viewModel.insertMovie(movie)
+                onCollectClick = { movie ->
+                    viewModel.toggleMovieCollectStatus(movie)
                 },
             )
-//            Text("Movie Item: ${movieList[it]?.title ?: "Loading..."} $it")
         }
     }
 }
