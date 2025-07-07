@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_movie_hint">Search movies...</string>
+    <string name="search_movie_start">Start searching movies</string>
+    <string name="search_movie_input_hint">Enter a movie name to search for your favorite movies</string>
+</resources>

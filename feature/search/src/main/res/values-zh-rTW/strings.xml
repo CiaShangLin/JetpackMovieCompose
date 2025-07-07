@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_movie_hint">搜尋電影…</string>
+    <string name="search_movie_start">開始搜尋電影</string>
+    <string name="search_movie_input_hint">輸入電影名稱來搜尋您喜愛的電影</string>
+</resources>
