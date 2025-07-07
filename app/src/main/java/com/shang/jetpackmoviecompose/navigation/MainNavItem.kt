@@ -2,12 +2,12 @@ package com.shang.jetpackmoviecompose.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Collections
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.rounded.Collections
+import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Search
@@ -37,8 +37,8 @@ enum class MainNavItem(
     ),
 
     COLLECT(
-        selectedIcon = Icons.Rounded.Collections,
-        unselectedIcon = Icons.Outlined.Collections,
+        selectedIcon = Icons.Rounded.Favorite,
+        unselectedIcon = Icons.Outlined.Favorite,
         iconTextId = R.string.nav_favor,
         titleTextId = R.string.nav_favor,
         route = COLLECT_ROUTE,
