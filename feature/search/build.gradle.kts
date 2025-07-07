@@ -4,6 +4,7 @@ import deps.designsystemModule
 import deps.domainModule
 import deps.hilt
 import deps.kotlinx
+import deps.modelModule
 import deps.testDeps
 import deps.testImplDeps
 import deps.uiModule
@@ -29,6 +30,7 @@ dependencies {
     domainModule()
     designsystemModule()
     uiModule()
+    modelModule()
     testDeps()
     testImplDeps()
 }
