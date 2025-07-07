@@ -1,7 +1,9 @@
 package com.shang.search
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,10 +32,19 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.shang.designsystem.component.JMLazyVerticalGrid
+import com.shang.model.MovieSearchBean
+import com.shang.model.asMovieResult
+import com.shang.ui.MovieCard
 
 @Composable
 fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
     var inputText by remember { mutableStateOf("") }
+    val movieSearchPager = viewModel.movieSearchPager.collectAsLazyPagingItems()
+    val query by viewModel.searchQueryFlow.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
         TextField(
@@ -46,7 +58,8 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(
                 onSearch = {
-                    viewModel.test()
+                    Log.d("DEBUG", "onSearch: $inputText")
+                    viewModel.startSearch(inputText)
                 },
             ),
             label = {
@@ -79,13 +92,27 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
             thickness = 1.dp,
         )
 
-        NotSearchScreen()
+        when {
+            query.isEmpty() || movieSearchPager.loadState.refresh is LoadState.Loading -> {
+                NotSearchScreen()
+            }
+            movieSearchPager.loadState.refresh is LoadState.Error -> {
+                Text("ERROR")
+            }
+            else -> {
+                SearchResultScreen(movieSearchPager)
+            }
+        }
     }
 }
 
 @Composable
 fun NotSearchScreen() {
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = CenterHorizontally, verticalArrangement = Arrangement.Center) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
         Icon(
             imageVector = Icons.Rounded.Search,
             contentDescription = stringResource(id = R.string.search_movie_hint),
@@ -103,6 +130,24 @@ fun NotSearchScreen() {
             modifier = Modifier,
             color = MaterialTheme.colorScheme.onSurface,
         )
+    }
+}
+
+@Composable
+fun SearchResultScreen(movieSearchPager: LazyPagingItems<MovieSearchBean.Result>) {
+    JMLazyVerticalGrid(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(8.dp), // 外部間距
+        verticalArrangement = Arrangement.spacedBy(8.dp), // 垂直間距
+        horizontalArrangement = Arrangement.spacedBy(8.dp), // 水平間距
+    ) {
+        items(movieSearchPager.itemCount) {
+            val movie = movieSearchPager[it] ?: return@items
+            MovieCard(
+                modifier = Modifier,
+                data = movie.asMovieResult(),
+            )
+        }
     }
 }
 
