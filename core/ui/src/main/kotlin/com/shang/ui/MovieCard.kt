@@ -36,8 +36,8 @@ const val DEMO_URL =
 fun MovieCard(
     data: MovieListBean.Result,
     modifier: Modifier = Modifier,
-    movieClick: (MovieListBean.Result) -> Unit = {},
-    collectClick: (MovieListBean.Result) -> Unit = {},
+    onMovieClick: (MovieListBean.Result) -> Unit = {},
+    onCollectClick: (MovieListBean.Result) -> Unit = {},
 ) {
     Box(
         modifier = modifier
@@ -66,7 +66,7 @@ fun MovieCard(
                         .align(Alignment.TopEnd),
                     isCollect = data.isCollect,
                     onClick = {
-                        collectClick(data)
+                        onCollectClick(data)
                     },
                 )
             }
