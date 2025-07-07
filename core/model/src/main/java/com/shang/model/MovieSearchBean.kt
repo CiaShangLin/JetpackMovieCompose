@@ -30,3 +30,24 @@ class MovieSearchBean(
         val timestamp: Long = 0L,
     )
 }
+
+fun MovieSearchBean.Result.asMovieResult(): MovieListBean.Result {
+    return MovieListBean.Result(
+        adult = this.adult,
+        backdropPath = this.backdropPath,
+        genreIds = this.genreIds,
+        id = this.id,
+        originalLanguage = this.originalLanguage,
+        originalTitle = this.originalTitle,
+        overview = this.overview,
+        popularity = this.popularity,
+        posterPath = this.posterPath,
+        releaseDate = this.releaseDate,
+        title = this.title,
+        video = this.video,
+        voteAverage = this.voteAverage,
+        voteCount = this.voteCount,
+        isCollect = this.isCollect,
+        timestamp = this.timestamp,
+    )
+}
