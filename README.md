@@ -2,6 +2,8 @@
 
 ### JetpackMovie改用Compose寫寫看。
 
+https://developer.themoviedb.org/reference/account-details
+
 ##### Library
 1. DB:Room
 2. DI:Hilt
