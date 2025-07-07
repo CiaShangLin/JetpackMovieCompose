@@ -1,0 +1,84 @@
+package com.shang.network.model
+
+import com.shang.model.MovieSearchBean
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+/**
+ * 搜尋電影結果
+ * @param page 當前頁數
+ * @param results 電影列表
+ * @param totalPages 總頁數
+ * @param totalResults 總結果數
+ */
+@Serializable
+data class SearchMovieResponse(
+    @SerialName("page")
+    val page: Int? = 1,
+    @SerialName("results")
+    val results: List<Result>? = listOf(),
+    @SerialName("total_pages")
+    val totalPages: Int? = 0,
+    @SerialName("total_results")
+    val totalResults: Int? = 0,
+) {
+    @Serializable
+    data class Result(
+        @SerialName("adult")
+        val adult: Boolean? = false,
+        @SerialName("backdrop_path")
+        val backdropPath: String? = "",
+        @SerialName("genre_ids")
+        val genreIds: List<Int>? = listOf(),
+        @SerialName("id")
+        val id: Int? = 0,
+        @SerialName("original_language")
+        val originalLanguage: String? = "",
+        @SerialName("original_title")
+        val originalTitle: String? = "",
+        @SerialName("overview")
+        val overview: String? = "",
+        @SerialName("popularity")
+        val popularity: Double? = 0.0,
+        @SerialName("poster_path")
+        val posterPath: String? = "",
+        @SerialName("release_date")
+        val releaseDate: String? = "",
+        @SerialName("title")
+        val title: String? = "",
+        @SerialName("video")
+        val video: Boolean? = false,
+        @SerialName("vote_average")
+        val voteAverage: Double? = 0.0,
+        @SerialName("vote_count")
+        val voteCount: Int? = 0,
+    )
+}
+
+fun SearchMovieResponse.asExternalModel(): MovieSearchBean {
+    return MovieSearchBean(
+        page = page ?: 1,
+        results = results?.map { it.asExternalModel() } ?: listOf(),
+        totalPages = totalPages ?: 0,
+        totalResults = totalResults ?: 0,
+    )
+}
+
+fun SearchMovieResponse.Result.asExternalModel(): MovieSearchBean.Result {
+    return MovieSearchBean.Result(
+        adult = adult ?: false,
+        backdropPath = backdropPath ?: "",
+        genreIds = genreIds ?: listOf(),
+        id = id ?: 0,
+        originalLanguage = originalLanguage ?: "",
+        originalTitle = originalTitle ?: "",
+        overview = overview ?: "",
+        popularity = popularity ?: 0.0,
+        posterPath = posterPath ?: "",
+        releaseDate = releaseDate ?: "",
+        title = title ?: "",
+        video = video ?: false,
+        voteAverage = voteAverage ?: 0.0,
+        voteCount = voteCount ?: 0,
+    )
+}
