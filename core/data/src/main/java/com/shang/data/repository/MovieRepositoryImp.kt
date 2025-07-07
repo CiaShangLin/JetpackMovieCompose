@@ -10,6 +10,7 @@ import com.shang.database.entity.asExtendedModel
 import com.shang.model.ConfigurationBean
 import com.shang.model.MovieGenreBean
 import com.shang.model.MovieListBean
+import com.shang.model.MovieSearchBean
 import com.shang.network.retrofit.MovieDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -59,6 +60,17 @@ class MovieRepositoryImp @Inject constructor(
             },
         ).flow
             .flowOn(ioDispatcher)
+    }
+
+    override fun getMovieSearchPager(query: String): Flow<Result<MovieSearchBean>> {
+        return flow {
+            val response = movieDataSource.getMovieSearch(query, 1)
+            if (response.isSuccess) {
+                emit(Result.success(response.data!!))
+            } else {
+                emit(Result.failure(Exception(response.error)))
+            }
+        }.flowOn(ioDispatcher)
     }
 
     override fun getCollectedMovieIds(): Flow<List<Int>> {
