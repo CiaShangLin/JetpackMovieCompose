@@ -65,7 +65,7 @@ fun CollectSuccessScreen(
                 .padding(8.dp),
         )
         Divider(
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f),
+            color = MaterialTheme.colorScheme.onSurface,
             thickness = 1.dp,
             modifier = Modifier
                 .fillMaxWidth()
