@@ -1,25 +1,30 @@
 package com.shang.collect
 
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.TabRowDefaults.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.shang.designsystem.component.JMLazyVerticalGrid
 import com.shang.model.MovieListBean
 import com.shang.ui.MovieCard
 
 @Composable
 fun CollectScreen(viewModel: CollectViewModel = hiltViewModel()) {
     val allMovieCollect by viewModel.allMovieCollect.collectAsStateWithLifecycle()
-    Text(
-        "Collect Screen : $allMovieCollect",
-        style = TextStyle(color = MaterialTheme.colorScheme.error)
-    )
 
     when (val result = allMovieCollect) {
         is CollectUiState.Error -> CollectErrorScreen(message = "")
@@ -28,7 +33,7 @@ fun CollectScreen(viewModel: CollectViewModel = hiltViewModel()) {
             result.movieCollectList,
             onCollectClick = { movie ->
                 viewModel.toggleMovieCollectStatus(movie)
-            }
+            },
         )
     }
 }
@@ -46,17 +51,39 @@ fun CollectErrorScreen(message: String) {
 @Composable
 fun CollectSuccessScreen(
     movieCollectList: List<MovieListBean.Result>,
-    onCollectClick: (MovieListBean.Result) -> Unit
+    onCollectClick: (MovieListBean.Result) -> Unit,
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        content = {
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+    ) {
+        Text(
+            text = stringResource(id = R.string.collect_title),
+            style = MaterialTheme.typography.titleLarge,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+        )
+        Divider(
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f),
+            thickness = 1.dp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp, end = 8.dp, bottom = 8.dp),
+        )
+        JMLazyVerticalGrid(
+            modifier = Modifier
+                .fillMaxSize(), // 外部間距
+            contentPadding = PaddingValues(8.dp), // 外部間距
+            verticalArrangement = Arrangement.spacedBy(8.dp), // 垂直間距
+            horizontalArrangement = Arrangement.spacedBy(8.dp), // 水平間距
+        ) {
             items(movieCollectList) { movie ->
                 MovieCard(
                     data = movie,
                     onCollectClick = onCollectClick,
                 )
             }
-        },
-    )
+        }
+    }
 }
