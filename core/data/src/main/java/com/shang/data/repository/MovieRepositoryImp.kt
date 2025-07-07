@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.shang.data.model.asEntity
 import com.shang.data.paging.MovieGenrePagingSource
+import com.shang.data.paging.MovieSearchPagingSource
 import com.shang.database.dao.MovieCollectDao
 import com.shang.database.entity.asExtendedModel
 import com.shang.model.ConfigurationBean
@@ -62,15 +63,19 @@ class MovieRepositoryImp @Inject constructor(
             .flowOn(ioDispatcher)
     }
 
-    override fun getMovieSearchPager(query: String): Flow<Result<MovieSearchBean>> {
-        return flow {
-            val response = movieDataSource.getMovieSearch(query, 1)
-            if (response.isSuccess) {
-                emit(Result.success(response.data!!))
-            } else {
-                emit(Result.failure(Exception(response.error)))
-            }
-        }.flowOn(ioDispatcher)
+    override fun getMovieSearchPager(query: String): Flow<PagingData<MovieSearchBean.Result>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+                initialLoadSize = 20,
+                prefetchDistance = 2,
+            ),
+            pagingSourceFactory = {
+                MovieSearchPagingSource(movieDataSource, query)
+            },
+        ).flow
+            .flowOn(ioDispatcher)
     }
 
     override fun getCollectedMovieIds(): Flow<List<Int>> {

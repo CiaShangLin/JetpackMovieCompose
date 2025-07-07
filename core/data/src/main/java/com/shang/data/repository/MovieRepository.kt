@@ -15,7 +15,7 @@ interface MovieRepository {
 
     fun getMovieListPager(withGenres: String): Flow<PagingData<MovieListBean.Result>>
 
-    fun getMovieSearchPager(query: String): Flow<Result<MovieSearchBean>>
+    fun getMovieSearchPager(query: String): Flow<PagingData<MovieSearchBean.Result>>
 
     // MovieCollectDao
     suspend fun insertMovie(movieResult: MovieListBean.Result)
