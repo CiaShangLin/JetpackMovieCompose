@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Text
@@ -25,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.shang.designsystem.component.JMLazyVerticalGrid
 import com.shang.designsystem.component.JMScrollableTabRow
 import com.shang.designsystem.component.JMTab
 import com.shang.model.MovieGenreBean
@@ -108,15 +107,8 @@ fun HomeScreenPager(
 ) {
     val movieList = viewModel.movieList.collectAsLazyPagingItems()
 
-//    LazyColumn(modifier = Modifier.fillMaxSize()) {
-//        items(movieList.itemCount) {
-//            Text("Movie Item: ${movieList[it]?.title ?: "Loading..."}")
-//        }
-//    }
-
-    LazyVerticalGrid(
+    JMLazyVerticalGrid(
         modifier = Modifier.fillMaxSize(),
-        columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(8.dp), // 外部間距
         verticalArrangement = Arrangement.spacedBy(8.dp), // 垂直間距
         horizontalArrangement = Arrangement.spacedBy(8.dp), // 水平間距
