@@ -1,6 +1,7 @@
 package com.shang.database.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -14,4 +15,10 @@ interface MovieHistoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovie(movie: MovieHistoryEntity)
+
+    @Delete
+    suspend fun deleteMovie(movie: MovieHistoryEntity)
+
+    @Query("DELETE FROM MovieHistoryEntity")
+    suspend fun deleteAllMovies()
 }
