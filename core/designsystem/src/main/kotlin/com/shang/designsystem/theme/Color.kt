@@ -73,3 +73,5 @@ val DarkInverseOnSurface = Color(0xFF181A20)
 val DarkOutline = Color(0xFF343843)
 val DarkOutlineVariant = Color(0xFF23262F)
 // endregion
+
+val StarRatingColor = Color(0xFFFFD700) // 金色星星顏色
