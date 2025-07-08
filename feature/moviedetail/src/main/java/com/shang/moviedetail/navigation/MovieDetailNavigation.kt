@@ -1,13 +1,12 @@
 package com.shang.moviedetail.navigation
 
-import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.shang.moviedetail.MovieDetailScreen
+import com.shang.moviedetail.ui.MovieDetailScreen
 
 const val ARG_MOVIE_ID = "movieId"
 const val MOVIE_DETAIL_ROUTE = "movie_detail_route"
