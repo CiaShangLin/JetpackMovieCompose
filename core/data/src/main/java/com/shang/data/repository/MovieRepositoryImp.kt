@@ -10,6 +10,7 @@ import com.shang.database.dao.MovieCollectDao
 import com.shang.database.entity.asExtendedModel
 import com.shang.model.ConfigurationBean
 import com.shang.model.MovieCardResult
+import com.shang.model.MovieDetailBean
 import com.shang.model.MovieGenreBean
 import com.shang.network.retrofit.MovieDataSource
 import kotlinx.coroutines.CoroutineDispatcher
@@ -75,6 +76,17 @@ class MovieRepositoryImp @Inject constructor(
             },
         ).flow
             .flowOn(ioDispatcher)
+    }
+
+    override fun getMovieDetail(id: Int): Flow<Result<MovieDetailBean>> {
+        return flow {
+            val response = movieDataSource.getMovieDetail(id)
+            if (response.isSuccess) {
+                emit(Result.success(response.data!!))
+            } else {
+                emit(Result.failure(response.error!!))
+            }
+        }.flowOn(ioDispatcher)
     }
 
     override fun getCollectedMovieIds(): Flow<List<Int>> {
