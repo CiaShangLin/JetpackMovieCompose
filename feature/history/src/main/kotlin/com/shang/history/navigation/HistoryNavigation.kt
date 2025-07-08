@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.shang.history.HistoryScreen
+import com.shang.history.ui.HistoryScreen
 
 const val HISTORY_ROUTE = "history_route"
 
