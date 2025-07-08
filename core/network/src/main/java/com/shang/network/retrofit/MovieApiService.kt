@@ -2,10 +2,12 @@ package com.shang.network.retrofit
 
 import com.shang.network.model.ConfigurationResponse
 import com.shang.network.model.DiscoverMovieResponse
+import com.shang.network.model.MovieDetailResponse
 import com.shang.network.model.MovieGenreResponse
 import com.shang.network.model.SearchMovieResponse
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieApiService {
@@ -45,11 +47,11 @@ interface MovieApiService {
         @Query("page") page: Int,
     ): Response<SearchMovieResponse>
 
-//    @GET("movie/{id}}")
-//    suspend fun getMovieDetail(
-//        @Path("id") id: Int,
-//    ): MovieDetailBean
-//
+    @GET("movie/{id}}")
+    suspend fun getMovieDetail(
+        @Path("id") id: Int,
+    ): Response<MovieDetailResponse>
+
 //    @GET("movie/{id}/credits")
 //    suspend fun getMovieActor(
 //        @Path("id") id: Int,

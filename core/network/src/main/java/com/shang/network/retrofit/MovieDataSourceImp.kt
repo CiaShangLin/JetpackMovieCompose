@@ -1,6 +1,7 @@
 package com.shang.network.retrofit
 
 import com.shang.model.ConfigurationBean
+import com.shang.model.MovieDetailBean
 import com.shang.model.MovieGenreBean
 import com.shang.model.MovieListBean
 import com.shang.model.MovieSearchBean
@@ -43,6 +44,14 @@ class MovieDataSourceImp @Inject constructor(private val _movieApiService: Movie
     ): NetworkResponse<MovieSearchBean> {
         return safeApiCall {
             _movieApiService.getMovieSearch(query, page)
+        }.mapData { response ->
+            response.asExternalModel()
+        }
+    }
+
+    override suspend fun getMovieDetail(id: Int): NetworkResponse<MovieDetailBean> {
+        return safeApiCall {
+            _movieApiService.getMovieDetail(id)
         }.mapData { response ->
             response.asExternalModel()
         }

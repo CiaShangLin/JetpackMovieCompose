@@ -1,6 +1,7 @@
 package com.shang.network.retrofit
 
 import com.shang.model.ConfigurationBean
+import com.shang.model.MovieDetailBean
 import com.shang.model.MovieGenreBean
 import com.shang.model.MovieListBean
 import com.shang.model.MovieSearchBean
@@ -33,4 +34,10 @@ interface MovieDataSource {
      * @param page 分頁
      */
     suspend fun getMovieSearch(query: String, page: Int): NetworkResponse<MovieSearchBean>
+
+    /**
+     * 獲取電影詳情
+     * @param id 電影ID
+     */
+    suspend fun getMovieDetail(id: Int): NetworkResponse<MovieDetailBean>
 }
