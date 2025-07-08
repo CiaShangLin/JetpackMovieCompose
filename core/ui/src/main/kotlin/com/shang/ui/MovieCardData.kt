@@ -1,7 +1,6 @@
 package com.shang.ui
 
 import com.shang.model.MovieListBean
-import com.shang.model.MovieSearchBean
 
 /**
  * 代表電影卡片顯示所需的資料結構
@@ -21,8 +20,19 @@ data class MovieCardData(
     /** 收藏狀態 */
     val movieCardIsCollect: Boolean,
     /** 收藏時間戳 */
-    val movieCardTimestamp: Long
+    val movieCardTimestamp: Long,
 )
+
+fun MovieCardData.asMovieResult(): MovieListBean.Result =
+    MovieListBean.Result(
+        id = movieCardId,
+        title = movieCardTitle,
+        posterPath = movieCardPosterPath,
+        releaseDate = movieCardReleaseDate,
+        voteAverage = movieCardVoteAverage,
+        isCollect = movieCardIsCollect,
+        timestamp = movieCardTimestamp,
+    )
 
 fun MovieListBean.Result.asMovieCardData(): MovieCardData =
     MovieCardData(
@@ -32,16 +42,5 @@ fun MovieListBean.Result.asMovieCardData(): MovieCardData =
         movieCardReleaseDate = releaseDate,
         movieCardVoteAverage = voteAverage,
         movieCardIsCollect = isCollect,
-        movieCardTimestamp = timestamp
-    )
-
-fun MovieSearchBean.Result.asMovieCardData(): MovieCardData =
-    MovieCardData(
-        movieCardId = id,
-        movieCardTitle = title,
-        movieCardPosterPath = posterPath,
-        movieCardReleaseDate = releaseDate,
-        movieCardVoteAverage = voteAverage,
-        movieCardIsCollect = isCollect,
-        movieCardTimestamp = timestamp
+        movieCardTimestamp = timestamp,
     )

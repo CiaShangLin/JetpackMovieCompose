@@ -27,17 +27,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shang.designsystem.component.JMAsyncImage
-import com.shang.model.MovieListBean
 
 const val DEMO_URL =
     "https://fastly.picsum.photos/id/1020/400/300.jpg?hmac=tyq3V0QObhO4gvke1hMd7uZOQ2Sd5LwaQYB9zLBdi2w"
 
 @Composable
 fun MovieCard(
-    data: MovieListBean.Result,
+    data: MovieCardData,
     modifier: Modifier = Modifier,
-    onMovieClick: (MovieListBean.Result) -> Unit = {},
-    onCollectClick: (MovieListBean.Result) -> Unit = {},
+    onMovieClick: (MovieCardData) -> Unit = {},
+    onCollectClick: (MovieCardData) -> Unit = {},
 ) {
     Box(
         modifier = modifier
@@ -50,11 +49,13 @@ fun MovieCard(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.onSurface,
                 shape = MaterialTheme.shapes.medium,
-            ),
+            ).clickable {
+                onMovieClick.invoke(data)
+            },
     ) {
         Column() {
             Box {
-                MovieCover(model = data.posterPath)
+                MovieCover(model = data.movieCardPosterPath)
                 MovieRating(
                     modifier = Modifier
                         .padding(bottom = 8.dp, start = 8.dp)
@@ -64,14 +65,14 @@ fun MovieCard(
                     modifier = Modifier
                         .padding(top = 8.dp, end = 8.dp)
                         .align(Alignment.TopEnd),
-                    isCollect = data.isCollect,
+                    isCollect = data.movieCardIsCollect,
                     onClick = {
                         onCollectClick(data)
                     },
                 )
             }
-            MovieTitle(data.title)
-            MovieReleaseTitle(data.releaseDate)
+            MovieTitle(data.movieCardTitle)
+            MovieReleaseTitle(data.movieCardReleaseDate)
         }
     }
 }
@@ -170,11 +171,14 @@ fun MovieCollectButton(modifier: Modifier, isCollect: Boolean, onClick: () -> Un
 fun MovieCardPreview() {
     MovieCard(
         modifier = Modifier,
-        data = MovieListBean.Result(
-            id = 1,
-            title = "Sample Movie",
-            releaseDate = "2023-10-01",
-            posterPath = DEMO_URL,
+        data = MovieCardData(
+            movieCardId = 1,
+            movieCardTitle = "Sample Movie",
+            movieCardPosterPath = DEMO_URL,
+            movieCardReleaseDate = "2023-10-01",
+            movieCardVoteAverage = 8.7,
+            movieCardIsCollect = false,
+            movieCardTimestamp = System.currentTimeMillis(),
         ),
     )
 }
