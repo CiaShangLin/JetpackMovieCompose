@@ -3,6 +3,7 @@ package com.shang.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.shang.model.MovieCardResult
 
 @Entity(tableName = "MovieHistoryEntity")
 class MovieHistoryEntity(
@@ -23,16 +24,16 @@ class MovieHistoryEntity(
     val releaseDate: String,
 
     @ColumnInfo(name = "timestamp")
-    val timestamp: Int,
+    val timestamp: Long,
 )
 
-// fun MovieHistoryEntity.asExtendedModel(): Mo {
-//    return MovieBean(
-//        id = id,
-//        title = title,
-//        posterPath = posterPath,
-//        voteAverage = voteAverage,
-//        releaseDate = releaseDate,
-//        timestamp = timestamp,
-//    )
-// }
+fun MovieHistoryEntity.asExtendedModel(): MovieCardResult {
+    return MovieCardResult(
+        id = id,
+        title = title,
+        posterPath = posterPath,
+        voteAverage = voteAverage,
+        releaseDate = releaseDate,
+        timestamp = timestamp,
+    )
+}
