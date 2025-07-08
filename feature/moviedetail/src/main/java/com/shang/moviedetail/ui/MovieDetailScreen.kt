@@ -39,6 +39,7 @@ fun MovieDetailScreen(
     onBackClick: () -> Unit,
 ) {
     val movieDetail = viewModel.movieDetail.collectAsStateWithLifecycle()
+    val movieCollect = viewModel.movieCollect.collectAsStateWithLifecycle()
 
     Box(modifier = Modifier.fillMaxSize()) {
         when (val state = movieDetail.value) {
@@ -55,7 +56,8 @@ fun MovieDetailScreen(
                 .background(
                     color = MaterialTheme.colorScheme.primaryContainer,
                     shape = MaterialTheme.shapes.small,
-                ).clickable {
+                )
+                .clickable {
                     onBackClick()
                 },
         )
@@ -69,8 +71,11 @@ fun MovieDetailScreen(
                     shape = MaterialTheme.shapes.small,
                 )
                 .clickable {
+                    (movieDetail.value as? MovieDetailUiState.Success)?.data?.let {
+                        viewModel.toggleCollect(it)
+                    }
                 },
-            isCollect = true,
+            isCollect = movieCollect.value,
         )
     }
 }
