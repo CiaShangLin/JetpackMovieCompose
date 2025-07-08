@@ -60,6 +60,7 @@ fun MovieCard(
                     modifier = Modifier
                         .padding(bottom = 8.dp, start = 8.dp)
                         .align(Alignment.BottomStart),
+                    voteAverage = data.movieCardVoteAverage,
                 )
                 MovieCollectButton(
                     modifier = Modifier
@@ -118,7 +119,7 @@ fun MovieReleaseTitle(releaseDate: String) {
 }
 
 @Composable
-fun MovieRating(modifier: Modifier) {
+fun MovieRating(modifier: Modifier, voteAverage: Double) {
     Row(
         modifier = modifier
             .background(MaterialTheme.colorScheme.secondaryContainer, shape = MaterialTheme.shapes.medium)
@@ -133,7 +134,7 @@ fun MovieRating(modifier: Modifier) {
         )
         Spacer(modifier = Modifier.size(4.dp))
         Text(
-            "8.7",
+            String.format("%.1f", voteAverage),
             modifier = Modifier.padding(end = 4.dp),
             style = MaterialTheme.typography.titleSmall,
             color = MaterialTheme.colorScheme.onSecondaryContainer,
