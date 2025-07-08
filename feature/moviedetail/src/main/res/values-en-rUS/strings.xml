@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Movie Detail Screen -->
+    <string name="movie_detail_title">Movie Details</string>
+    <string name="movie_detail_back">Back</string>
+    <string name="movie_detail_loading">Loading…</string>
+    <string name="movie_detail_error">Error occurred: %1$s</string>
+
+    <!-- Movie Information -->
+    <string name="movie_plot_synopsis">Plot Synopsis</string>
+    <string name="movie_main_cast">Main Cast</string>
+    <string name="movie_recommendations">You May Also Like</string>
+    <string name="movie_release_date">Release Date: %1$s</string>
+    <string name="movie_rating">Rating: %1$.1f/10</string>
+    <string name="movie_runtime">Runtime: %1$d minutes</string>
+    <string name="movie_info">Movie Info</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_movie_poster">Movie poster</string>
+    <string name="cd_back_button">Back button</string>
+    <string name="cd_timer_icon">Timer icon</string>
+</resources>

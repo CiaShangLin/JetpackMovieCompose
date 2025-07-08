@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Movie Detail Screen -->
+    <string name="movie_detail_title">電影詳情</string>
+    <string name="movie_detail_back">返回</string>
+    <string name="movie_detail_loading">載入中…</string>
+    <string name="movie_detail_error">發生錯誤：%1$s</string>
+
+    <!-- Movie Information -->
+    <string name="movie_plot_synopsis">劇情簡介</string>
+    <string name="movie_main_cast">主要演員</string>
+    <string name="movie_recommendations">猜你喜歡</string>
+    <string name="movie_release_date">上映日期：%1$s</string>
+    <string name="movie_rating">評分：%1$.1f/10</string>
+    <string name="movie_runtime">片長：%1$d 分鐘</string>
+    <string name="movie_info">電影資訊</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_movie_poster">電影海報</string>
+    <string name="cd_back_button">返回按鈕</string>
+    <string name="cd_timer_icon">時間圖標</string>
+</resources>
