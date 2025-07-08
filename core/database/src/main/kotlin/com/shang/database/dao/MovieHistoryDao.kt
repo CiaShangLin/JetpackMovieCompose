@@ -6,12 +6,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.shang.database.entity.MovieHistoryEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieHistoryDao {
 
     @Query("SELECT * FROM MovieHistoryEntity")
-    suspend fun getAllMovies(): List<MovieHistoryEntity>
+    fun getAllMovies(): Flow<List<MovieHistoryEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovie(movie: MovieHistoryEntity)

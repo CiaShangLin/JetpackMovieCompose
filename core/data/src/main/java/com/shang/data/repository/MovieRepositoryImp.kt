@@ -132,4 +132,14 @@ class MovieRepositoryImp @Inject constructor(
     override suspend fun deleteMovieHistory(movieResult: MovieCardResult) {
         movieHistoryDao.deleteMovie(movieResult.asHistoryEntity())
     }
+
+    override fun getAllMovieHistory(): Flow<List<MovieCardResult>> {
+        return movieHistoryDao.getAllMovies()
+            .map { entities ->
+                entities.map {
+                    it.asExtendedModel()
+                }
+            }
+            .flowOn(ioDispatcher)
+    }
 }

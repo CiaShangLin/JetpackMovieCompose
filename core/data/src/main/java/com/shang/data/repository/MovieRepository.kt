@@ -34,4 +34,6 @@ interface MovieRepository {
     suspend fun insertMovieHistory(movieResult: MovieCardResult)
 
     suspend fun deleteMovieHistory(movieResult: MovieCardResult)
+
+    fun getAllMovieHistory(): Flow<List<MovieCardResult>>
 }
