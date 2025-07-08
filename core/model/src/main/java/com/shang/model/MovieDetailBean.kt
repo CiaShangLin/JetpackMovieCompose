@@ -76,3 +76,18 @@ data class MovieDetailBean(
         val name: String = "",
     )
 }
+
+fun MovieDetailBean.asMovieCardResult(): MovieCardResult {
+    return MovieCardResult(
+        id = id,
+        title = title,
+        originalTitle = originalTitle,
+        overview = overview,
+        releaseDate = releaseDate,
+        posterPath = posterPath,
+        backdropPath = backdropPath,
+        voteAverage = voteAverage,
+        voteCount = voteCount,
+        genreIds = genres.map { it.id },
+    )
+}
