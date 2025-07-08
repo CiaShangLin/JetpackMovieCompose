@@ -33,12 +33,13 @@ import com.shang.ui.asMovieCardData
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
+    onMovieClick: (Int) -> Unit,
 ) {
     val movieGenresState by viewModel.movieGenres.collectAsState()
 
     when (val state = movieGenresState) {
         is HomeUiState.Loading -> HomeLoadingScreen()
-        is HomeUiState.Success -> HomeSuccessScreen(state.movieGenres)
+        is HomeUiState.Success -> HomeSuccessScreen(state.movieGenres, onMovieClick = onMovieClick)
         is HomeUiState.Error -> HomeErrorScreen()
     }
 }
@@ -58,7 +59,7 @@ fun HomeErrorScreen() {
 }
 
 @Composable
-fun HomeSuccessScreen(movieGenres: MovieGenreBean) {
+fun HomeSuccessScreen(movieGenres: MovieGenreBean, onMovieClick: (Int) -> Unit) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     val pageState = rememberPagerState(
@@ -92,7 +93,11 @@ fun HomeSuccessScreen(movieGenres: MovieGenreBean) {
             state = pageState,
             modifier = Modifier.fillMaxSize(),
         ) { page ->
-            HomeScreenPager(page = page, movieGenres.genres[page])
+            HomeScreenPager(
+                page = page,
+                genre = movieGenres.genres[page],
+                onMovieClick = onMovieClick,
+            )
         }
     }
 }
@@ -101,6 +106,7 @@ fun HomeSuccessScreen(movieGenres: MovieGenreBean) {
 fun HomeScreenPager(
     page: Int,
     genre: MovieGenreBean.MovieGenre,
+    onMovieClick: (Int) -> Unit,
     viewModel: HomeContentViewModel = hiltViewModel<HomeContentViewModel, HomeContentViewModel.Factory>(
         key = "HomeContentViewModel_${page}_${genre.id}",
         creationCallback = { factory -> factory.create(genre) },
@@ -119,6 +125,9 @@ fun HomeScreenPager(
             MovieCard(
                 modifier = Modifier,
                 data = movieCardData,
+                onMovieClick = {
+                    onMovieClick(it.movieCardId)
+                },
                 onCollectClick = { movie ->
                     viewModel.toggleMovieCollectStatus(movie)
                 },
@@ -137,5 +146,6 @@ fun HomeScreenPreview() {
             MovieGenreBean.MovieGenre(id = 3, name = "Drama"),
         ),
     )
-    HomeSuccessScreen(mockGenres)
+    HomeSuccessScreen(mockGenres) {
+    }
 }
