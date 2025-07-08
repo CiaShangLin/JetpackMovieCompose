@@ -31,6 +31,8 @@ import com.shang.designsystem.theme.JetpackMovieComposeTheme
 import com.shang.history.navigation.historyScreen
 import com.shang.home.navigation.homeScreen
 import com.shang.jetpackmoviecompose.navigation.MainNavItem
+import com.shang.moviedetail.navigation.movieDetailScreen
+import com.shang.moviedetail.navigation.navigateToMovieDetail
 import com.shang.search.navigation.searchScreen
 import com.shang.setting.navigation.settingsScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -130,11 +132,16 @@ fun SuccessScreen(navController: NavHostController) {
             navController = navController,
             startDestination = MainNavItem.HOME.route,
         ) {
-            homeScreen()
+            homeScreen(
+                onMovieClick = { movieId ->
+                    navController.navigateToMovieDetail(movieId)
+                },
+            )
             collectScreen()
             searchScreen()
             historyScreen()
             settingsScreen()
+            movieDetailScreen()
         }
     }
 }
