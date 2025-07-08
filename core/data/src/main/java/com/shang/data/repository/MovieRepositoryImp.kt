@@ -3,10 +3,12 @@ package com.shang.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.shang.data.model.asEntity
+import com.shang.data.model.asCollectEntity
+import com.shang.data.model.asHistoryEntity
 import com.shang.data.paging.MovieGenrePagingSource
 import com.shang.data.paging.MovieSearchPagingSource
 import com.shang.database.dao.MovieCollectDao
+import com.shang.database.dao.MovieHistoryDao
 import com.shang.database.entity.asExtendedModel
 import com.shang.model.ConfigurationBean
 import com.shang.model.MovieCardResult
@@ -20,9 +22,13 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+/**
+ *
+ */
 class MovieRepositoryImp @Inject constructor(
     private val movieDataSource: MovieDataSource,
     private val movieCollectDao: MovieCollectDao,
+    private val movieHistoryDao: MovieHistoryDao,
     private val ioDispatcher: CoroutineDispatcher,
 ) : MovieRepository {
 
@@ -111,11 +117,19 @@ class MovieRepositoryImp @Inject constructor(
             .flowOn(ioDispatcher)
     }
 
-    override suspend fun insertMovie(movieResult: MovieCardResult) {
-        movieCollectDao.insertMovieCollect(movieResult.asEntity())
+    override suspend fun insertMovieCollect(movieResult: MovieCardResult) {
+        movieCollectDao.insertMovieCollect(movieResult.asCollectEntity())
     }
 
-    override suspend fun deleteMovie(movieResult: MovieCardResult) {
-        movieCollectDao.deleteMovie(movieResult.asEntity())
+    override suspend fun deleteMovieCollect(movieResult: MovieCardResult) {
+        movieCollectDao.deleteMovie(movieResult.asCollectEntity())
+    }
+
+    override suspend fun insertMovieHistory(movieResult: MovieCardResult) {
+        movieHistoryDao.insertMovie(movieResult.asHistoryEntity())
+    }
+
+    override suspend fun deleteMovieHistory(movieResult: MovieCardResult) {
+        movieHistoryDao.deleteMovie(movieResult.asHistoryEntity())
     }
 }

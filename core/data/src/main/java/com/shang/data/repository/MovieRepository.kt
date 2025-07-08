@@ -20,13 +20,18 @@ interface MovieRepository {
     fun getMovieDetail(id: Int): Flow<Result<MovieDetailBean>>
 
     // MovieCollectDao
-    suspend fun insertMovie(movieResult: MovieCardResult)
+    suspend fun insertMovieCollect(movieResult: MovieCardResult)
 
-    suspend fun deleteMovie(movieResult: MovieCardResult)
+    suspend fun deleteMovieCollect(movieResult: MovieCardResult)
 
     fun getCollectedMovieIds(): Flow<List<Int>>
 
     fun getAllMovieCollect(): Flow<List<MovieCardResult>>
 
     fun getMovieCollectEntityById(id: Int): Flow<MovieCardResult?>
+
+    // MovieHistoryDao
+    suspend fun insertMovieHistory(movieResult: MovieCardResult)
+
+    suspend fun deleteMovieHistory(movieResult: MovieCardResult)
 }
