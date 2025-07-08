@@ -115,9 +115,10 @@ fun HomeScreenPager(
         horizontalArrangement = Arrangement.spacedBy(8.dp), // 水平間距
     ) {
         items(movieList.itemCount) {
+            val movieCardData = movieList[it]?.asMovieCardData() ?: return@items
             MovieCard(
                 modifier = Modifier,
-                data = movieList[it]?.asMovieCardData()!!,
+                data = movieCardData,
                 onCollectClick = { movie ->
                     viewModel.toggleMovieCollectStatus(movie)
                 },
