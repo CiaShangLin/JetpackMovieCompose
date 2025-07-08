@@ -5,7 +5,7 @@ package com.shang.model
  */
 class MovieSearchBean(
     val page: Int = 1,
-    val results: List<MovieListBean.Result> = listOf(),
+    val results: List<MovieCardResult> = listOf(),
     val totalPages: Int = 0,
     val totalResults: Int = 0,
 )
