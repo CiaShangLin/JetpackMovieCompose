@@ -56,9 +56,9 @@ class MovieDetailViewModel @AssistedInject constructor(
     fun toggleCollect(data: MovieDetailBean) {
         viewModelScope.launch(Dispatchers.IO) {
             if (movieCollect.value) {
-                movieRepository.deleteMovie(data.asMovieCardResult())
+                movieRepository.deleteMovieCollect(data.asMovieCardResult())
             } else {
-                movieRepository.insertMovie(data.asMovieCardResult())
+                movieRepository.insertMovieCollect(data.asMovieCardResult())
             }
         }
     }

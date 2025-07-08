@@ -32,9 +32,9 @@ class HomeContentViewModel @AssistedInject constructor(
     fun toggleMovieCollectStatus(data: MovieCardData) {
         viewModelScope.launch(Dispatchers.IO) {
             if (data.movieCardIsCollect) {
-                movieRepository.deleteMovie(data.asMovieCardResult())
+                movieRepository.deleteMovieCollect(data.asMovieCardResult())
             } else {
-                movieRepository.insertMovie(data.asMovieCardResult())
+                movieRepository.insertMovieCollect(data.asMovieCardResult())
             }
         }
     }
