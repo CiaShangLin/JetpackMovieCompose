@@ -1,33 +1,44 @@
 package com.shang.moviedetail.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.CalendarMonth
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
+import androidx.compose.material.icons.rounded.StarRate
+import androidx.compose.material.icons.rounded.Timer
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.shang.designsystem.component.JMAsyncImage
+import com.shang.designsystem.theme.StarRatingColor
 import com.shang.model.MovieDetailBean
+import com.shang.moviedetail.R
 
 @Composable
 fun MovieDetailScreen(
@@ -136,7 +147,7 @@ private fun MovieDetailErrorScreen(message: String) {
         modifier = Modifier
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             text = "發生錯誤：$message",
@@ -146,17 +157,190 @@ private fun MovieDetailErrorScreen(message: String) {
     }
 }
 
+/**
+ * 電影詳情成功頁面
+ */
 @Composable
 private fun MovieDetailSuccessScreen(
     data: MovieDetailBean,
 ) {
-    JMAsyncImage(
-        model = data.backdropPath,
-        modifier = Modifier
+    Column(modifier = Modifier.fillMaxSize()) {
+        JMAsyncImage(
+            model = data.backdropPath,
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(16f / 9f),
+        )
+        LazyColumn {
+            item(key = data.title) {
+                Text(
+                    text = data.title,
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(
+                        top = 16.dp,
+                        start = 8.dp,
+                        end = 8.dp,
+                    ),
+                )
+            }
+            item {
+                Row(modifier = Modifier.padding(top = 8.dp, start = 8.dp)) {
+                    MovieStarRating(rating = data.voteAverage)
+                    Spacer(Modifier.width(16.dp))
+                    MovieReleaseDate(releaseDate = data.releaseDate)
+                    Spacer(Modifier.width(16.dp))
+                    MovieRuntime(runtime = data.runtime)
+                }
+            }
+            item {
+                MovieInfo(data.overview)
+            }
+            item {
+                MovieActorList()
+            }
+            item {
+                MovieGuessLikeList()
+            }
+        }
+    }
+}
+
+/**
+ * 電影星級評分
+ */
+@SuppressLint("DefaultLocale")
+@Composable
+private fun MovieStarRating(
+    rating: Double,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = Icons.Rounded.StarRate,
+            contentDescription = "Rating",
+            modifier = Modifier.size(16.dp),
+            tint = StarRatingColor,
+        )
+        Spacer(modifier = Modifier.width(2.dp))
+        Text(
+            text = String.format("%.2f", rating),
+            modifier = Modifier,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+        )
+    }
+}
+
+/**
+ *  電影上映日期
+ */
+@Composable
+private fun MovieReleaseDate(
+    releaseDate: String,
+    modifier: Modifier = Modifier,
+) {
+    Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+        Icon(
+            imageVector = Icons.Rounded.CalendarMonth,
+            contentDescription = "CalendarMonth",
+            modifier = Modifier.size(16.dp),
+        )
+        Spacer(modifier = Modifier.width(2.dp))
+        Text(
+            text = releaseDate,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+        )
+    }
+}
+
+/**
+ * 電影時長
+ */
+@Composable
+private fun MovieRuntime(
+    runtime: Int,
+    modifier: Modifier = Modifier,
+) {
+    Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+        Icon(
+            imageVector = Icons.Rounded.Timer,
+            contentDescription = "CalendarMonth",
+            modifier = Modifier.size(16.dp),
+        )
+        Spacer(modifier = Modifier.width(2.dp))
+        Text(
+            text = runtime.toString(),
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+        )
+    }
+}
+
+/**
+ * 電影簡介
+ */
+@Composable
+private fun MovieInfo(overview: String) {
+    Column(modifier = Modifier.padding(top = 16.dp, start = 8.dp, end = 8.dp)) {
+        Text(
+            text = stringResource(R.string.movie_plot_synopsis),
+            style = MaterialTheme.typography.headlineLarge,
+            modifier = Modifier,
+        )
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = overview,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+        )
+    }
+}
+
+/**
+ * 電影演員列表
+ */
+@Composable
+private fun MovieActorList(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
             .fillMaxWidth()
-            .aspectRatio(16f / 9f)
-            .clip(RoundedCornerShape(12.dp)),
-    )
+            .padding(top = 16.dp, start = 8.dp, end = 8.dp),
+    ) {
+        Text(
+            text = stringResource(R.string.movie_main_cast),
+            style = MaterialTheme.typography.headlineLarge,
+            modifier = Modifier,
+        )
+        Spacer(Modifier.height(8.dp))
+        LazyRow(modifier = Modifier.fillMaxWidth()) {
+        }
+    }
+}
+
+/**
+ * 猜你喜歡的電影列表
+ */
+@Composable
+private fun MovieGuessLikeList(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp, start = 8.dp, end = 8.dp),
+    ) {
+        Text(
+            text = stringResource(R.string.movie_recommendations),
+            style = MaterialTheme.typography.headlineLarge,
+            modifier = Modifier,
+        )
+        Spacer(Modifier.height(8.dp))
+        LazyRow(modifier = Modifier.fillMaxWidth()) {
+        }
+    }
 }
 
 @Preview
