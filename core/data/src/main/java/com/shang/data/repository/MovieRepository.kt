@@ -4,7 +4,6 @@ import androidx.paging.PagingData
 import com.shang.model.ConfigurationBean
 import com.shang.model.MovieGenreBean
 import com.shang.model.MovieListBean
-import com.shang.model.MovieSearchBean
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
@@ -15,7 +14,7 @@ interface MovieRepository {
 
     fun getMovieListPager(withGenres: String): Flow<PagingData<MovieListBean.Result>>
 
-    fun getMovieSearchPager(query: String): Flow<PagingData<MovieSearchBean.Result>>
+    fun getMovieSearchPager(query: String): Flow<PagingData<MovieListBean.Result>>
 
     // MovieCollectDao
     suspend fun insertMovie(movieResult: MovieListBean.Result)

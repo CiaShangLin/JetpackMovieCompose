@@ -11,7 +11,6 @@ import com.shang.database.entity.asExtendedModel
 import com.shang.model.ConfigurationBean
 import com.shang.model.MovieGenreBean
 import com.shang.model.MovieListBean
-import com.shang.model.MovieSearchBean
 import com.shang.network.retrofit.MovieDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -63,7 +62,7 @@ class MovieRepositoryImp @Inject constructor(
             .flowOn(ioDispatcher)
     }
 
-    override fun getMovieSearchPager(query: String): Flow<PagingData<MovieSearchBean.Result>> {
+    override fun getMovieSearchPager(query: String): Flow<PagingData<MovieListBean.Result>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 20,
