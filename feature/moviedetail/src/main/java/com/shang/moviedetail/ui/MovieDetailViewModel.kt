@@ -3,6 +3,7 @@ package com.shang.moviedetail.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shang.data.repository.MovieRepository
+import com.shang.domain.usecase.GetMovieDetailUseCase
 import com.shang.model.MovieDetailBean
 import com.shang.model.asMovieCardResult
 import dagger.assisted.Assisted
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel(assistedFactory = MovieDetailViewModel.Factory::class)
 class MovieDetailViewModel @AssistedInject constructor(
     private val movieRepository: MovieRepository,
+    getMovieDetailUseCase: GetMovieDetailUseCase,
     @Assisted private val movieId: Int,
 ) : ViewModel() {
 
@@ -26,7 +28,7 @@ class MovieDetailViewModel @AssistedInject constructor(
         fun create(movieId: Int): MovieDetailViewModel
     }
 
-    val movieDetail = movieRepository.getMovieDetail(movieId)
+    val movieDetail = getMovieDetailUseCase(movieId)
         .map {
             it.fold(
                 onSuccess = {

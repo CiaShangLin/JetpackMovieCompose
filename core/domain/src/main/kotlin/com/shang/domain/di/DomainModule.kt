@@ -5,6 +5,8 @@ import com.shang.common.di.Dispatcher
 import com.shang.data.repository.MovieRepository
 import com.shang.data.repository.UserDataRepository
 import com.shang.domain.usecase.GetConfigurationUseCase
+import com.shang.domain.usecase.GetHomeMovieListUseCase
+import com.shang.domain.usecase.GetMovieDetailUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,5 +26,23 @@ object DomainModule {
         @Dispatcher(CommonDispatcher.IO) ioDispatcher: CoroutineDispatcher,
     ): GetConfigurationUseCase {
         return GetConfigurationUseCase(movieRepository, userDataRepository, ioDispatcher)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetHomeMovieListUseCase(
+        movieRepository: MovieRepository,
+        @Dispatcher(CommonDispatcher.IO) ioDispatcher: CoroutineDispatcher,
+    ): GetHomeMovieListUseCase {
+        return GetHomeMovieListUseCase(movieRepository, ioDispatcher)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetMovieDetailUseCase(
+        movieRepository: MovieRepository,
+        @Dispatcher(CommonDispatcher.IO) ioDispatcher: CoroutineDispatcher,
+    ): GetMovieDetailUseCase {
+        return GetMovieDetailUseCase(movieRepository, ioDispatcher)
     }
 }
