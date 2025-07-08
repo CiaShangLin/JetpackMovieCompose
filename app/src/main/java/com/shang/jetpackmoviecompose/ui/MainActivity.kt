@@ -71,9 +71,11 @@ fun MainScreen(mainUiState: MainUiState, navController: NavHostController) {
             is MainUiState.Loading -> {
                 // 空的因為splash本身就是Loading
             }
+
             is MainUiState.Error -> {
                 ErrorScreen()
             }
+
             is MainUiState.Success -> {
                 SuccessScreen(navController = navController)
             }
@@ -141,7 +143,9 @@ fun SuccessScreen(navController: NavHostController) {
             searchScreen()
             historyScreen()
             settingsScreen()
-            movieDetailScreen()
+            movieDetailScreen(onBackClick = {
+                navController.popBackStack()
+            })
         }
     }
 }

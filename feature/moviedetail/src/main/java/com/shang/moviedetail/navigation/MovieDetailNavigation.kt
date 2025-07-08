@@ -15,7 +15,9 @@ fun NavController.navigateToMovieDetail(movieId: Int, navOptions: NavOptions? = 
     navigate("$MOVIE_DETAIL_ROUTE/$movieId", navOptions)
 }
 
-fun NavGraphBuilder.movieDetailScreen() {
+fun NavGraphBuilder.movieDetailScreen(
+    onBackClick: () -> Unit,
+) {
     composable(
         route = "$MOVIE_DETAIL_ROUTE/{$ARG_MOVIE_ID}",
         arguments = listOf(
@@ -26,6 +28,6 @@ fun NavGraphBuilder.movieDetailScreen() {
         ),
     ) { backStackEntry ->
         val movieId = backStackEntry.arguments?.getInt(ARG_MOVIE_ID) ?: 0
-        MovieDetailScreen(movieId = movieId)
+        MovieDetailScreen(movieId = movieId, onBackClick = onBackClick)
     }
 }
