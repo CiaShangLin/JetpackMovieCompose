@@ -21,6 +21,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.shang.designsystem.component.JMLazyVerticalGrid
 import com.shang.model.MovieListBean
 import com.shang.ui.MovieCard
+import com.shang.ui.MovieCardData
+import com.shang.ui.asMovieCardData
 
 @Composable
 fun CollectScreen(viewModel: CollectViewModel = hiltViewModel()) {
@@ -51,7 +53,7 @@ fun CollectErrorScreen(message: String) {
 @Composable
 fun CollectSuccessScreen(
     movieCollectList: List<MovieListBean.Result>,
-    onCollectClick: (MovieListBean.Result) -> Unit,
+    onCollectClick: (MovieCardData) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -80,7 +82,7 @@ fun CollectSuccessScreen(
         ) {
             items(movieCollectList) { movie ->
                 MovieCard(
-                    data = movie,
+                    data = movie.asMovieCardData(),
                     onCollectClick = onCollectClick,
                 )
             }

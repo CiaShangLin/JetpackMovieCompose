@@ -5,7 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.shang.data.repository.MovieRepository
 import com.shang.domain.usecase.GetHomeMovieListUseCase
 import com.shang.model.MovieGenreBean
-import com.shang.model.MovieListBean
+import com.shang.ui.MovieCardData
+import com.shang.ui.asMovieResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -28,12 +29,12 @@ class HomeContentViewModel @AssistedInject constructor(
     val movieList =
         getMovieGenreUseCase(movieGenre.id.toString(), viewModelScope)
 
-    fun toggleMovieCollectStatus(movieResult: MovieListBean.Result) {
+    fun toggleMovieCollectStatus(data: MovieCardData) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (movieResult.isCollect) {
-                movieRepository.deleteMovie(movieResult)
+            if (data.movieCardIsCollect) {
+                movieRepository.deleteMovie(data.asMovieResult())
             } else {
-                movieRepository.insertMovie(movieResult)
+                movieRepository.insertMovie(data.asMovieResult())
             }
         }
     }

@@ -28,6 +28,7 @@ import com.shang.designsystem.component.JMScrollableTabRow
 import com.shang.designsystem.component.JMTab
 import com.shang.model.MovieGenreBean
 import com.shang.ui.MovieCard
+import com.shang.ui.asMovieCardData
 
 @Composable
 fun HomeScreen(
@@ -116,7 +117,7 @@ fun HomeScreenPager(
         items(movieList.itemCount) {
             MovieCard(
                 modifier = Modifier,
-                data = movieList[it]!!,
+                data = movieList[it]?.asMovieCardData()!!,
                 onCollectClick = { movie ->
                     viewModel.toggleMovieCollectStatus(movie)
                 },

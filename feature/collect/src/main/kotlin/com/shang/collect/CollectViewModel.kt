@@ -3,7 +3,8 @@ package com.shang.collect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shang.data.repository.MovieRepository
-import com.shang.model.MovieListBean
+import com.shang.ui.MovieCardData
+import com.shang.ui.asMovieResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
@@ -27,12 +28,12 @@ class CollectViewModel @Inject constructor(
             initialValue = CollectUiState.Loading,
         )
 
-    fun toggleMovieCollectStatus(movieResult: MovieListBean.Result) {
+    fun toggleMovieCollectStatus(data: MovieCardData) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (movieResult.isCollect) {
-                movieRepository.deleteMovie(movieResult)
+            if (data.movieCardIsCollect) {
+                movieRepository.deleteMovie(data.asMovieResult())
             } else {
-                movieRepository.insertMovie(movieResult)
+                movieRepository.insertMovie(data.asMovieResult())
             }
         }
     }
