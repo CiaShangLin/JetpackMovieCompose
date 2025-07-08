@@ -33,5 +33,5 @@ interface MovieCollectDao {
      * 返回值為 nullable，若無資料則返回 null
      */
     @Query("SELECT * FROM MovieCollectEntity WHERE id = :id")
-    fun getMovieCollectEntityById(id: Int): MovieCollectEntity?
+    fun getMovieCollectEntityById(id: Int): Flow<MovieCollectEntity?>
 }

@@ -103,6 +103,14 @@ class MovieRepositoryImp @Inject constructor(
             .flowOn(ioDispatcher)
     }
 
+    override fun getMovieCollectEntityById(id: Int): Flow<MovieCardResult?> {
+        return movieCollectDao.getMovieCollectEntityById(id)
+            .map { entity ->
+                entity?.asExtendedModel()
+            }
+            .flowOn(ioDispatcher)
+    }
+
     override suspend fun insertMovie(movieResult: MovieCardResult) {
         movieCollectDao.insertMovieCollect(movieResult.asEntity())
     }

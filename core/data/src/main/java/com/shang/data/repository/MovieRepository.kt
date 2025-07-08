@@ -27,4 +27,6 @@ interface MovieRepository {
     fun getCollectedMovieIds(): Flow<List<Int>>
 
     fun getAllMovieCollect(): Flow<List<MovieCardResult>>
+
+    fun getMovieCollectEntityById(id: Int): Flow<MovieCardResult?>
 }
