@@ -8,6 +8,7 @@ import com.shang.data.repository.MovieRepositoryImp
 import com.shang.data.repository.UserDataRepository
 import com.shang.data.repository.UserDataRepositoryImp
 import com.shang.database.dao.MovieCollectDao
+import com.shang.database.dao.MovieHistoryDao
 import com.shang.datastore.UserPreferenceDataSource
 import com.shang.network.retrofit.MovieDataSource
 import dagger.Module
@@ -25,10 +26,11 @@ class DataModule {
     @Singleton
     fun provideMovieRepository(
         movieDataSource: MovieDataSource,
-        movieDao: MovieCollectDao,
+        movieCollectDao: MovieCollectDao,
+        movieHistoryDao: MovieHistoryDao,
         @Dispatcher(CommonDispatcher.IO) dispatcher: CoroutineDispatcher,
     ): MovieRepository {
-        return MovieRepositoryImp(movieDataSource, movieDao, dispatcher)
+        return MovieRepositoryImp(movieDataSource, movieCollectDao, movieHistoryDao, dispatcher)
     }
 
     @Provides
