@@ -1,6 +1,6 @@
 package com.shang.network.model
 
-import com.shang.model.MovieListBean
+import com.shang.model.MovieCardResult
 import com.shang.model.MovieSearchBean
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -65,8 +65,8 @@ fun SearchMovieResponse.asExternalModel(): MovieSearchBean {
     )
 }
 
-fun SearchMovieResponse.Result.asExternalModel(): MovieListBean.Result {
-    return MovieListBean.Result(
+fun SearchMovieResponse.Result.asExternalModel(): MovieCardResult {
+    return MovieCardResult(
         adult = adult ?: false,
         backdropPath = backdropPath ?: "",
         genreIds = genreIds ?: listOf(),

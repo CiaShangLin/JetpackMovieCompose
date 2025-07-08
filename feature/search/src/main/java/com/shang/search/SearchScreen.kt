@@ -36,7 +36,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.shang.designsystem.component.JMLazyVerticalGrid
-import com.shang.model.MovieListBean
+import com.shang.model.MovieCardResult
 import com.shang.ui.MovieCard
 import com.shang.ui.asMovieCardData
 
@@ -134,7 +134,7 @@ fun NotSearchScreen() {
 }
 
 @Composable
-fun SearchResultScreen(movieSearchPager: LazyPagingItems<MovieListBean.Result>) {
+fun SearchResultScreen(movieSearchPager: LazyPagingItems<MovieCardResult>) {
     JMLazyVerticalGrid(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(8.dp), // 外部間距

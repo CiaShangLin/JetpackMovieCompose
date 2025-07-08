@@ -2,18 +2,18 @@ package com.shang.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.shang.model.MovieListBean
+import com.shang.model.MovieCardResult
 import com.shang.network.retrofit.MovieDataSource
 
 class MovieGenrePagingSource(
     private val movieDataSource: MovieDataSource,
     private val withGenres: String,
-) : PagingSource<Int, MovieListBean.Result>() {
-    override fun getRefreshKey(state: PagingState<Int, MovieListBean.Result>): Int? {
+) : PagingSource<Int, MovieCardResult>() {
+    override fun getRefreshKey(state: PagingState<Int, MovieCardResult>): Int? {
         return null
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieListBean.Result> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieCardResult> {
         return try {
             val page = params.key ?: 1
             val response =

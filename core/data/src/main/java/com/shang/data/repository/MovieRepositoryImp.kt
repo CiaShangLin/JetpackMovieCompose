@@ -9,8 +9,8 @@ import com.shang.data.paging.MovieSearchPagingSource
 import com.shang.database.dao.MovieCollectDao
 import com.shang.database.entity.asExtendedModel
 import com.shang.model.ConfigurationBean
+import com.shang.model.MovieCardResult
 import com.shang.model.MovieGenreBean
-import com.shang.model.MovieListBean
 import com.shang.network.retrofit.MovieDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -47,7 +47,7 @@ class MovieRepositoryImp @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-    override fun getMovieListPager(withGenres: String): Flow<PagingData<MovieListBean.Result>> {
+    override fun getMovieListPager(withGenres: String): Flow<PagingData<MovieCardResult>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 20,
@@ -62,7 +62,7 @@ class MovieRepositoryImp @Inject constructor(
             .flowOn(ioDispatcher)
     }
 
-    override fun getMovieSearchPager(query: String): Flow<PagingData<MovieListBean.Result>> {
+    override fun getMovieSearchPager(query: String): Flow<PagingData<MovieCardResult>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 20,
@@ -81,7 +81,7 @@ class MovieRepositoryImp @Inject constructor(
         return movieCollectDao.collectedMovieIds().flowOn(ioDispatcher)
     }
 
-    override fun getAllMovieCollect(): Flow<List<MovieListBean.Result>> {
+    override fun getAllMovieCollect(): Flow<List<MovieCardResult>> {
         return movieCollectDao.getAllMovies()
             .map {
                 it.map { entity ->
@@ -91,11 +91,11 @@ class MovieRepositoryImp @Inject constructor(
             .flowOn(ioDispatcher)
     }
 
-    override suspend fun insertMovie(movieResult: MovieListBean.Result) {
+    override suspend fun insertMovie(movieResult: MovieCardResult) {
         movieCollectDao.insertMovieCollect(movieResult.asEntity())
     }
 
-    override suspend fun deleteMovie(movieResult: MovieListBean.Result) {
+    override suspend fun deleteMovie(movieResult: MovieCardResult) {
         movieCollectDao.deleteMovie(movieResult.asEntity())
     }
 }

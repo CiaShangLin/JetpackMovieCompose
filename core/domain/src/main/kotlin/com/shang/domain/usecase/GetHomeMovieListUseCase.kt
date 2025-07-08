@@ -6,7 +6,7 @@ import androidx.paging.map
 import com.shang.common.di.CommonDispatcher
 import com.shang.common.di.Dispatcher
 import com.shang.data.repository.MovieRepository
-import com.shang.model.MovieListBean
+import com.shang.model.MovieCardResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -39,7 +39,7 @@ class GetHomeMovieListUseCase @Inject constructor(
      * @param viewModelScope 提供 cachedIn 的 CoroutineScope，交由呼叫端決定生命週期
      * @return Flow<PagingData<MovieListBean.Result>> 分頁資料流，已標記 isCollect 狀態
      */
-    operator fun invoke(withGenres: String, viewModelScope: CoroutineScope): Flow<PagingData<MovieListBean.Result>> {
+    operator fun invoke(withGenres: String, viewModelScope: CoroutineScope): Flow<PagingData<MovieCardResult>> {
         // 不需要 cachedIn，讓調用方決定
         val pagerFlow = movieRepository.getMovieListPager(withGenres)
             .flowOn(ioDispatcher)

@@ -6,7 +6,7 @@ import com.shang.data.repository.MovieRepository
 import com.shang.domain.usecase.GetHomeMovieListUseCase
 import com.shang.model.MovieGenreBean
 import com.shang.ui.MovieCardData
-import com.shang.ui.asMovieResult
+import com.shang.ui.asMovieCardResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -32,9 +32,9 @@ class HomeContentViewModel @AssistedInject constructor(
     fun toggleMovieCollectStatus(data: MovieCardData) {
         viewModelScope.launch(Dispatchers.IO) {
             if (data.movieCardIsCollect) {
-                movieRepository.deleteMovie(data.asMovieResult())
+                movieRepository.deleteMovie(data.asMovieCardResult())
             } else {
-                movieRepository.insertMovie(data.asMovieResult())
+                movieRepository.insertMovie(data.asMovieCardResult())
             }
         }
     }

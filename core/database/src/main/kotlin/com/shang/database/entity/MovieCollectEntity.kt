@@ -3,7 +3,7 @@ package com.shang.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.shang.model.MovieListBean
+import com.shang.model.MovieCardResult
 
 @Entity(tableName = "MovieCollectEntity")
 data class MovieCollectEntity(
@@ -27,8 +27,8 @@ data class MovieCollectEntity(
     val timestamp: Long,
 )
 
-fun MovieCollectEntity.asExtendedModel(): MovieListBean.Result {
-    return MovieListBean.Result(
+fun MovieCollectEntity.asExtendedModel(): MovieCardResult {
+    return MovieCardResult(
         id = id,
         title = title,
         posterPath = posterPath,

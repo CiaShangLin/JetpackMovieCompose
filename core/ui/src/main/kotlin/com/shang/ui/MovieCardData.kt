@@ -1,6 +1,6 @@
 package com.shang.ui
 
-import com.shang.model.MovieListBean
+import com.shang.model.MovieCardResult
 
 /**
  * 代表電影卡片顯示所需的資料結構
@@ -23,8 +23,8 @@ data class MovieCardData(
     val movieCardTimestamp: Long,
 )
 
-fun MovieCardData.asMovieResult(): MovieListBean.Result =
-    MovieListBean.Result(
+fun MovieCardData.asMovieCardResult(): MovieCardResult =
+    MovieCardResult(
         id = movieCardId,
         title = movieCardTitle,
         posterPath = movieCardPosterPath,
@@ -34,7 +34,7 @@ fun MovieCardData.asMovieResult(): MovieListBean.Result =
         timestamp = movieCardTimestamp,
     )
 
-fun MovieListBean.Result.asMovieCardData(): MovieCardData =
+fun MovieCardResult.asMovieCardData(): MovieCardData =
     MovieCardData(
         movieCardId = id,
         movieCardTitle = title,

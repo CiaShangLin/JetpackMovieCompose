@@ -1,9 +1,9 @@
 package com.shang.data.model
 
 import com.shang.database.entity.MovieCollectEntity
-import com.shang.model.MovieListBean
+import com.shang.model.MovieCardResult
 
-fun MovieListBean.Result.asEntity(): MovieCollectEntity {
+fun MovieCardResult.asEntity(): MovieCollectEntity {
     return MovieCollectEntity(
         id = id,
         title = title,
