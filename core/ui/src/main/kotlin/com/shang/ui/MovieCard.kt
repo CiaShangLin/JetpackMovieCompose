@@ -50,7 +50,7 @@ fun MovieCard(
                 color = MaterialTheme.colorScheme.onSurface,
                 shape = MaterialTheme.shapes.medium,
             ).clickable {
-                onMovieClick.invoke(data)
+                onMovieClick(data)
             },
     ) {
         Column() {
