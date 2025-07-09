@@ -142,4 +142,8 @@ class MovieRepositoryImp @Inject constructor(
             }
             .flowOn(ioDispatcher)
     }
+
+    override suspend fun deleteAllMovieHistory(): Boolean {
+        return movieHistoryDao.deleteAllMovies() > 0
+    }
 }

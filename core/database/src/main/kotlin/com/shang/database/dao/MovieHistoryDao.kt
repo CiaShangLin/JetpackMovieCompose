@@ -21,5 +21,5 @@ interface MovieHistoryDao {
     suspend fun deleteMovie(movie: MovieHistoryEntity)
 
     @Query("DELETE FROM MovieHistoryEntity")
-    suspend fun deleteAllMovies()
+    suspend fun deleteAllMovies(): Int
 }
