@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -16,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -31,6 +33,7 @@ import com.shang.designsystem.theme.JetpackMovieComposeTheme
 import com.shang.history.navigation.historyScreen
 import com.shang.home.navigation.homeScreen
 import com.shang.jetpackmoviecompose.navigation.MainNavItem
+import com.shang.model.ThemeMode
 import com.shang.moviedetail.navigation.movieDetailScreen
 import com.shang.moviedetail.navigation.navigateToMovieDetail
 import com.shang.search.navigation.searchScreen
@@ -50,13 +53,34 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val configuration = viewModel.configuration.collectAsState()
+            val userData by viewModel.userData.collectAsState()
             splashScreen.setKeepOnScreenCondition {
                 configuration.value is MainUiState.Loading
             }
-            JetpackMovieComposeTheme {
+            ThemeProvider(themeMode = userData.themeMode) {
                 MainScreen(configuration.value, navController)
             }
         }
+    }
+}
+
+@Composable
+private fun ThemeProvider(
+    themeMode: ThemeMode,
+    content: @Composable () -> Unit,
+) {
+    val isSystemDarkTheme = isSystemInDarkTheme()
+
+    val isDarkTheme = remember(themeMode, isSystemDarkTheme) {
+        when (themeMode) {
+            ThemeMode.DARK -> true
+            ThemeMode.LIGHT -> false
+            ThemeMode.SYSTEM -> isSystemDarkTheme
+        }
+    }
+
+    JetpackMovieComposeTheme(darkTheme = isDarkTheme) {
+        content()
     }
 }
 
