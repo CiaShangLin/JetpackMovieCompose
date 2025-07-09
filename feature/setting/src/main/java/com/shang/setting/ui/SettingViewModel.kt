@@ -32,7 +32,7 @@ class SettingViewModel @Inject constructor(
 
     fun setLanguageMode(languageMode: LanguageMode) {
         viewModelScope.launch(Dispatchers.IO) {
-           userDataRepository.setLanguageMode(languageMode)
+            userDataRepository.setLanguageMode(languageMode)
         }
     }
 }
