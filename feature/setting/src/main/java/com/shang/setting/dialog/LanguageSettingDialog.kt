@@ -18,6 +18,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -82,7 +83,6 @@ private fun LanguageSettingContent(
                 Text(
                     text = stringResource(R.string.language_selection_title),
                     style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
                 )
                 IconButton(
                     onClick = onDismissRequest,
@@ -90,7 +90,7 @@ private fun LanguageSettingContent(
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.Close,
-                        contentDescription = "關閉",
+                        contentDescription = null,
                         modifier = Modifier.size(24.dp),
                         tint = MaterialTheme.colorScheme.onSurface,
                     )
@@ -138,15 +138,15 @@ private fun LanguageOption(
         RadioButton(
             selected = selected,
             onClick = null, // 由父層 Row 處理點擊
+            colors = RadioButtonDefaults.colors(
+                selectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                unselectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            ),
         )
+
         Text(
             text = text,
             style = MaterialTheme.typography.bodyLarge,
-            color = if (selected) {
-                MaterialTheme.colorScheme.primary
-            } else {
-                MaterialTheme.colorScheme.onSurface
-            },
             modifier = Modifier.padding(start = 16.dp),
         )
     }
