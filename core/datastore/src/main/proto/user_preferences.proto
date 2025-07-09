@@ -4,24 +4,28 @@ option java_package = "com.shang.datastore";
 option java_multiple_files = true;
 
 message UserPreferences {
-    bool show_completed = 1;
-    int32 version = 2;
-    // 網路設定，對應 ConfigurationBean
-    ConfigurationProto configuration = 3;
+  ConfigurationProto configuration = 1;
+  Theme theme = 2;
 }
 
 // 網路設定資料結構，對應 domain model 的 ConfigurationBean
 message ConfigurationProto {
-    repeated string change_keys = 1;
-    Images images = 2;
+  repeated string change_keys = 1;
+  Images images = 2;
 
-    message Images {
-        repeated string backdrop_sizes = 1;
-        string base_url = 2;
-        repeated string logo_sizes = 3;
-        repeated string poster_sizes = 4;
-        repeated string profile_sizes = 5;
-        string secure_base_url = 6;
-        repeated string still_sizes = 7;
-    }
+  message Images {
+    repeated string backdrop_sizes = 1;
+    string base_url = 2;
+    repeated string logo_sizes = 3;
+    repeated string poster_sizes = 4;
+    repeated string profile_sizes = 5;
+    string secure_base_url = 6;
+    repeated string still_sizes = 7;
+  }
+}
+
+enum Theme {
+  THEME_SYSTEM_DEFAULT = 0;
+  THEME_LIGHT = 1;
+  THEME_DARK = 2;
 }
