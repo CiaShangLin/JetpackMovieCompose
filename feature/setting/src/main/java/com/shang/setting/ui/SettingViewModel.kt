@@ -3,6 +3,7 @@ package com.shang.setting.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shang.data.repository.UserDataRepository
+import com.shang.model.LanguageMode
 import com.shang.model.ThemeMode
 import com.shang.model.UserData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,6 +27,12 @@ class SettingViewModel @Inject constructor(
     fun setThemeMode(themeMode: ThemeMode) {
         viewModelScope.launch(Dispatchers.IO) {
             userDataRepository.setThemeMode(themeMode)
+        }
+    }
+
+    fun setLanguageMode(languageMode: LanguageMode) {
+        viewModelScope.launch(Dispatchers.IO) {
+           userDataRepository.setLanguageMode(languageMode)
         }
     }
 }

@@ -6,6 +6,7 @@ option java_multiple_files = true;
 message UserPreferences {
   ConfigurationProto configuration = 1;
   ThemeProto theme = 2;
+  LanguageProto language = 3;
 }
 
 // 網路設定資料結構，對應 domain model 的 ConfigurationBean
@@ -28,4 +29,11 @@ enum ThemeProto {
   THEME_SYSTEM_DEFAULT = 0;
   THEME_LIGHT = 1;
   THEME_DARK = 2;
+}
+
+enum LanguageProto {
+  LANGUAGE_SYSTEM_DEFAULT = 0;    // 跟隨系統語言
+  LANGUAGE_TRADITIONAL_CHINESE = 1;    // 繁體中文 (zh-TW)
+  LANGUAGE_SIMPLIFIED_CHINESE = 2;     // 簡體中文 (zh-CN)
+  LANGUAGE_ENGLISH = 3;               // 英文 (en)
 }

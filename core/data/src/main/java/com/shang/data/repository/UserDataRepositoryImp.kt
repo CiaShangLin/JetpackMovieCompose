@@ -2,6 +2,7 @@ package com.shang.data.repository
 
 import com.shang.datastore.UserPreferenceDataSource
 import com.shang.model.ConfigurationBean
+import com.shang.model.LanguageMode
 import com.shang.model.ThemeMode
 import com.shang.model.UserData
 import kotlinx.coroutines.flow.Flow
@@ -18,5 +19,9 @@ class UserDataRepositoryImp @Inject constructor(
 
     override suspend fun setThemeMode(themeMode: ThemeMode) {
         userPreferenceDataSource.setThemeMode(themeMode)
+    }
+
+    override suspend fun setLanguageMode(languageMode: LanguageMode) {
+        userPreferenceDataSource.setLanguageMode(languageMode)
     }
 }
