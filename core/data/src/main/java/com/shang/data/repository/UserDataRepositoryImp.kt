@@ -11,14 +11,6 @@ class UserDataRepositoryImp @Inject constructor(
 ) : UserDataRepository {
     override val userData: Flow<UserData> = userPreferenceDataSource.userData
 
-    override suspend fun setShowCompleted(showCompleted: Boolean) {
-        userPreferenceDataSource.setShowCompleted(showCompleted)
-    }
-
-    override suspend fun setVersion(version: Int) {
-        userPreferenceDataSource.setVersion(version)
-    }
-
     override suspend fun setConfiguration(configuration: ConfigurationBean) {
         userPreferenceDataSource.setConfiguration(configuration)
     }

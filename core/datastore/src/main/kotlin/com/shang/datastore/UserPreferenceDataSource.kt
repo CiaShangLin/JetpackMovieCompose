@@ -14,26 +14,8 @@ class UserPreferenceDataSource @Inject constructor(
 
     val userData = userPreferences.data.map {
         UserData(
-            showCompleted = it.showCompleted,
-            version = it.version,
             configuration = it.configuration.toModel(),
         )
-    }
-
-    suspend fun setShowCompleted(showCompleted: Boolean) {
-        userPreferences.updateData {
-            it.copy {
-                this.showCompleted = showCompleted
-            }
-        }
-    }
-
-    suspend fun setVersion(version: Int) {
-        userPreferences.updateData {
-            it.copy {
-                this.version = version
-            }
-        }
     }
 
     suspend fun setConfiguration(configurationBean: ConfigurationBean) {

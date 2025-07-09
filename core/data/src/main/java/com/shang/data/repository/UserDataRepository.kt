@@ -8,9 +8,5 @@ interface UserDataRepository {
 
     val userData: Flow<UserData>
 
-    suspend fun setShowCompleted(showCompleted: Boolean)
-
-    suspend fun setVersion(version: Int)
-
     suspend fun setConfiguration(configuration: ConfigurationBean)
 }

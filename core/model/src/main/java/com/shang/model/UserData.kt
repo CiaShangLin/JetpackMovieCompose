@@ -5,7 +5,5 @@ package com.shang.model
  * @param configuration 電影資料API配置
  */
 data class UserData(
-    val showCompleted: Boolean,
-    val version: Int,
     val configuration: ConfigurationBean,
 )
