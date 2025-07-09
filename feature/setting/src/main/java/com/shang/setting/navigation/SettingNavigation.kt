@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.shang.setting.SettingScreen
+import com.shang.setting.ui.SettingScreen
 
 const val SETTINGS_ROUTE = "setting_route"
 

@@ -1,0 +1,9 @@
+<resources>
+    <string name="setting">Settings</string>
+    <string name="theme_setting_title">Theme</string>
+    <string name="theme_setting_content">Current theme</string>
+    <string name="language_setting_title">Language</string>
+    <string name="language_setting_content">Current language</string>
+    <string name="developers_setting_title">About</string>
+    <string name="developers_setting_content">About this app</string>
+</resources>

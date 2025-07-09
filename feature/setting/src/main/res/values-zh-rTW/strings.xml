@@ -1,0 +1,9 @@
+<resources>
+    <string name="setting">設定</string>
+    <string name="theme_setting_title">主題設定</string>
+    <string name="theme_setting_content">當前主題</string>
+    <string name="language_setting_title">語言設定</string>
+    <string name="language_setting_content">當前語言</string>
+    <string name="developers_setting_title">開發者資訊</string>
+    <string name="developers_setting_content">關於此應用程式</string>
+</resources>
