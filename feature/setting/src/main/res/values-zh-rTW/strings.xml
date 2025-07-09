@@ -13,6 +13,7 @@
     <string name="theme_light_mode">亮色模式</string>
     <string name="theme_dark_mode">黑暗模式</string>
     <string name="theme_system_default">系統預設</string>
+    <string name="theme_setting_current_format">切換主題：%1$s</string>
 
     <!-- 語言選擇相關 -->
     <string name="language_selection_title">選擇語言</string>

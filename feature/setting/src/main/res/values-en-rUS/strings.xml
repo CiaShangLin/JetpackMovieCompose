@@ -13,6 +13,7 @@
     <string name="theme_light_mode">Light Mode</string>
     <string name="theme_dark_mode">Dark Mode</string>
     <string name="theme_system_default">System Default</string>
+    <string name="theme_setting_current_format">Switch Theme: %1$s</string>
 
     <!-- Language selection related -->
     <string name="language_selection_title">Choose Language</string>

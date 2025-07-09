@@ -36,11 +36,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.shang.model.ThemeMode
 import com.shang.setting.R
-
-enum class ThemeMode {
-    LIGHT, DARK, SYSTEM
-}
 
 @Composable
 fun ThemeSettingDialog(
@@ -92,6 +89,12 @@ fun ThemeSettingDialog(
                     modifier = Modifier.selectableGroup(),
                 ) {
                     ThemeOption(
+                        text = stringResource(R.string.theme_system_default),
+                        selected = currentTheme == ThemeMode.SYSTEM,
+                        onClick = { onThemeSelected(ThemeMode.SYSTEM) },
+                        icon = Icons.Filled.SettingsApplications,
+                    )
+                    ThemeOption(
                         text = stringResource(R.string.theme_light_mode),
                         selected = currentTheme == ThemeMode.LIGHT,
                         onClick = { onThemeSelected(ThemeMode.LIGHT) },
@@ -103,13 +106,6 @@ fun ThemeSettingDialog(
                         selected = currentTheme == ThemeMode.DARK,
                         onClick = { onThemeSelected(ThemeMode.DARK) },
                         icon = Icons.Filled.DarkMode,
-                    )
-
-                    ThemeOption(
-                        text = stringResource(R.string.theme_system_default),
-                        selected = currentTheme == ThemeMode.SYSTEM,
-                        onClick = { onThemeSelected(ThemeMode.SYSTEM) },
-                        icon = Icons.Filled.SettingsApplications,
                     )
                 }
             }

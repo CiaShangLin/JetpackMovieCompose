@@ -10,9 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.TabRowDefaults.Divider
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
-import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.rounded.Info
-import androidx.compose.material.icons.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material3.Icon
@@ -27,14 +25,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.shang.model.ThemeMode
+import com.shang.model.UserData
 import com.shang.setting.R
 import com.shang.setting.dialog.DevelopersSettingDialog
 import com.shang.setting.dialog.LanguageMode
 import com.shang.setting.dialog.LanguageSettingDialog
-import com.shang.setting.dialog.ThemeMode
 import com.shang.setting.dialog.ThemeSettingDialog
 
 @Composable
@@ -42,8 +41,10 @@ fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
     var showThemeSettingDialog by remember { mutableStateOf(false) }
     var showLanguageSettingDialog by remember { mutableStateOf(false) }
     var showDevelopersSettingDialog by remember { mutableStateOf(false) }
+    val userData by viewModel.userData.collectAsStateWithLifecycle()
 
     SettingScreen(
+        userData = userData,
         onThemeSettingClick = {
             showThemeSettingDialog = true
         },
@@ -60,10 +61,10 @@ fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
             onDismissRequest = {
                 showThemeSettingDialog = false
             },
-            currentTheme = ThemeMode.SYSTEM,
+            currentTheme = userData.themeMode,
             onThemeSelected = { theme ->
-
                 showThemeSettingDialog = false
+                viewModel.setThemeMode(theme)
             },
         )
     }
@@ -75,7 +76,6 @@ fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
             },
             currentLanguage = LanguageMode.CHINESE,
             onLanguageSelected = { language ->
-
                 showLanguageSettingDialog = false
             },
         )
@@ -92,13 +92,14 @@ fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
 
 @Composable
 private fun SettingScreen(
+    userData: UserData,
     modifier: Modifier = Modifier,
     onThemeSettingClick: () -> Unit,
     onLanguageSettingClick: () -> Unit,
     onDevelopersSettingClick: () -> Unit,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize(),
     ) {
         Text(
@@ -116,8 +117,8 @@ private fun SettingScreen(
                 .padding(start = 8.dp, end = 8.dp, bottom = 8.dp),
         )
         LazyColumn {
-            item {
-                ThemeSetting(onClick = onThemeSettingClick)
+            item(key = userData.themeMode) {
+                ThemeSetting(onClick = onThemeSettingClick, themeMode = userData.themeMode)
             }
             item {
                 LanguageSetting(
@@ -134,11 +135,17 @@ private fun SettingScreen(
 }
 
 @Composable
-private fun ThemeSetting(onClick: () -> Unit) {
+private fun ThemeSetting(onClick: () -> Unit, themeMode: ThemeMode) {
+    val currentThemeText = when (themeMode) {
+        ThemeMode.LIGHT -> stringResource(id = R.string.theme_light_mode)
+        ThemeMode.DARK -> stringResource(id = R.string.theme_dark_mode)
+        ThemeMode.SYSTEM -> stringResource(id = R.string.theme_system_default)
+    }
+
     SettingItem(
         icon = Icons.Rounded.Palette,
         title = stringResource(id = R.string.theme_setting_title),
-        content = stringResource(id = R.string.theme_setting_content),
+        content = stringResource(id = R.string.theme_setting_current_format, currentThemeText),
         modifier = Modifier,
         onClick = onClick,
     )
@@ -208,12 +215,12 @@ private fun SettingItem(
     }
 }
 
-@Preview
-@Composable
-private fun SettingScreenPreview() {
-    SettingScreen(
-        onThemeSettingClick = { /* Do nothing */ },
-        onLanguageSettingClick = { /* Do nothing */ },
-        onDevelopersSettingClick = { /* Do nothing */ },
-    )
-}
+// @Preview
+// @Composable
+// private fun SettingScreenPreview() {
+//    SettingScreen(
+//        onThemeSettingClick = { /* Do nothing */ },
+//        onLanguageSettingClick = { /* Do nothing */ },
+//        onDevelopersSettingClick = { /* Do nothing */ },
+//    )
+// }
