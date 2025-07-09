@@ -5,7 +5,7 @@ option java_multiple_files = true;
 
 message UserPreferences {
   ConfigurationProto configuration = 1;
-  Theme theme = 2;
+  ThemeProto theme = 2;
 }
 
 // 網路設定資料結構，對應 domain model 的 ConfigurationBean
@@ -24,7 +24,7 @@ message ConfigurationProto {
   }
 }
 
-enum Theme {
+enum ThemeProto {
   THEME_SYSTEM_DEFAULT = 0;
   THEME_LIGHT = 1;
   THEME_DARK = 2;

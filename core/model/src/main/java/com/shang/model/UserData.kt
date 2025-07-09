@@ -6,4 +6,6 @@ package com.shang.model
  */
 data class UserData(
     val configuration: ConfigurationBean,
+    val themeMode: ThemeMode,
+
 )
