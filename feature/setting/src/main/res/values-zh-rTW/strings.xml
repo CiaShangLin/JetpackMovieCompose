@@ -6,4 +6,10 @@
     <string name="language_setting_content">當前語言</string>
     <string name="developers_setting_title">開發者資訊</string>
     <string name="developers_setting_content">關於此應用程式</string>
+
+    <!-- 主題選擇相關 -->
+    <string name="theme_selection_title">選擇主題</string>
+    <string name="theme_light_mode">亮色模式</string>
+    <string name="theme_dark_mode">黑暗模式</string>
+    <string name="theme_system_default">系統預設</string>
 </resources>

@@ -19,6 +19,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -27,17 +31,35 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shang.setting.R
+import com.shang.setting.dialog.ThemeMode
+import com.shang.setting.dialog.ThemeSettingDialog
 
 @Composable
 fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
+    var showThemeSettingDialog by remember { mutableStateOf(false) }
+
     SettingScreen(
         onThemeSettingClick = {
+            showThemeSettingDialog = true
         },
         onLanguageSettingClick = {
         },
         onDevelopersSettingClick = {
         },
     )
+
+    if (showThemeSettingDialog) {
+        ThemeSettingDialog(
+            onDismissRequest = {
+                showThemeSettingDialog = false
+            },
+            currentTheme = ThemeMode.SYSTEM,
+            onThemeSelected = { theme ->
+
+                showThemeSettingDialog = false
+            },
+        )
+    }
 }
 
 @Composable
