@@ -7,13 +7,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.util.Locale
 import javax.inject.Inject
 
 /**
  * 語言攔截器
  */
 class LanguageInterceptor @Inject constructor(
-
     private val userPreferenceDataSource: UserPreferenceDataSource,
     @ApplicationScope private val scope: CoroutineScope,
 ) :
@@ -30,7 +30,7 @@ class LanguageInterceptor @Inject constructor(
                     LanguageMode.ENGLISH -> "en-US"
                     LanguageMode.TRADITIONAL_CHINESE -> "zh-TW"
                     LanguageMode.SIMPLIFIED_CHINESE -> "zh"
-                    else -> "zh-TW"
+                    else -> Locale.getDefault().language
                 }
             }
         }

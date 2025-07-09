@@ -1,7 +1,10 @@
 package com.shang.network.di
 
+import com.shang.common.di.ApplicationScope
+import com.shang.datastore.UserPreferenceDataSource
 import com.shang.network.BuildConfig
 import com.shang.network.intercept.ApiKeyInterceptor
+import com.shang.network.intercept.LanguageInterceptor
 import com.shang.network.retrofit.MovieApiService
 import com.shang.network.retrofit.MovieDataSource
 import com.shang.network.retrofit.MovieDataSourceImp
@@ -9,6 +12,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -43,6 +47,18 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    fun provideLanguageInterceptor(
+        userPreferenceDataSource: UserPreferenceDataSource,
+        @ApplicationScope scope: CoroutineScope,
+    ): LanguageInterceptor {
+        return LanguageInterceptor(
+            userPreferenceDataSource = userPreferenceDataSource,
+            scope = scope,
+        )
+    }
+
+    @Provides
+    @Singleton
     fun provideApiKeyInterceptor(): ApiKeyInterceptor {
         return ApiKeyInterceptor()
     }
@@ -52,9 +68,11 @@ class NetworkModule {
     fun provideOkHttpClient(
         okhttpLoggerInterceptor: HttpLoggingInterceptor,
         apiKeyInterceptor: ApiKeyInterceptor,
+        languageInterceptor: LanguageInterceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(apiKeyInterceptor)
+            .addInterceptor(languageInterceptor)
             .addInterceptor(okhttpLoggerInterceptor)
             .build()
     }
