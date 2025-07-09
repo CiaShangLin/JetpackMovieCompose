@@ -40,9 +40,15 @@ fun HistoryScreen(viewModel: HistoryViewModel = hiltViewModel()) {
     if (allMovieHistory.value.isEmpty()) {
         NotDataScreen()
     } else {
-        HistoryMovieScreen(data = allMovieHistory.value, onCollectClick = {
-            viewModel.toggleMovieCollectStatus(it)
-        })
+        HistoryMovieScreen(
+            data = allMovieHistory.value,
+            onCollectClick = {
+                viewModel.toggleMovieCollectStatus(it)
+            },
+            onClearClick = {
+                viewModel.clearAllMovieHistory()
+            },
+        )
     }
 }
 
@@ -55,12 +61,13 @@ private fun NotDataScreen() {
 private fun HistoryMovieScreen(
     data: List<MovieCardResult>,
     onCollectClick: (MovieCardData) -> Unit,
+    onClearClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
     ) {
-        HistoryTitle()
+        HistoryTitle(onClearClick = onClearClick)
         Divider(
             color = MaterialTheme.colorScheme.onSurface,
             thickness = 1.dp,
@@ -88,7 +95,7 @@ private fun HistoryMovieScreen(
 }
 
 @Composable
-private fun HistoryTitle() {
+private fun HistoryTitle(onClearClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -103,6 +110,7 @@ private fun HistoryTitle() {
         )
         Row(
             modifier = Modifier.clickable {
+                onClearClick.invoke()
             },
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -125,5 +133,5 @@ private fun HistoryTitle() {
 @Preview
 @Composable
 fun HistoryMovieScreenPreview() {
-    HistoryMovieScreen(listOf(), onCollectClick = {})
+    HistoryMovieScreen(listOf(), onCollectClick = {}, onClearClick = {})
 }

@@ -36,4 +36,13 @@ class HistoryViewModel @Inject constructor(
             }
         }
     }
+
+    /**
+     * 清空歷史紀錄
+     */
+    fun clearAllMovieHistory() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val isDeleteSuccess = movieRepository.deleteAllMovieHistory()
+        }
+    }
 }
