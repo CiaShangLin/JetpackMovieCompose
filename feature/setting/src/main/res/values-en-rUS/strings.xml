@@ -18,5 +18,8 @@
     <!-- Language selection related -->
     <string name="language_selection_title">Choose Language</string>
     <string name="language_traditional_chinese">Traditional Chinese</string>
+    <string name="language_simplified_chinese">Simplified Chinese</string>
     <string name="language_english">English</string>
+    <string name="language_system_default">System Default</string>
+    <string name="language_setting_current_format">Current language: %1$s</string>
 </resources>

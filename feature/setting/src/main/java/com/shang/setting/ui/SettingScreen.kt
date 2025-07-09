@@ -28,11 +28,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.shang.model.LanguageMode
 import com.shang.model.ThemeMode
 import com.shang.model.UserData
 import com.shang.setting.R
 import com.shang.setting.dialog.DevelopersSettingDialog
-import com.shang.setting.dialog.LanguageMode
 import com.shang.setting.dialog.LanguageSettingDialog
 import com.shang.setting.dialog.ThemeSettingDialog
 
@@ -74,9 +74,10 @@ fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
             onDismissRequest = {
                 showLanguageSettingDialog = false
             },
-            currentLanguage = LanguageMode.CHINESE,
+            currentLanguage = userData.languageMode,
             onLanguageSelected = { language ->
                 showLanguageSettingDialog = false
+                viewModel.setLanguageMode(language)
             },
         )
     }
@@ -123,6 +124,7 @@ private fun SettingScreen(
             item {
                 LanguageSetting(
                     onClick = onLanguageSettingClick,
+                    languageMode = userData.languageMode,
                 )
             }
             item {
@@ -152,11 +154,20 @@ private fun ThemeSetting(onClick: () -> Unit, themeMode: ThemeMode) {
 }
 
 @Composable
-private fun LanguageSetting(onClick: () -> Unit) {
+private fun LanguageSetting(onClick: () -> Unit, languageMode: LanguageMode) {
+    val currentLanguageText = when (languageMode) {
+        LanguageMode.TRADITIONAL_CHINESE -> stringResource(id = R.string.language_traditional_chinese)
+        LanguageMode.ENGLISH -> stringResource(id = R.string.language_english)
+        LanguageMode.SYSTEM_DEFAULT -> stringResource(id = R.string.language_system_default)
+        LanguageMode.SIMPLIFIED_CHINESE -> stringResource(id = R.string.language_simplified_chinese)
+    }
     SettingItem(
         icon = Icons.Rounded.Language,
         title = stringResource(id = R.string.language_setting_title),
-        content = stringResource(id = R.string.language_setting_content),
+        content = stringResource(
+            id = R.string.language_setting_current_format,
+            currentLanguageText,
+        ),
         modifier = Modifier,
         onClick = onClick,
     )

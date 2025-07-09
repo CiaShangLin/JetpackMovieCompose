@@ -18,6 +18,9 @@
     <string name="language_selection_title">選擇語言</string>
     <string name="language_traditional_chinese">繁體中文</string>
     <string name="language_english">英文</string>
+    <string name="language_simplified_chinese">簡體中文</string>
+    <string name="language_system_default">系統預設</string>
+    <string name="language_setting_current_format">目前語言：%1$s</string>
 
     <!-- 開發者資訊相關 -->
     <string name="developer_info_title">開發者資訊</string>

@@ -32,17 +32,13 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.shang.model.LanguageMode
 import com.shang.setting.R
-
-enum class LanguageMode {
-    ENGLISH,
-    CHINESE,
-}
 
 @Composable
 fun LanguageSettingDialog(
     onDismissRequest: () -> Unit,
-    currentLanguage: LanguageMode = LanguageMode.CHINESE,
+    currentLanguage: LanguageMode,
     onLanguageSelected: (LanguageMode) -> Unit,
 ) {
     Dialog(onDismissRequest = onDismissRequest) {
@@ -57,7 +53,7 @@ fun LanguageSettingDialog(
 @Composable
 private fun LanguageSettingContent(
     onDismissRequest: () -> Unit,
-    currentLanguage: LanguageMode = LanguageMode.CHINESE,
+    currentLanguage: LanguageMode = LanguageMode.TRADITIONAL_CHINESE,
     onLanguageSelected: (LanguageMode) -> Unit,
 ) {
     Card(
@@ -102,11 +98,20 @@ private fun LanguageSettingContent(
                 modifier = Modifier.selectableGroup(),
             ) {
                 LanguageOption(
-                    text = stringResource(R.string.language_traditional_chinese),
-                    selected = currentLanguage == LanguageMode.CHINESE,
-                    onClick = { onLanguageSelected(LanguageMode.CHINESE) },
+                    text = stringResource(R.string.language_system_default),
+                    selected = currentLanguage == LanguageMode.SYSTEM_DEFAULT,
+                    onClick = { onLanguageSelected(LanguageMode.SYSTEM_DEFAULT) },
                 )
-
+                LanguageOption(
+                    text = stringResource(R.string.language_traditional_chinese),
+                    selected = currentLanguage == LanguageMode.TRADITIONAL_CHINESE,
+                    onClick = { onLanguageSelected(LanguageMode.TRADITIONAL_CHINESE) },
+                )
+                LanguageOption(
+                    text = stringResource(R.string.language_simplified_chinese),
+                    selected = currentLanguage == LanguageMode.SIMPLIFIED_CHINESE,
+                    onClick = { onLanguageSelected(LanguageMode.SIMPLIFIED_CHINESE) },
+                )
                 LanguageOption(
                     text = stringResource(R.string.language_english),
                     selected = currentLanguage == LanguageMode.ENGLISH,
@@ -162,7 +167,7 @@ private fun LanguageOption(
 @Composable
 private fun LanguageSettingDialogPreview_Chinese() {
     MaterialTheme {
-        var selectedLanguage by remember { mutableStateOf(LanguageMode.CHINESE) }
+        var selectedLanguage by remember { mutableStateOf(LanguageMode.TRADITIONAL_CHINESE) }
         LanguageSettingContent(
             currentLanguage = selectedLanguage,
             onLanguageSelected = { selectedLanguage = it },
