@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shang.setting.R
+import com.shang.setting.dialog.DevelopersSettingDialog
 import com.shang.setting.dialog.LanguageMode
 import com.shang.setting.dialog.LanguageSettingDialog
 import com.shang.setting.dialog.ThemeMode
@@ -40,6 +41,8 @@ import com.shang.setting.dialog.ThemeSettingDialog
 fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
     var showThemeSettingDialog by remember { mutableStateOf(false) }
     var showLanguageSettingDialog by remember { mutableStateOf(false) }
+    var showDevelopersSettingDialog by remember { mutableStateOf(false) }
+
     SettingScreen(
         onThemeSettingClick = {
             showThemeSettingDialog = true
@@ -48,6 +51,7 @@ fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
             showLanguageSettingDialog = true
         },
         onDevelopersSettingClick = {
+            showDevelopersSettingDialog = true
         },
     )
 
@@ -73,6 +77,14 @@ fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
             onLanguageSelected = { language ->
 
                 showLanguageSettingDialog = false
+            },
+        )
+    }
+
+    if (showDevelopersSettingDialog) {
+        DevelopersSettingDialog(
+            onDismissRequest = {
+                showDevelopersSettingDialog = false
             },
         )
     }

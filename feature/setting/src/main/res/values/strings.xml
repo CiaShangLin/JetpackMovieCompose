@@ -17,4 +17,7 @@
     <string name="language_selection_title">選擇語言</string>
     <string name="language_traditional_chinese">繁體中文</string>
     <string name="language_english">英文</string>
+
+    <!-- 開發者資訊相關 -->
+    <string name="developer_info_title">開發者資訊</string>
 </resources>
