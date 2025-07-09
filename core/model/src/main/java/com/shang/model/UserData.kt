@@ -7,5 +7,13 @@ package com.shang.model
 data class UserData(
     val configuration: ConfigurationBean,
     val themeMode: ThemeMode,
-
-)
+) {
+    companion object {
+        fun getDefault(): UserData {
+            return UserData(
+                configuration = ConfigurationBean(),
+                themeMode = ThemeMode.SYSTEM,
+            )
+        }
+    }
+}
