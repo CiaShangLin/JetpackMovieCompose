@@ -12,4 +12,9 @@
     <string name="theme_light_mode">Light Mode</string>
     <string name="theme_dark_mode">Dark Mode</string>
     <string name="theme_system_default">System Default</string>
+
+    <!-- Language selection related -->
+    <string name="language_selection_title">Choose Language</string>
+    <string name="language_traditional_chinese">Traditional Chinese</string>
+    <string name="language_english">English</string>
 </resources>

@@ -12,4 +12,9 @@
     <string name="theme_light_mode">亮色模式</string>
     <string name="theme_dark_mode">黑暗模式</string>
     <string name="theme_system_default">系統預設</string>
+
+    <!-- 語言選擇相關 -->
+    <string name="language_selection_title">選擇語言</string>
+    <string name="language_traditional_chinese">繁體中文</string>
+    <string name="language_english">英文</string>
 </resources>
