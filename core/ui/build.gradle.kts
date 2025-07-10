@@ -1,4 +1,5 @@
 import deps.androidx
+import deps.commonModule
 import deps.dataModule
 import deps.designsystemModule
 import deps.hilt
@@ -24,6 +25,7 @@ dependencies {
     dataModule()
     modelModule()
     designsystemModule()
+    commonModule()
     testDeps()
     testImplDeps()
 }
