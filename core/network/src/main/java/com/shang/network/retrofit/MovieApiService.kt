@@ -4,6 +4,7 @@ import com.shang.network.model.ConfigurationResponse
 import com.shang.network.model.DiscoverMovieResponse
 import com.shang.network.model.MovieDetailResponse
 import com.shang.network.model.MovieGenreResponse
+import com.shang.network.model.MovieRecommendResponse
 import com.shang.network.model.SearchMovieResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -47,25 +48,24 @@ interface MovieApiService {
         @Query("page") page: Int,
     ): Response<SearchMovieResponse>
 
+    /**
+     * 獲取電影詳情
+     * @param id 電影ID
+     */
     @GET("movie/{id}}")
     suspend fun getMovieDetail(
         @Path("id") id: Int,
     ): Response<MovieDetailResponse>
 
+    /**
+     * 獲取電影推薦
+     * @param id 電影ID
+     */
+    @GET("movie/{id}/recommendations")
+    suspend fun getMovieRecommendations(@Path("id") id: Int): Response<MovieRecommendResponse>
+
 //    @GET("movie/{id}/credits")
 //    suspend fun getMovieActor(
 //        @Path("id") id: Int,
-//    ): ActorBean
-//
-//    //    similar
-//    @GET("movie/{id}/recommendations")
-//    suspend fun getMovieRecommendations(
-//        @Path("id") id: Int,
-//    ): MovieListBean
-
-//
-//    @GET
-//    fun getPicture(
-//        @Url url: String,
-//    ): Call<ResponseBody>
+//    ): Response<MovieDetailResponse>
 }
