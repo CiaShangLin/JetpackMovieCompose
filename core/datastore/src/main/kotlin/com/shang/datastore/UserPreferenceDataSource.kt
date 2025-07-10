@@ -24,7 +24,6 @@ class UserPreferenceDataSource @Inject constructor(
             },
             languageMode = when (it.language) {
                 LanguageProto.LANGUAGE_TRADITIONAL_CHINESE -> LanguageMode.TRADITIONAL_CHINESE
-                LanguageProto.LANGUAGE_SIMPLIFIED_CHINESE -> LanguageMode.SIMPLIFIED_CHINESE
                 LanguageProto.LANGUAGE_ENGLISH -> LanguageMode.ENGLISH
                 else -> LanguageMode.SYSTEM_DEFAULT
             },
@@ -57,7 +56,6 @@ class UserPreferenceDataSource @Inject constructor(
             it.copy {
                 language = when (languageMode) {
                     LanguageMode.TRADITIONAL_CHINESE -> LanguageProto.LANGUAGE_TRADITIONAL_CHINESE
-                    LanguageMode.SIMPLIFIED_CHINESE -> LanguageProto.LANGUAGE_SIMPLIFIED_CHINESE
                     LanguageMode.ENGLISH -> LanguageProto.LANGUAGE_ENGLISH
                     else -> LanguageProto.LANGUAGE_SYSTEM_DEFAULT
                 }

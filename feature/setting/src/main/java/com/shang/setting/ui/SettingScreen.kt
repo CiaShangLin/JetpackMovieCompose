@@ -159,7 +159,6 @@ private fun LanguageSetting(onClick: () -> Unit, languageMode: LanguageMode) {
         LanguageMode.TRADITIONAL_CHINESE -> stringResource(id = R.string.language_traditional_chinese)
         LanguageMode.ENGLISH -> stringResource(id = R.string.language_english)
         LanguageMode.SYSTEM_DEFAULT -> stringResource(id = R.string.language_system_default)
-        LanguageMode.SIMPLIFIED_CHINESE -> stringResource(id = R.string.language_simplified_chinese)
     }
     SettingItem(
         icon = Icons.Rounded.Language,

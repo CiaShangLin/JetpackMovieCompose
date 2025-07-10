@@ -29,7 +29,6 @@ class LanguageInterceptor @Inject constructor(
                 cachedLanguageCode = when (userData.languageMode) {
                     LanguageMode.ENGLISH -> "en-US"
                     LanguageMode.TRADITIONAL_CHINESE -> "zh-TW"
-                    LanguageMode.SIMPLIFIED_CHINESE -> "zh"
                     else -> Locale.getDefault().language
                 }
             }

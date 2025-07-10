@@ -32,8 +32,7 @@ enum ThemeProto {
 }
 
 enum LanguageProto {
-  LANGUAGE_SYSTEM_DEFAULT = 0;    // 跟隨系統語言
-  LANGUAGE_TRADITIONAL_CHINESE = 1;    // 繁體中文 (zh-TW)
-  LANGUAGE_SIMPLIFIED_CHINESE = 2;     // 簡體中文 (zh-CN)
-  LANGUAGE_ENGLISH = 3;               // 英文 (en)
+  LANGUAGE_SYSTEM_DEFAULT = 0;          // 跟隨系統語言
+  LANGUAGE_TRADITIONAL_CHINESE = 1;     // 繁體中文 (zh-TW)
+  LANGUAGE_ENGLISH = 2;                 // 英文 (en)
 }

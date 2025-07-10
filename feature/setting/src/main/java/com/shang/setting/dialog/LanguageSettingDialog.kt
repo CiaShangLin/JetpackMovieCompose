@@ -108,11 +108,6 @@ private fun LanguageSettingContent(
                     onClick = { onLanguageSelected(LanguageMode.TRADITIONAL_CHINESE) },
                 )
                 LanguageOption(
-                    text = stringResource(R.string.language_simplified_chinese),
-                    selected = currentLanguage == LanguageMode.SIMPLIFIED_CHINESE,
-                    onClick = { onLanguageSelected(LanguageMode.SIMPLIFIED_CHINESE) },
-                )
-                LanguageOption(
                     text = stringResource(R.string.language_english),
                     selected = currentLanguage == LanguageMode.ENGLISH,
                     onClick = { onLanguageSelected(LanguageMode.ENGLISH) },
