@@ -1,5 +1,6 @@
 package com.shang.network.model
 
+import android.annotation.SuppressLint
 import com.shang.model.MovieDetailBean
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -7,6 +8,7 @@ import kotlinx.serialization.Serializable
 /**
  * 電影詳情數據模型
  */
+@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class MovieDetailResponse(
     @SerialName("adult")
