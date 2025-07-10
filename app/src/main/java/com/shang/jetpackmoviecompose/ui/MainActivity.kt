@@ -15,8 +15,10 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +35,8 @@ import com.shang.designsystem.theme.JetpackMovieComposeTheme
 import com.shang.history.navigation.historyScreen
 import com.shang.home.navigation.homeScreen
 import com.shang.jetpackmoviecompose.navigation.MainNavItem
+import com.shang.jetpackmoviecompose.utils.LanguageSettingUtils
+import com.shang.model.LanguageMode
 import com.shang.model.ThemeMode
 import com.shang.moviedetail.navigation.movieDetailScreen
 import com.shang.moviedetail.navigation.navigateToMovieDetail
@@ -51,16 +55,34 @@ class MainActivity : ComponentActivity() {
         val splashScreen = installSplashScreen()
         enableEdgeToEdge()
         setContent {
-            val navController = rememberNavController()
             val configuration = viewModel.configuration.collectAsState()
             val userData by viewModel.userData.collectAsState()
             splashScreen.setKeepOnScreenCondition {
                 configuration.value is MainUiState.Loading
             }
-            ThemeProvider(themeMode = userData.themeMode) {
-                MainScreen(configuration.value, navController)
+            LaunchedEffect(userData.languageMode) {
+                LanguageSettingUtils.updateActivityLocale(
+                    activity = this@MainActivity,
+                    languageMode = userData.languageMode,
+                )
+            }
+            LanguageProvider(languageMode = userData.languageMode) {
+                val navController = rememberNavController()
+                ThemeProvider(themeMode = userData.themeMode) {
+                    MainScreen(configuration.value, navController)
+                }
             }
         }
+    }
+}
+
+@Composable
+private fun LanguageProvider(
+    languageMode: LanguageMode,
+    content: @Composable () -> Unit,
+) {
+    key(languageMode) {
+        content()
     }
 }
 
