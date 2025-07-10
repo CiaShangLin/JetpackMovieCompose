@@ -6,7 +6,6 @@ import com.shang.common.UiState
 import com.shang.data.repository.MovieRepository
 import com.shang.domain.usecase.GetMovieDetailUseCase
 import com.shang.domain.usecase.GetMovieRecommendUseCase
-import com.shang.model.MovieDetailBean
 import com.shang.model.asMovieCardResult
 import com.shang.ui.MovieCardData
 import com.shang.ui.asMovieCardResult
@@ -78,19 +77,9 @@ class MovieDetailViewModel @AssistedInject constructor(
             initialValue = UiState.Loading,
         )
 
-    fun toggleCollect(data: MovieDetailBean) {
+    fun toggleCollect(data: MovieCardData, isCollect: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (movieCollect.value) {
-                movieRepository.deleteMovieCollect(data.asMovieCardResult())
-            } else {
-                movieRepository.insertMovieCollect(data.asMovieCardResult())
-            }
-        }
-    }
-
-    fun toggleRecommendCardCollect(data: MovieCardData) {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (data.movieCardIsCollect) {
+            if (isCollect) {
                 movieRepository.deleteMovieCollect(data.asMovieCardResult())
             } else {
                 movieRepository.insertMovieCollect(data.asMovieCardResult())

@@ -41,6 +41,7 @@ import com.shang.designsystem.component.JMAsyncImage
 import com.shang.designsystem.theme.StarRatingColor
 import com.shang.model.MovieCardResult
 import com.shang.model.MovieDetailBean
+import com.shang.model.asMovieCardResult
 import com.shang.moviedetail.R
 import com.shang.ui.MovieCard
 import com.shang.ui.MovieCardData
@@ -68,7 +69,7 @@ fun MovieDetailScreen(
                 onMovieClick = { movieCardData ->
                 },
                 onCollectClick = { movieCardData ->
-                    viewModel.toggleRecommendCardCollect(movieCardData)
+                    viewModel.toggleCollect(movieCardData, movieCardData.movieCardIsCollect)
                 },
             )
 
@@ -98,8 +99,8 @@ fun MovieDetailScreen(
                     shape = MaterialTheme.shapes.small,
                 )
                 .clickable {
-                    (movieDetail.value as? MovieDetailUiState.Success)?.data?.let {
-                        viewModel.toggleCollect(it)
+                    (movieDetail.value as? MovieDetailUiState.Success)?.data?.asMovieCardResult()?.asMovieCardData()?.let {
+                        viewModel.toggleCollect(it, movieCollect.value)
                     }
                 },
             isCollect = movieCollect.value,
