@@ -2,8 +2,8 @@ package com.shang.network.model
 import android.annotation.SuppressLint
 import com.shang.model.MovieCardResult
 import com.shang.model.MovieRecommendBean
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * 電影推薦數據模型
@@ -18,8 +18,8 @@ data class MovieRecommendResponse(
     @SerialName("total_pages")
     val totalPages: Int? = 0,
     @SerialName("total_results")
-    val totalResults: Int? = 0
-){
+    val totalResults: Int? = 0,
+) {
     @Serializable
     data class Result(
         @SerialName("adult")
@@ -51,7 +51,7 @@ data class MovieRecommendResponse(
         @SerialName("vote_average")
         val voteAverage: Double? = 0.0,
         @SerialName("vote_count")
-        val voteCount: Int? = 0
+        val voteCount: Int? = 0,
     )
 }
 
@@ -62,7 +62,7 @@ fun MovieRecommendResponse.asExternalModel(): MovieRecommendBean {
             it.asExternalModel()
         } ?: emptyList(),
         totalPages = this.totalPages ?: 0,
-        totalResults = this.totalResults ?: 0
+        totalResults = this.totalResults ?: 0,
     )
 }
 
@@ -81,7 +81,6 @@ fun MovieRecommendResponse.Result.asExternalModel(): MovieCardResult {
         title = this.title ?: "",
         video = this.video ?: false,
         voteAverage = this.voteAverage ?: 0.0,
-        voteCount = this.voteCount ?: 0
+        voteCount = this.voteCount ?: 0,
     )
 }
-

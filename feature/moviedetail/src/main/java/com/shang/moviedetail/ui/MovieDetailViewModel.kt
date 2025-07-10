@@ -2,6 +2,7 @@ package com.shang.moviedetail.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shang.common.UiState
 import com.shang.data.repository.MovieRepository
 import com.shang.domain.usecase.GetMovieDetailUseCase
 import com.shang.model.MovieDetailBean
@@ -12,6 +13,7 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.fold
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -53,6 +55,23 @@ class MovieDetailViewModel @AssistedInject constructor(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = false,
+        )
+
+    val movieRecommendations = movieRepository.getMovieRecommendations(movieId)
+        .map {
+            it.fold(
+                onSuccess = {
+                    UiState.Success(it)
+                },
+                onFailure = {
+                    UiState.Error(it)
+                },
+            )
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = UiState.Loading,
         )
 
     fun toggleCollect(data: MovieDetailBean) {

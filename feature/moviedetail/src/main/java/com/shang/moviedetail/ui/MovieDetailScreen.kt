@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.CalendarMonth
@@ -35,10 +36,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.shang.common.UiState
 import com.shang.designsystem.component.JMAsyncImage
 import com.shang.designsystem.theme.StarRatingColor
 import com.shang.model.MovieDetailBean
+import com.shang.model.MovieRecommendBean
 import com.shang.moviedetail.R
+import com.shang.ui.MovieCard
+import com.shang.ui.asMovieCardData
 
 @Composable
 fun MovieDetailScreen(
@@ -51,11 +56,16 @@ fun MovieDetailScreen(
 ) {
     val movieDetail = viewModel.movieDetail.collectAsStateWithLifecycle()
     val movieCollect = viewModel.movieCollect.collectAsStateWithLifecycle()
+    val movieRecommend = viewModel.movieRecommendations.collectAsStateWithLifecycle()
 
     Box(modifier = Modifier.fillMaxSize()) {
         when (val state = movieDetail.value) {
             is MovieDetailUiState.Loading -> MovieDetailLoadingScreen()
-            is MovieDetailUiState.Success -> MovieDetailSuccessScreen(state.data)
+            is MovieDetailUiState.Success -> MovieDetailSuccessScreen(
+                state.data,
+                movieRecommend.value,
+            )
+
             is MovieDetailUiState.Error -> MovieDetailErrorScreen(state.message)
         }
 
@@ -163,6 +173,7 @@ private fun MovieDetailErrorScreen(message: String) {
 @Composable
 private fun MovieDetailSuccessScreen(
     data: MovieDetailBean,
+    movieRecommend: UiState<MovieRecommendBean>,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         JMAsyncImage(
@@ -200,7 +211,7 @@ private fun MovieDetailSuccessScreen(
                 MovieActorList()
             }
             item {
-                MovieGuessLikeList()
+                MovieGuessLikeList(modifier = Modifier, movieRecommend = movieRecommend)
             }
         }
     }
@@ -326,19 +337,48 @@ private fun MovieActorList(modifier: Modifier = Modifier) {
  * 猜你喜歡的電影列表
  */
 @Composable
-private fun MovieGuessLikeList(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp, start = 8.dp, end = 8.dp),
-    ) {
-        Text(
-            text = stringResource(R.string.movie_recommendations),
-            style = MaterialTheme.typography.headlineLarge,
-            modifier = Modifier,
-        )
-        Spacer(Modifier.height(8.dp))
-        LazyRow(modifier = Modifier.fillMaxWidth()) {
+private fun MovieGuessLikeList(
+    modifier: Modifier = Modifier,
+    movieRecommend: UiState<MovieRecommendBean>,
+) {
+    when (movieRecommend) {
+        is UiState.Loading -> {
+            Text("Loading recommendations...")
+        }
+
+        is UiState.Error -> {
+        }
+
+        is UiState.Success<MovieRecommendBean> -> {
+            Column(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, start = 8.dp, end = 8.dp),
+            ) {
+                Text(
+                    text = stringResource(R.string.movie_recommendations),
+                    style = MaterialTheme.typography.headlineLarge,
+                    modifier = Modifier,
+                )
+                Spacer(Modifier.height(8.dp))
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    items(movieRecommend.data.results) { movieCardResult ->
+                        MovieCard(
+                            modifier = Modifier.fillParentMaxWidth(
+                                fraction = 0.3f,
+                            ),
+                            data = movieCardResult.asMovieCardData(),
+                            onMovieClick = {
+                            },
+                            onCollectClick = {
+                            },
+                        )
+                    }
+                }
+            }
         }
     }
 }

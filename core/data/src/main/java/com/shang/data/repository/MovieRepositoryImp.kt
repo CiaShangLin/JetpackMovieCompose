@@ -15,7 +15,6 @@ import com.shang.model.MovieCardResult
 import com.shang.model.MovieDetailBean
 import com.shang.model.MovieGenreBean
 import com.shang.model.MovieRecommendBean
-import com.shang.network.model.MovieRecommendResponse
 import com.shang.network.retrofit.MovieDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
