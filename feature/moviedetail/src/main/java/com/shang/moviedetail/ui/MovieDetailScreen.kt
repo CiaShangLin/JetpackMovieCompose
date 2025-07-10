@@ -32,7 +32,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -40,9 +39,11 @@ import com.shang.common.UiState
 import com.shang.designsystem.component.JMAsyncImage
 import com.shang.designsystem.theme.StarRatingColor
 import com.shang.model.MovieCardResult
+import com.shang.model.MovieCastAndCrewBean
 import com.shang.model.MovieDetailBean
 import com.shang.model.asMovieCardResult
 import com.shang.moviedetail.R
+import com.shang.ui.MovieActor
 import com.shang.ui.MovieCard
 import com.shang.ui.MovieCardData
 import com.shang.ui.asMovieCardData
@@ -68,6 +69,7 @@ fun MovieDetailScreen(
             is MovieDetailUiState.Success -> MovieDetailSuccessScreen(
                 data = state.data,
                 movieRecommend = movieRecommend.value,
+                movieActors = movieActors.value,
                 onMovieClick = onMovieClick,
                 onCollectClick = { movieCardData ->
                     viewModel.toggleCollect(movieCardData, movieCardData.movieCardIsCollect)
@@ -100,9 +102,10 @@ fun MovieDetailScreen(
                     shape = MaterialTheme.shapes.small,
                 )
                 .clickable {
-                    (movieDetail.value as? MovieDetailUiState.Success)?.data?.asMovieCardResult()?.asMovieCardData()?.let {
-                        viewModel.toggleCollect(it, movieCollect.value)
-                    }
+                    (movieDetail.value as? MovieDetailUiState.Success)?.data?.asMovieCardResult()
+                        ?.asMovieCardData()?.let {
+                            viewModel.toggleCollect(it, movieCollect.value)
+                        }
                 },
             isCollect = movieCollect.value,
         )
@@ -181,6 +184,7 @@ private fun MovieDetailErrorScreen(message: String) {
 private fun MovieDetailSuccessScreen(
     data: MovieDetailBean,
     movieRecommend: UiState<List<MovieCardResult>>,
+    movieActors: UiState<List<MovieCastAndCrewBean.Cast>> = UiState.Loading,
     onMovieClick: (data: MovieCardData) -> Unit,
     onCollectClick: (data: MovieCardData) -> Unit,
 ) {
@@ -217,7 +221,7 @@ private fun MovieDetailSuccessScreen(
                 MovieInfo(data.overview)
             }
             item {
-                MovieActorList()
+                MovieActorList(movieActors)
             }
             item {
                 MovieGuessLikeList(
@@ -330,19 +334,41 @@ private fun MovieInfo(overview: String) {
  * 電影演員列表
  */
 @Composable
-private fun MovieActorList(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp, start = 8.dp, end = 8.dp),
-    ) {
-        Text(
-            text = stringResource(R.string.movie_main_cast),
-            style = MaterialTheme.typography.headlineLarge,
-            modifier = Modifier,
-        )
-        Spacer(Modifier.height(8.dp))
-        LazyRow(modifier = Modifier.fillMaxWidth()) {}
+private fun MovieActorList(uiState: UiState<List<MovieCastAndCrewBean.Cast>>, modifier: Modifier = Modifier) {
+    when (uiState) {
+        UiState.Loading -> {
+            Text("Loading actors...")
+        }
+        is UiState.Error -> {
+        }
+        is UiState.Success<List<MovieCastAndCrewBean.Cast>> -> {
+            Column(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, start = 8.dp, end = 8.dp),
+            ) {
+                Text(
+                    text = stringResource(R.string.movie_main_cast),
+                    style = MaterialTheme.typography.headlineLarge,
+                    modifier = Modifier,
+                )
+                Spacer(Modifier.height(8.dp))
+                LazyRow(modifier = Modifier.fillMaxWidth()) {
+                    items(uiState.data) {
+                        MovieActor(
+                            model = it.profilePath,
+                            modifier = Modifier
+                                .fillParentMaxWidth(
+                                    fraction = 0.35f,
+                                )
+                                .aspectRatio(1f)
+                                .padding(4.dp)
+                                ,
+                        )
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -401,8 +427,8 @@ private fun MovieGuessLikeList(
     }
 }
 
-//@Preview
-//@Composable
-//private fun MovieDetailScreenPreview() {
+// @Preview
+// @Composable
+// private fun MovieDetailScreenPreview() {
 //    MovieDetailScreen(movieId = 12345) {}
-//}
+// }

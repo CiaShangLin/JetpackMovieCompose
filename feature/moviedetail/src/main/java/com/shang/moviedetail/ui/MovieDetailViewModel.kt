@@ -80,7 +80,7 @@ class MovieDetailViewModel @AssistedInject constructor(
     val movieActors = movieRepository.getMovieActor(movieId)
         .map {
             it.fold(
-                onSuccess = { UiState.Success(it) },
+                onSuccess = { UiState.Success(it.cast) },
                 onFailure = { UiState.Error(it) },
             )
         }
