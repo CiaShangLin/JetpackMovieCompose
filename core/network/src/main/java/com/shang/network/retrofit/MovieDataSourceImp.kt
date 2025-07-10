@@ -1,6 +1,7 @@
 package com.shang.network.retrofit
 
 import com.shang.model.ConfigurationBean
+import com.shang.model.MovieCastAndCrewBean
 import com.shang.model.MovieDetailBean
 import com.shang.model.MovieGenreBean
 import com.shang.model.MovieListBean
@@ -66,7 +67,7 @@ class MovieDataSourceImp @Inject constructor(private val _movieApiService: Movie
         }
     }
 
-    override suspend fun getMovieActor(id: Int): NetworkResponse<MovieDetailBean> {
+    override suspend fun getMovieActor(id: Int): NetworkResponse<MovieCastAndCrewBean> {
         return safeApiCall {
             _movieApiService.getMovieActor(id)
         }.mapData { response ->

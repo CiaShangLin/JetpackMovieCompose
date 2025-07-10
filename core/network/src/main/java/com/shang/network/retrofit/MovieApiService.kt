@@ -2,6 +2,7 @@ package com.shang.network.retrofit
 
 import com.shang.network.model.ConfigurationResponse
 import com.shang.network.model.DiscoverMovieResponse
+import com.shang.network.model.MovieCastAndCrewResponse
 import com.shang.network.model.MovieDetailResponse
 import com.shang.network.model.MovieGenreResponse
 import com.shang.network.model.MovieRecommendResponse
@@ -64,8 +65,12 @@ interface MovieApiService {
     @GET("movie/{id}/recommendations")
     suspend fun getMovieRecommendations(@Path("id") id: Int): Response<MovieRecommendResponse>
 
+    /**
+     * 獲取電影演員
+     * @param id 電影ID
+     */
     @GET("movie/{id}/credits")
     suspend fun getMovieActor(
         @Path("id") id: Int,
-    ): Response<MovieDetailResponse>
+    ): Response<MovieCastAndCrewResponse>
 }

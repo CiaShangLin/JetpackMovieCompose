@@ -3,6 +3,7 @@ package com.shang.data.repository
 import androidx.paging.PagingData
 import com.shang.model.ConfigurationBean
 import com.shang.model.MovieCardResult
+import com.shang.model.MovieCastAndCrewBean
 import com.shang.model.MovieDetailBean
 import com.shang.model.MovieGenreBean
 import com.shang.model.MovieRecommendBean
@@ -22,7 +23,7 @@ interface MovieRepository {
 
     fun getMovieRecommendations(id: Int): Flow<Result<MovieRecommendBean>>
 
-    fun getMovieActor(id: Int): Flow<Result<MovieDetailBean>>
+    fun getMovieActor(id: Int): Flow<Result<MovieCastAndCrewBean>>
 
     // MovieCollectDao
     suspend fun insertMovieCollect(movieResult: MovieCardResult)

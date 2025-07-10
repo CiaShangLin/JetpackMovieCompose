@@ -12,6 +12,7 @@ import com.shang.database.dao.MovieHistoryDao
 import com.shang.database.entity.asExtendedModel
 import com.shang.model.ConfigurationBean
 import com.shang.model.MovieCardResult
+import com.shang.model.MovieCastAndCrewBean
 import com.shang.model.MovieDetailBean
 import com.shang.model.MovieGenreBean
 import com.shang.model.MovieRecommendBean
@@ -107,7 +108,7 @@ class MovieRepositoryImp @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-    override fun getMovieActor(id: Int): Flow<Result<MovieDetailBean>> {
+    override fun getMovieActor(id: Int): Flow<Result<MovieCastAndCrewBean>> {
         return flow {
             val response = movieDataSource.getMovieActor(id)
             if (response.isSuccess) {

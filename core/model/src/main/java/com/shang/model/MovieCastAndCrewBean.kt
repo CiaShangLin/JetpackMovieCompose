@@ -6,7 +6,7 @@ package com.shang.model
 data class MovieCastAndCrewBean(
     val cast: List<Cast> = emptyList(),
     val crew: List<Crew> = emptyList(),
-    val id: Int = 0
+    val id: Int = 0,
 ) {
 
     data class Cast(
@@ -21,7 +21,7 @@ data class MovieCastAndCrewBean(
         val order: Int = 0,
         val originalName: String = "",
         val popularity: Double = 0.0,
-        val profilePath: String = ""
+        val profilePath: String = "",
     )
 
     /**
@@ -38,6 +38,6 @@ data class MovieCastAndCrewBean(
         val name: String = "",
         val originalName: String = "",
         val popularity: Double = 0.0,
-        val profilePath: String = ""
+        val profilePath: String = "",
     )
 }

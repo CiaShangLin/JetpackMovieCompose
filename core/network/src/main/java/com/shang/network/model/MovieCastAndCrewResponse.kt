@@ -2,8 +2,8 @@ package com.shang.network.model
 
 import android.annotation.SuppressLint
 import com.shang.model.MovieCastAndCrewBean
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * 電影演員與工作人員資料的數據模型。
@@ -16,7 +16,7 @@ data class MovieCastAndCrewResponse(
     @SerialName("crew")
     val crew: List<Crew>? = listOf(),
     @SerialName("id")
-    val id: Int? = 0
+    val id: Int? = 0,
 ) {
 
     @Serializable
@@ -44,7 +44,7 @@ data class MovieCastAndCrewResponse(
         @SerialName("popularity")
         val popularity: Double? = 0.0,
         @SerialName("profile_path")
-        val profilePath: String? = ""
+        val profilePath: String? = "",
     )
 
     @Serializable
@@ -70,7 +70,7 @@ data class MovieCastAndCrewResponse(
         @SerialName("popularity")
         val popularity: Double? = 0.0,
         @SerialName("profile_path")
-        val profilePath: String? = ""
+        val profilePath: String? = "",
     )
 }
 
@@ -78,12 +78,12 @@ fun MovieCastAndCrewResponse.asExternalModel(): MovieCastAndCrewBean {
     return MovieCastAndCrewBean(
         cast = cast?.map { it.asExternalModel() } ?: emptyList(),
         crew = crew?.map { it.asExternalModel() } ?: emptyList(),
-        id = id ?: 0
+        id = id ?: 0,
     )
 }
 
 private fun MovieCastAndCrewResponse.Cast.asExternalModel(): MovieCastAndCrewBean.Cast {
-    return MovieCastAndCrewBean.Cast (
+    return MovieCastAndCrewBean.Cast(
         adult = adult ?: false,
         castId = castId ?: 0,
         character = character ?: "",
@@ -95,7 +95,7 @@ private fun MovieCastAndCrewResponse.Cast.asExternalModel(): MovieCastAndCrewBea
         order = order ?: 0,
         originalName = originalName ?: "",
         popularity = popularity ?: 0.0,
-        profilePath = profilePath ?: ""
+        profilePath = profilePath ?: "",
     )
 }
 
@@ -111,6 +111,6 @@ private fun MovieCastAndCrewResponse.Crew.asExternalModel(): MovieCastAndCrewBea
         name = name ?: "",
         originalName = originalName ?: "",
         popularity = popularity ?: 0.0,
-        profilePath = profilePath ?: ""
+        profilePath = profilePath ?: "",
     )
 }

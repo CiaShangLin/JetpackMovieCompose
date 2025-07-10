@@ -1,6 +1,7 @@
 package com.shang.network.retrofit
 
 import com.shang.model.ConfigurationBean
+import com.shang.model.MovieCastAndCrewBean
 import com.shang.model.MovieDetailBean
 import com.shang.model.MovieGenreBean
 import com.shang.model.MovieListBean
@@ -52,5 +53,5 @@ interface MovieDataSource {
      * 獲取電影演員
      * @param id 電影ID
      */
-    suspend fun getMovieActor(id: Int): NetworkResponse<MovieDetailBean>
+    suspend fun getMovieActor(id: Int): NetworkResponse<MovieCastAndCrewBean>
 }
