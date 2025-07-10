@@ -14,6 +14,8 @@ import com.shang.model.ConfigurationBean
 import com.shang.model.MovieCardResult
 import com.shang.model.MovieDetailBean
 import com.shang.model.MovieGenreBean
+import com.shang.model.MovieRecommendBean
+import com.shang.network.model.MovieRecommendResponse
 import com.shang.network.retrofit.MovieDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -87,6 +89,17 @@ class MovieRepositoryImp @Inject constructor(
     override fun getMovieDetail(id: Int): Flow<Result<MovieDetailBean>> {
         return flow {
             val response = movieDataSource.getMovieDetail(id)
+            if (response.isSuccess) {
+                emit(Result.success(response.data!!))
+            } else {
+                emit(Result.failure(response.error!!))
+            }
+        }.flowOn(ioDispatcher)
+    }
+
+    override fun getMovieRecommendations(id: Int): Flow<Result<MovieRecommendBean>> {
+        return flow {
+            val response = movieDataSource.getMovieRecommendations(id)
             if (response.isSuccess) {
                 emit(Result.success(response.data!!))
             } else {

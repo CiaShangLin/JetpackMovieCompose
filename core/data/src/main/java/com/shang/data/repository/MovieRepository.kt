@@ -5,6 +5,8 @@ import com.shang.model.ConfigurationBean
 import com.shang.model.MovieCardResult
 import com.shang.model.MovieDetailBean
 import com.shang.model.MovieGenreBean
+import com.shang.model.MovieRecommendBean
+import com.shang.network.model.MovieRecommendResponse
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
@@ -18,6 +20,8 @@ interface MovieRepository {
     fun getMovieSearchPager(query: String): Flow<PagingData<MovieCardResult>>
 
     fun getMovieDetail(id: Int): Flow<Result<MovieDetailBean>>
+
+    fun getMovieRecommendations(id: Int): Flow<Result<MovieRecommendBean>>
 
     // MovieCollectDao
     suspend fun insertMovieCollect(movieResult: MovieCardResult)
