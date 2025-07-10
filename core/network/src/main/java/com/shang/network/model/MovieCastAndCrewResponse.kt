@@ -1,17 +1,16 @@
 package com.shang.network.model
 
 import android.annotation.SuppressLint
-import com.shang.model.MovieCastResult
-import com.shang.model.MovieCastBean
+import com.shang.model.MovieCastAndCrewBean
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 /**
- *
+ * 電影演員與工作人員資料的數據模型。
  */
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
-data class MovieCastResponse(
+data class MovieCastAndCrewResponse(
     @SerialName("cast")
     val cast: List<Cast>? = listOf(),
     @SerialName("crew")
@@ -75,16 +74,16 @@ data class MovieCastResponse(
     )
 }
 
-fun MovieCastResponse.asExternalModel(): MovieCastBean {
-    return MovieCastBean(
+fun MovieCastAndCrewResponse.asExternalModel(): MovieCastAndCrewBean {
+    return MovieCastAndCrewBean(
         cast = cast?.map { it.asExternalModel() } ?: emptyList(),
         crew = crew?.map { it.asExternalModel() } ?: emptyList(),
         id = id ?: 0
     )
 }
 
-private fun MovieCastResponse.Cast.asExternalModel(): MovieCastResult{
-    return MovieCastResult(
+private fun MovieCastAndCrewResponse.Cast.asExternalModel(): MovieCastAndCrewBean.Cast {
+    return MovieCastAndCrewBean.Cast (
         adult = adult ?: false,
         castId = castId ?: 0,
         character = character ?: "",
@@ -100,8 +99,8 @@ private fun MovieCastResponse.Cast.asExternalModel(): MovieCastResult{
     )
 }
 
-private fun MovieCastResponse.Crew.asExternalModel(): MovieCastBean.CrewBean {
-    return MovieCastBean.CrewBean(
+private fun MovieCastAndCrewResponse.Crew.asExternalModel(): MovieCastAndCrewBean.Crew {
+    return MovieCastAndCrewBean.Crew(
         adult = adult ?: false,
         creditId = creditId ?: "",
         department = department ?: "",
