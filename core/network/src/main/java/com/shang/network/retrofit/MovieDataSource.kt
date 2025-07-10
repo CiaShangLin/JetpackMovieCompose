@@ -4,6 +4,7 @@ import com.shang.model.ConfigurationBean
 import com.shang.model.MovieDetailBean
 import com.shang.model.MovieGenreBean
 import com.shang.model.MovieListBean
+import com.shang.model.MovieRecommendBean
 import com.shang.model.MovieSearchBean
 import com.shang.network.model.NetworkResponse
 
@@ -40,4 +41,10 @@ interface MovieDataSource {
      * @param id 電影ID
      */
     suspend fun getMovieDetail(id: Int): NetworkResponse<MovieDetailBean>
+
+    /**
+     * 獲取電影推薦
+     * @param id 電影ID
+     */
+    suspend fun getMovieRecommendations(id: Int): NetworkResponse<MovieRecommendBean>
 }
