@@ -191,6 +191,8 @@ fun SuccessScreen(navController: NavHostController) {
             settingsScreen()
             movieDetailScreen(onBackClick = {
                 navController.popBackStack()
+            }, onMovieClick = {
+                navController.navigateToMovieDetail(it.movieCardId)
             })
         }
     }

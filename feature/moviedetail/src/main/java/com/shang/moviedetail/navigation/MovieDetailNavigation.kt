@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.shang.moviedetail.ui.MovieDetailScreen
+import com.shang.ui.MovieCardData
 
 const val ARG_MOVIE_ID = "movieId"
 const val MOVIE_DETAIL_ROUTE = "movie_detail_route"
@@ -17,6 +18,7 @@ fun NavController.navigateToMovieDetail(movieId: Int, navOptions: NavOptions? = 
 
 fun NavGraphBuilder.movieDetailScreen(
     onBackClick: () -> Unit,
+    onMovieClick: (data: MovieCardData) -> Unit,
 ) {
     composable(
         route = "$MOVIE_DETAIL_ROUTE/{$ARG_MOVIE_ID}",
@@ -28,6 +30,6 @@ fun NavGraphBuilder.movieDetailScreen(
         ),
     ) { backStackEntry ->
         val movieId = backStackEntry.arguments?.getInt(ARG_MOVIE_ID) ?: 0
-        MovieDetailScreen(movieId = movieId, onBackClick = onBackClick)
+        MovieDetailScreen(movieId = movieId, onBackClick = onBackClick, onMovieClick = onMovieClick)
     }
 }

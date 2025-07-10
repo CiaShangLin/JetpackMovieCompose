@@ -55,6 +55,7 @@ fun MovieDetailScreen(
         creationCallback = { factory -> factory.create(movieId) },
     ),
     onBackClick: () -> Unit,
+    onMovieClick: (data: MovieCardData) -> Unit,
 ) {
     val movieDetail = viewModel.movieDetail.collectAsStateWithLifecycle()
     val movieCollect = viewModel.movieCollect.collectAsStateWithLifecycle()
@@ -67,8 +68,7 @@ fun MovieDetailScreen(
             is MovieDetailUiState.Success -> MovieDetailSuccessScreen(
                 data = state.data,
                 movieRecommend = movieRecommend.value,
-                onMovieClick = { movieCardData ->
-                },
+                onMovieClick = onMovieClick,
                 onCollectClick = { movieCardData ->
                     viewModel.toggleCollect(movieCardData, movieCardData.movieCardIsCollect)
                 },
@@ -401,8 +401,8 @@ private fun MovieGuessLikeList(
     }
 }
 
-@Preview
-@Composable
-private fun MovieDetailScreenPreview() {
-    MovieDetailScreen(movieId = 12345) {}
-}
+//@Preview
+//@Composable
+//private fun MovieDetailScreenPreview() {
+//    MovieDetailScreen(movieId = 12345) {}
+//}
