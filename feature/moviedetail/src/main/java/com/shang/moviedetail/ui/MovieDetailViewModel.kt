@@ -5,8 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.shang.common.UiState
 import com.shang.data.repository.MovieRepository
 import com.shang.domain.usecase.GetMovieDetailUseCase
+import com.shang.domain.usecase.GetMovieRecommendUseCase
 import com.shang.model.MovieDetailBean
 import com.shang.model.asMovieCardResult
+import com.shang.ui.MovieCardData
+import com.shang.ui.asMovieCardResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -22,6 +25,7 @@ import kotlinx.coroutines.launch
 class MovieDetailViewModel @AssistedInject constructor(
     private val movieRepository: MovieRepository,
     getMovieDetailUseCase: GetMovieDetailUseCase,
+    getMovieRecommendUseCase: GetMovieRecommendUseCase,
     @Assisted private val movieId: Int,
 ) : ViewModel() {
 
@@ -57,7 +61,7 @@ class MovieDetailViewModel @AssistedInject constructor(
             initialValue = false,
         )
 
-    val movieRecommendations = movieRepository.getMovieRecommendations(movieId)
+    val movieRecommendations = getMovieRecommendUseCase(movieId)
         .map {
             it.fold(
                 onSuccess = {
@@ -77,6 +81,16 @@ class MovieDetailViewModel @AssistedInject constructor(
     fun toggleCollect(data: MovieDetailBean) {
         viewModelScope.launch(Dispatchers.IO) {
             if (movieCollect.value) {
+                movieRepository.deleteMovieCollect(data.asMovieCardResult())
+            } else {
+                movieRepository.insertMovieCollect(data.asMovieCardResult())
+            }
+        }
+    }
+
+    fun toggleRecommendCardCollect(data: MovieCardData) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (data.movieCardIsCollect) {
                 movieRepository.deleteMovieCollect(data.asMovieCardResult())
             } else {
                 movieRepository.insertMovieCollect(data.asMovieCardResult())
