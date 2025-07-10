@@ -65,4 +65,12 @@ class MovieDataSourceImp @Inject constructor(private val _movieApiService: Movie
             response.asExternalModel()
         }
     }
+
+    override suspend fun getMovieActor(id: Int): NetworkResponse<MovieDetailBean> {
+        return safeApiCall {
+            _movieApiService.getMovieActor(id)
+        }.mapData { response ->
+            response.asExternalModel()
+        }
+    }
 }

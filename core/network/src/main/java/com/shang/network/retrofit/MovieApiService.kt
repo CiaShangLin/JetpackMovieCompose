@@ -52,7 +52,7 @@ interface MovieApiService {
      * 獲取電影詳情
      * @param id 電影ID
      */
-    @GET("movie/{id}}")
+    @GET("movie/{id}")
     suspend fun getMovieDetail(
         @Path("id") id: Int,
     ): Response<MovieDetailResponse>
@@ -64,8 +64,8 @@ interface MovieApiService {
     @GET("movie/{id}/recommendations")
     suspend fun getMovieRecommendations(@Path("id") id: Int): Response<MovieRecommendResponse>
 
-//    @GET("movie/{id}/credits")
-//    suspend fun getMovieActor(
-//        @Path("id") id: Int,
-//    ): Response<MovieDetailResponse>
+    @GET("movie/{id}/credits")
+    suspend fun getMovieActor(
+        @Path("id") id: Int,
+    ): Response<MovieDetailResponse>
 }

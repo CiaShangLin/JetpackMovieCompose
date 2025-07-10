@@ -22,6 +22,8 @@ interface MovieRepository {
 
     fun getMovieRecommendations(id: Int): Flow<Result<MovieRecommendBean>>
 
+    fun getMovieActor(id: Int): Flow<Result<MovieDetailBean>>
+
     // MovieCollectDao
     suspend fun insertMovieCollect(movieResult: MovieCardResult)
 

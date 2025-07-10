@@ -47,4 +47,10 @@ interface MovieDataSource {
      * @param id 電影ID
      */
     suspend fun getMovieRecommendations(id: Int): NetworkResponse<MovieRecommendBean>
+
+    /**
+     * 獲取電影演員
+     * @param id 電影ID
+     */
+    suspend fun getMovieActor(id: Int): NetworkResponse<MovieDetailBean>
 }

@@ -59,6 +59,7 @@ fun MovieDetailScreen(
     val movieDetail = viewModel.movieDetail.collectAsStateWithLifecycle()
     val movieCollect = viewModel.movieCollect.collectAsStateWithLifecycle()
     val movieRecommend = viewModel.movieRecommendations.collectAsStateWithLifecycle()
+    val movieActors = viewModel.movieActors.collectAsStateWithLifecycle()
 
     Box(modifier = Modifier.fillMaxSize()) {
         when (val state = movieDetail.value) {

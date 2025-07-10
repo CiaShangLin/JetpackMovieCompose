@@ -77,6 +77,19 @@ class MovieDetailViewModel @AssistedInject constructor(
             initialValue = UiState.Loading,
         )
 
+    val movieActors = movieRepository.getMovieActor(movieId)
+        .map {
+            it.fold(
+                onSuccess = { UiState.Success(it) },
+                onFailure = { UiState.Error(it) },
+            )
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = UiState.Loading,
+        )
+
     fun toggleCollect(data: MovieCardData, isCollect: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             if (isCollect) {

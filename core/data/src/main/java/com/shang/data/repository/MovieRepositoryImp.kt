@@ -107,6 +107,17 @@ class MovieRepositoryImp @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
+    override fun getMovieActor(id: Int): Flow<Result<MovieDetailBean>> {
+        return flow {
+            val response = movieDataSource.getMovieActor(id)
+            if (response.isSuccess) {
+                emit(Result.success(response.data!!))
+            } else {
+                emit(Result.failure(response.error!!))
+            }
+        }.flowOn(ioDispatcher)
+    }
+
     override fun getCollectedMovieIds(): Flow<List<Int>> {
         return movieCollectDao.collectedMovieIds().flowOn(ioDispatcher)
     }
