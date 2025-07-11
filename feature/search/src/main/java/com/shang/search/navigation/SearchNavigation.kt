@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.shang.search.SearchScreen
+import com.shang.search.ui.SearchScreen
 
 const val SEARCH_ROUTE = "search_route"
 

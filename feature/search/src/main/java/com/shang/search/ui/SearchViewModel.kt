@@ -1,4 +1,4 @@
-package com.shang.search
+package com.shang.search.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +8,7 @@ import com.shang.data.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -25,7 +26,7 @@ class SearchViewModel @Inject constructor(
     private val _searchQueryFlow = MutableStateFlow<String>("")
     val searchQueryFlow: StateFlow<String> = _searchQueryFlow.stateIn(
         viewModelScope,
-        started = kotlinx.coroutines.flow.SharingStarted.WhileSubscribed(5000),
+        started = SharingStarted.WhileSubscribed(5000),
         initialValue = "",
     )
 
@@ -37,7 +38,7 @@ class SearchViewModel @Inject constructor(
                 movieRepository.getMovieSearchPager(query)
                     .cachedIn(viewModelScope)
             } else {
-                flowOf(PagingData.empty())
+                flowOf(PagingData.Companion.empty())
             }
         }
 

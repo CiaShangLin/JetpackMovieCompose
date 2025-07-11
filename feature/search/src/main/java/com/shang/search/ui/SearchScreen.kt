@@ -1,4 +1,4 @@
-package com.shang.search
+package com.shang.search.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,6 +39,8 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.shang.designsystem.component.JMLazyVerticalGrid
 import com.shang.model.MovieCardResult
+import com.shang.search.R
+import com.shang.search.ui.SearchViewModel
 import com.shang.ui.LoadingScreen
 import com.shang.ui.MovieCard
 import com.shang.ui.asMovieCardData
