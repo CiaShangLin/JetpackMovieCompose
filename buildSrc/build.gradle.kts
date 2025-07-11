@@ -2,14 +2,16 @@ plugins {
     `kotlin-dsl`
 }
 
-repositories{
+repositories {
     google()
     mavenCentral()
     gradlePluginPortal()
+    // Lottie requires snapshot version of the plugin
+    maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") }
 }
 
 
-dependencies{
+dependencies {
     api(kotlin("gradle-plugin:2.0.21"))
     implementation("com.android.tools.build:gradle:8.9.1")
     implementation("org.jetbrains.kotlin:kotlin-serialization:1.9.0")

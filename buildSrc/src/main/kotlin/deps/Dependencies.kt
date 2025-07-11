@@ -86,5 +86,8 @@ object Dependencies {
     const val coilNetwork = "io.coil-kt.coil3:coil-network-okhttp:${DependenciesVersions.COIL}"
 
 
+    // Lottie
+    const val lottieCompose = "com.airbnb.android:lottie-compose:${DependenciesVersions.LOTTIE_COMPOSE}"
+
 
 }

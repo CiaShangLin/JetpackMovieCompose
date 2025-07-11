@@ -65,6 +65,10 @@ fun DependencyHandler.androidx() {
     implementation(Dependencies.COMPOSE_MATERIAL_ICON_EXTENDED)
 }
 
+fun DependencyHandler.lottie() {
+    implementation(Dependencies.lottieCompose)
+}
+
 fun DependencyHandler.kotlinx() {
     implementation(Dependencies.kotlinSerilaizations)
 }
