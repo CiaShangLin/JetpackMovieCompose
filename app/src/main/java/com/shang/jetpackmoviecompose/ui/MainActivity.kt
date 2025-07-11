@@ -31,6 +31,7 @@ import androidx.navigation.compose.rememberNavController
 import com.shang.collect.navigation.collectScreen
 import com.shang.designsystem.component.JMBackground
 import com.shang.designsystem.component.JMNavigationSuiteScaffold
+import com.shang.designsystem.theme.Error
 import com.shang.designsystem.theme.JetpackMovieComposeTheme
 import com.shang.history.navigation.historyScreen
 import com.shang.home.navigation.homeScreen
@@ -42,6 +43,7 @@ import com.shang.moviedetail.navigation.movieDetailScreen
 import com.shang.moviedetail.navigation.navigateToMovieDetail
 import com.shang.search.navigation.searchScreen
 import com.shang.setting.navigation.settingsScreen
+import com.shang.ui.ErrorScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -69,7 +71,9 @@ class MainActivity : ComponentActivity() {
             LanguageProvider(languageMode = userData.languageMode) {
                 val navController = rememberNavController()
                 ThemeProvider(themeMode = userData.themeMode) {
-                    MainScreen(configuration.value, navController)
+                    MainScreen(configuration.value, navController, onRetry = {
+                        viewModel.retryConfiguration()
+                    })
                 }
             }
         }
@@ -107,7 +111,7 @@ private fun ThemeProvider(
 }
 
 @Composable
-fun MainScreen(mainUiState: MainUiState, navController: NavHostController) {
+fun MainScreen(mainUiState: MainUiState, navController: NavHostController, onRetry: () -> Unit) {
     JMBackground(
         modifier = Modifier
             .fillMaxSize()
@@ -119,7 +123,7 @@ fun MainScreen(mainUiState: MainUiState, navController: NavHostController) {
             }
 
             is MainUiState.Error -> {
-                ErrorScreen()
+                MainErrorScreen(mainUiState.throwable as Exception?, onRetry = onRetry)
             }
 
             is MainUiState.Success -> {
@@ -130,9 +134,12 @@ fun MainScreen(mainUiState: MainUiState, navController: NavHostController) {
 }
 
 @Composable
-fun ErrorScreen() {
+fun MainErrorScreen(exception: Exception?, onRetry: () -> Unit) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("ERROR")
+        ErrorScreen(
+            onRetry = onRetry,
+            networkException = exception,
+        )
     }
 }
 
