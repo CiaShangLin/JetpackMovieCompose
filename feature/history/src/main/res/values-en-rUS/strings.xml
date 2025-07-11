@@ -1,5 +1,5 @@
 <resources>
     <string name="history_title">Watch History</string>
     <string name="history_clear">Clear</string>
+    <string name="history_empty">No watch history yet</string>
 </resources>
-
