@@ -362,8 +362,7 @@ private fun MovieActorList(uiState: UiState<List<MovieCastAndCrewBean.Cast>>, mo
                                     fraction = 0.35f,
                                 )
                                 .aspectRatio(1f)
-                                .padding(4.dp)
-                                ,
+                                .padding(4.dp),
                         )
                     }
                 }
