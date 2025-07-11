@@ -43,6 +43,7 @@ import com.shang.model.MovieCastAndCrewBean
 import com.shang.model.MovieDetailBean
 import com.shang.model.asMovieCardResult
 import com.shang.moviedetail.R
+import com.shang.ui.LoadingScreen
 import com.shang.ui.MovieActor
 import com.shang.ui.MovieCard
 import com.shang.ui.MovieCardData
@@ -159,7 +160,11 @@ private fun CollectButton(
 
 @Composable
 private fun MovieDetailLoadingScreen() {
-    Text("Loading")
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        LoadingScreen(
+            size = 100.dp,
+        )
+    }
 }
 
 @Composable

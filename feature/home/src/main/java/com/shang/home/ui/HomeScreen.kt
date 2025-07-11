@@ -50,7 +50,7 @@ fun HomeScreen(
 fun HomeLoadingScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         LoadingScreen(
-            modifier = Modifier.size(100.dp),
+            size = 100.dp,
         )
     }
 }
