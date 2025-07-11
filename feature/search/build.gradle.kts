@@ -1,4 +1,5 @@
 import deps.androidx
+import deps.commonModule
 import deps.dataModule
 import deps.designsystemModule
 import deps.domainModule
@@ -31,6 +32,7 @@ dependencies {
     designsystemModule()
     uiModule()
     modelModule()
+    commonModule()
     testDeps()
     testImplDeps()
 }
