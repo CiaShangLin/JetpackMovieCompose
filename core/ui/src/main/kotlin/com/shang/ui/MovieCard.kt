@@ -29,8 +29,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.request.ImageRequest
-import coil3.request.error
-import coil3.request.placeholder
 import com.shang.designsystem.component.JMAsyncImage
 
 const val DEMO_URL =
@@ -92,8 +90,6 @@ fun MovieCover(model: Any) {
     JMAsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(model)
-            .placeholder(R.drawable.icon_movie_card_loading)
-            .error(R.drawable.icon_movie_card_error)
             .build(),
         contentDescription = null,
         modifier = Modifier
