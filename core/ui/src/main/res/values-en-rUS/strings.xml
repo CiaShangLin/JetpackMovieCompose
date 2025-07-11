@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Error related text -->
+    <string name="default_error_text">Something went wrong, please try again later</string>
+    <string name="network_error_text">Network connection failed, please check your internet connection</string>
+    <string name="server_error_text">Server is temporarily unavailable, please try again later</string>
+    <string name="unknown_error_text">An unknown error occurred</string>
+    <string name="timeout_error_text">Connection timeout, please retry</string>
+    <string name="no_data_error_text">No data available</string>
+
+    <!-- Retry related text -->
+    <string name="retry_button_text">Retry</string>
+    <string name="refresh_button_text">Refresh</string>
+    <string name="reload_button_text">Reload</string>
+    <string name="try_again_text">Try Again</string>
+
+    <!-- Loading related text -->
+    <string name="loading_text">Loading…</string>
+    <string name="please_wait_text">Please wait</string>
+    <string name="processing_text">Processing…</string>
+</resources>
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 錯誤相關文字 -->
+    <string name="default_error_text">發生了一些問題，請稍後再試</string>
+    <string name="network_error_text">網路連線失敗，請檢查您的網路連線</string>
+    <string name="server_error_text">伺服器暫時無法回應，請稍後再試</string>
+    <string name="unknown_error_text">發生未知錯誤</string>
+    <string name="timeout_error_text">連線逾時，請重試</string>
+    <string name="no_data_error_text">沒有可用資料</string>
+
+    <!-- 重試相關文字 -->
+    <string name="retry_button_text">重試</string>
+    <string name="refresh_button_text">重新整理</string>
+    <string name="reload_button_text">重新載入</string>
+    <string name="try_again_text">再試一次</string>
+
+    <!-- 載入相關文字 -->
+    <string name="loading_text">載入中…</string>
+    <string name="please_wait_text">請稍候</string>
+    <string name="processing_text">處理中…</string>
+</resources>
+
