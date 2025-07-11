@@ -1,4 +1,4 @@
-package com.shang.collect
+package com.shang.collect.ui
 
 import com.shang.model.MovieCardResult
 

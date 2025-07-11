@@ -1,4 +1,4 @@
-package com.shang.collect
+package com.shang.collect.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -22,6 +22,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.shang.collect.R
 import com.shang.designsystem.component.JMLazyVerticalGrid
 import com.shang.model.MovieCardResult
 import com.shang.ui.MovieCard

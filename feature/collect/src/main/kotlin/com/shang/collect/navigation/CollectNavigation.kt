@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.shang.collect.CollectScreen
+import com.shang.collect.ui.CollectScreen
 
 const val COLLECT_ROUTE = "collect_route"
 
