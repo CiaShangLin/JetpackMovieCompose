@@ -50,4 +50,3 @@ private fun LoadingImage(modifier: Modifier = Modifier) {
         contentScale = ContentScale.Fit,
     )
 }
-
