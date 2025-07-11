@@ -80,7 +80,7 @@ fun JMAsyncImage(
         AnimatedVisibility(
             visible = imageState.isLoading(),
             enter = fadeIn(),
-            exit = fadeOut()
+            exit = fadeOut(),
         ) {
             loadingContent()
         }
@@ -89,7 +89,7 @@ fun JMAsyncImage(
         AnimatedVisibility(
             visible = imageState is State.Error,
             enter = fadeIn(),
-            exit = fadeOut()
+            exit = fadeOut(),
         ) {
             errorContent()
         }
@@ -107,7 +107,7 @@ private fun State.isLoading(): Boolean = this is State.Empty || this is State.Lo
 @Composable
 fun DefaultLoadingImage(
     modifier: Modifier = Modifier,
-    size: Int = 80
+    size: Int = 80,
 ) {
     Image(
         painter = painterResource(id = R.drawable.icon_movie_card_loading),
@@ -123,7 +123,7 @@ fun DefaultLoadingImage(
 @Composable
 fun DefaultErrorImage(
     modifier: Modifier = Modifier,
-    size: Int = 80
+    size: Int = 80,
 ) {
     Image(
         painter = painterResource(id = R.drawable.icon_movie_card_error),
