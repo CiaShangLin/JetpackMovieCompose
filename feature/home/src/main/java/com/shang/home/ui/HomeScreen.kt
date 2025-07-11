@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Text
@@ -27,6 +28,7 @@ import com.shang.designsystem.component.JMLazyVerticalGrid
 import com.shang.designsystem.component.JMScrollableTabRow
 import com.shang.designsystem.component.JMTab
 import com.shang.model.MovieGenreBean
+import com.shang.ui.LoadingScreen
 import com.shang.ui.MovieCard
 import com.shang.ui.asMovieCardData
 
@@ -47,7 +49,9 @@ fun HomeScreen(
 @Composable
 fun HomeLoadingScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Loading...")
+        LoadingScreen(
+            modifier = Modifier.size(100.dp),
+        )
     }
 }
 
