@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -28,6 +27,7 @@ import com.shang.designsystem.component.JMLazyVerticalGrid
 import com.shang.designsystem.component.JMScrollableTabRow
 import com.shang.designsystem.component.JMTab
 import com.shang.model.MovieGenreBean
+import com.shang.ui.ErrorScreen
 import com.shang.ui.LoadingScreen
 import com.shang.ui.MovieCard
 import com.shang.ui.asMovieCardData
@@ -42,23 +42,25 @@ fun HomeScreen(
     when (val state = movieGenresState) {
         is HomeUiState.Loading -> HomeLoadingScreen()
         is HomeUiState.Success -> HomeSuccessScreen(state.movieGenres, onMovieClick = onMovieClick)
-        is HomeUiState.Error -> HomeErrorScreen()
+        is HomeUiState.Error -> HomeErrorScreen(onRetry = {
+            viewModel.retry()
+        })
     }
 }
 
 @Composable
 fun HomeLoadingScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        LoadingScreen(
-            size = 100.dp,
-        )
+        LoadingScreen()
     }
 }
 
 @Composable
-fun HomeErrorScreen() {
+fun HomeErrorScreen(onRetry: () -> Unit) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Error loading data")
+        ErrorScreen(
+            onRetry = onRetry,
+        )
     }
 }
 
