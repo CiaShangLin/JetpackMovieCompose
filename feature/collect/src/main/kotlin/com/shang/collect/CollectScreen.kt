@@ -1,18 +1,22 @@
 package com.shang.collect
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.TabRowDefaults.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -29,20 +33,44 @@ fun CollectScreen(viewModel: CollectViewModel = hiltViewModel()) {
     val allMovieCollect by viewModel.allMovieCollect.collectAsStateWithLifecycle()
 
     when (val result = allMovieCollect) {
+        CollectUiState.Empty -> CollectEmptyScreen()
         is CollectUiState.Error -> CollectErrorScreen(message = "")
-        CollectUiState.Loading -> CollectLoadingScreen()
-        is CollectUiState.Success -> CollectSuccessScreen(
-            result.movieCollectList,
-            onCollectClick = { movie ->
-                viewModel.toggleMovieCollectStatus(movie)
-            },
-        )
+        is CollectUiState.Success -> {
+            if (result.movieCollectList.isEmpty()) {
+                CollectEmptyScreen()
+            } else {
+                CollectSuccessScreen(
+                    result.movieCollectList,
+                    onCollectClick = { movie ->
+                        viewModel.toggleMovieCollectStatus(movie)
+                    },
+                )
+            }
+        }
     }
 }
 
 @Composable
-fun CollectLoadingScreen() {
-    Text("Loading...", style = TextStyle(color = MaterialTheme.colorScheme.primary))
+fun CollectEmptyScreen() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Image(
+            painter = painterResource(R.drawable.icon_empty),
+            contentDescription = null,
+            modifier = Modifier
+                .size(50.dp)
+                .padding(bottom = 16.dp),
+        )
+        Text(
+            text = stringResource(id = R.string.collect_empty),
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(bottom = 8.dp),
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+    }
 }
 
 @Composable

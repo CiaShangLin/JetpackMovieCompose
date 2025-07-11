@@ -25,7 +25,7 @@ class CollectViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = CollectUiState.Loading,
+            initialValue = CollectUiState.Empty,
         )
 
     fun toggleMovieCollectStatus(data: MovieCardData) {

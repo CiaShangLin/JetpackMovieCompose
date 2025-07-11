@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="collect_title">我的收藏</string>
+    <string name="collect_empty">目前沒有收藏</string>
 </resources>
