@@ -1,8 +1,8 @@
 package com.shang.network.extension
 
 import com.google.gson.JsonParseException
+import com.shang.common.exception.NetworkException
 import com.shang.network.model.NetworkResponse
-import com.shang.network.retrofit.NetworkException
 import okio.IOException
 import retrofit2.Response
 import java.net.ConnectException
