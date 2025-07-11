@@ -44,6 +44,7 @@ import com.shang.moviedetail.navigation.navigateToMovieDetail
 import com.shang.search.navigation.searchScreen
 import com.shang.setting.navigation.settingsScreen
 import com.shang.ui.ErrorScreen
+import com.shang.ui.LoadingScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -119,7 +120,7 @@ fun MainScreen(mainUiState: MainUiState, navController: NavHostController, onRet
     ) {
         when (mainUiState) {
             is MainUiState.Loading -> {
-                // 空的因為splash本身就是Loading
+                MainLoadingScreen()
             }
 
             is MainUiState.Error -> {
@@ -130,6 +131,13 @@ fun MainScreen(mainUiState: MainUiState, navController: NavHostController, onRet
                 SuccessScreen(navController = navController)
             }
         }
+    }
+}
+
+@Composable
+fun MainLoadingScreen() {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        LoadingScreen()
     }
 }
 
