@@ -2,6 +2,7 @@ package com.shang.jetpackmoviecompose.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -22,6 +23,8 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
@@ -33,6 +36,10 @@ import com.shang.designsystem.component.JMBackground
 import com.shang.designsystem.component.JMNavigationSuiteScaffold
 import com.shang.designsystem.theme.Error
 import com.shang.designsystem.theme.JetpackMovieComposeTheme
+import com.shang.designsystem.theme.OnBackground
+import com.shang.designsystem.theme.Primary
+import com.shang.designsystem.theme.PrimaryContainer
+import com.shang.designsystem.theme.SurfaceVariant
 import com.shang.history.navigation.historyScreen
 import com.shang.home.navigation.homeScreen
 import com.shang.jetpackmoviecompose.navigation.MainNavItem
@@ -56,7 +63,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val splashScreen = installSplashScreen()
-        enableEdgeToEdge()
+
         setContent {
             val configuration = viewModel.configuration.collectAsState()
             val userData by viewModel.userData.collectAsState()
@@ -69,9 +76,13 @@ class MainActivity : ComponentActivity() {
                     languageMode = userData.languageMode,
                 )
             }
+
             LanguageProvider(languageMode = userData.languageMode) {
                 val navController = rememberNavController()
-                ThemeProvider(themeMode = userData.themeMode) {
+                ThemeProvider(
+                    themeMode = userData.themeMode,
+                    activity = this@MainActivity,
+                ) {
                     MainScreen(configuration.value, navController, onRetry = {
                         viewModel.retryConfiguration()
                     })
@@ -94,6 +105,7 @@ private fun LanguageProvider(
 @Composable
 private fun ThemeProvider(
     themeMode: ThemeMode,
+    activity: ComponentActivity,
     content: @Composable () -> Unit,
 ) {
     val isSystemDarkTheme = isSystemInDarkTheme()
@@ -103,6 +115,33 @@ private fun ThemeProvider(
             ThemeMode.DARK -> true
             ThemeMode.LIGHT -> false
             ThemeMode.SYSTEM -> isSystemDarkTheme
+        }
+    }
+
+    // 根據主題動態設置系統欄顏色
+    LaunchedEffect(isDarkTheme) {
+        if (isDarkTheme) {
+            // 暗色主題：使用深色背景色調
+            activity.enableEdgeToEdge(
+                statusBarStyle = SystemBarStyle.dark(
+                    Color(0xFF101217).toArgb(), // DarkBackground
+                ),
+                navigationBarStyle = SystemBarStyle.dark(
+                    Color(0xFF181A20).toArgb(), // DarkSurface
+                ),
+            )
+        } else {
+            // 亮色主題：使用主色調
+            activity.enableEdgeToEdge(
+                statusBarStyle = SystemBarStyle.light(
+                    PrimaryContainer.toArgb(), // PrimaryContainer
+                    Primary.toArgb(), // Primary (暗色模式下的狀態欄)
+                ),
+                navigationBarStyle = SystemBarStyle.light(
+                    SurfaceVariant.toArgb(), // SurfaceVariant
+                    OnBackground.toArgb(), // OnBackground (暗色模式下的導覽欄)
+                ),
+            )
         }
     }
 
