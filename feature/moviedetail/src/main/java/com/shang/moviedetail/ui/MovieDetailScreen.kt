@@ -67,6 +67,12 @@ fun MovieDetailScreen(
     Box(modifier = Modifier.fillMaxSize()) {
         when (val state = movieDetail.value) {
             is MovieDetailUiState.Loading -> MovieDetailLoadingScreen()
+            is MovieDetailUiState.Error -> MovieDetailErrorScreen(
+                throwable = state.exception,
+                onRetry = {
+                    viewModel.retryMovieDetailApi()
+                },
+            )
             is MovieDetailUiState.Success -> MovieDetailSuccessScreen(
                 data = state.data,
                 movieRecommend = movieRecommend.value,
@@ -74,13 +80,6 @@ fun MovieDetailScreen(
                 onMovieClick = onMovieClick,
                 onCollectClick = { movieCardData ->
                     viewModel.toggleCollect(movieCardData, movieCardData.movieCardIsCollect)
-                },
-            )
-
-            is MovieDetailUiState.Error -> MovieDetailErrorScreen(
-                throwable = state.exception,
-                onRetry = {
-                    viewModel.retryMovieDetailApi()
                 },
             )
         }
@@ -188,10 +187,10 @@ private fun MovieDetailErrorScreen(throwable: Throwable?, onRetry: () -> Unit) {
 @Composable
 private fun MovieDetailSuccessScreen(
     data: MovieDetailBean,
-    movieRecommend: UiState<List<MovieCardResult>>,
+    movieRecommend: UiState<List<MovieCardResult>> = UiState.Loading,
     movieActors: UiState<List<MovieCastAndCrewBean.Cast>> = UiState.Loading,
-    onMovieClick: (data: MovieCardData) -> Unit,
-    onCollectClick: (data: MovieCardData) -> Unit,
+    onMovieClick: (data: MovieCardData) -> Unit = {},
+    onCollectClick: (data: MovieCardData) -> Unit = {},
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         JMAsyncImage(
@@ -345,7 +344,7 @@ private fun MovieActorList(
 ) {
     when (uiState) {
         UiState.Loading -> {
-            Text("Loading actors...")
+            LoadingScreen()
         }
 
         is UiState.Error -> {
@@ -393,7 +392,7 @@ private fun MovieGuessLikeList(
 ) {
     when (movieRecommend) {
         is UiState.Loading -> {
-            Text("Loading recommendations...")
+            LoadingScreen()
         }
 
         is UiState.Error -> {
