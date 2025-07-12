@@ -31,19 +31,23 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.shang.common.exception.toNetworkException
 import com.shang.designsystem.component.JMLazyVerticalGrid
 import com.shang.model.MovieCardResult
 import com.shang.search.R
-import com.shang.search.ui.SearchViewModel
+import com.shang.ui.ErrorScreen
 import com.shang.ui.LoadingScreen
 import com.shang.ui.MovieCard
 import com.shang.ui.asMovieCardData
+import kotlin.text.append
+import kotlin.text.get
 
 @Composable
 fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
@@ -98,6 +102,10 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
             thickness = 1.dp,
         )
 
+        movieSearchPager.loadState.refresh
+        movieSearchPager.loadState.append
+        movieSearchPager.loadState.prepend
+        movieSearchPager.loadState.source
         when {
             query.isEmpty() -> {
                 NotSearchScreen()
@@ -106,10 +114,19 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
                 SearchLoadingScreen()
             }
             movieSearchPager.loadState.refresh is LoadState.Error -> {
-                Text("ERROR")
+                val state = movieSearchPager.loadState.refresh as LoadState.Error
+                SearchErrorScreen(
+                    onRetry = { viewModel.startSearch(inputText) },
+                    networkException = state.error.toNetworkException(),
+                )
             }
             else -> {
-                SearchResultScreen(movieSearchPager)
+                SearchResultScreen(
+                    movieSearchPager = movieSearchPager,
+                    isLoadingMore = movieSearchPager.loadState.append is LoadState.Loading,
+                    isError = movieSearchPager.loadState.append is LoadState.Error,
+                    isEndOfData = movieSearchPager.loadState.append.endOfPaginationReached,
+                )
             }
         }
     }
@@ -143,6 +160,16 @@ fun NotSearchScreen() {
 }
 
 @Composable
+fun SearchErrorScreen(onRetry: () -> Unit, networkException: Exception?) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        ErrorScreen(
+            onRetry = onRetry,
+            networkException = networkException,
+        )
+    }
+}
+
+@Composable
 fun SearchLoadingScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         LoadingScreen()
@@ -150,12 +177,17 @@ fun SearchLoadingScreen() {
 }
 
 @Composable
-fun SearchResultScreen(movieSearchPager: LazyPagingItems<MovieCardResult>) {
+fun SearchResultScreen(
+    movieSearchPager: LazyPagingItems<MovieCardResult>,
+    isLoadingMore: Boolean,
+    isError: Boolean,
+    isEndOfData: Boolean,
+) {
     JMLazyVerticalGrid(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(8.dp), // 外部間距
-        verticalArrangement = Arrangement.spacedBy(8.dp), // 垂直間距
-        horizontalArrangement = Arrangement.spacedBy(8.dp), // 水平間距
+        contentPadding = PaddingValues(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(movieSearchPager.itemCount) {
             val movie = movieSearchPager[it] ?: return@items
@@ -163,6 +195,33 @@ fun SearchResultScreen(movieSearchPager: LazyPagingItems<MovieCardResult>) {
                 modifier = Modifier,
                 data = movie.asMovieCardData(),
             )
+        }
+
+        // 底部載入狀態
+        item {
+            when {
+                isLoadingMore -> {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        LoadingScreen()
+                    }
+                }
+                isError -> {
+                    ErrorScreen(
+                        onRetry = { movieSearchPager.retry() },
+                        networkException = null,
+                    )
+                }
+                isEndOfData -> {
+                    Text(
+                        text = "沒有更多資料",
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                    )
+                }
+            }
         }
     }
 }
