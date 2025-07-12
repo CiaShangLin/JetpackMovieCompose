@@ -3,7 +3,6 @@ package com.shang.moviedetail.ui
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,6 +42,7 @@ import com.shang.model.MovieCastAndCrewBean
 import com.shang.model.MovieDetailBean
 import com.shang.model.asMovieCardResult
 import com.shang.moviedetail.R
+import com.shang.ui.ErrorScreen
 import com.shang.ui.LoadingScreen
 import com.shang.ui.MovieActor
 import com.shang.ui.MovieCard
@@ -77,7 +77,12 @@ fun MovieDetailScreen(
                 },
             )
 
-            is MovieDetailUiState.Error -> MovieDetailErrorScreen(state.message)
+            is MovieDetailUiState.Error -> MovieDetailErrorScreen(
+                throwable = state.exception,
+                onRetry = {
+                    viewModel.retryMovieDetailApi()
+                },
+            )
         }
 
         BackButton(
@@ -168,16 +173,11 @@ private fun MovieDetailLoadingScreen() {
 }
 
 @Composable
-private fun MovieDetailErrorScreen(message: String) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            text = "發生錯誤：$message",
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.error,
+private fun MovieDetailErrorScreen(throwable: Throwable?, onRetry: () -> Unit) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        ErrorScreen(
+            onRetry = onRetry,
+            throwable = throwable,
         )
     }
 }
@@ -339,13 +339,18 @@ private fun MovieInfo(overview: String) {
  * 電影演員列表
  */
 @Composable
-private fun MovieActorList(uiState: UiState<List<MovieCastAndCrewBean.Cast>>, modifier: Modifier = Modifier) {
+private fun MovieActorList(
+    uiState: UiState<List<MovieCastAndCrewBean.Cast>>,
+    modifier: Modifier = Modifier,
+) {
     when (uiState) {
         UiState.Loading -> {
             Text("Loading actors...")
         }
+
         is UiState.Error -> {
         }
+
         is UiState.Success<List<MovieCastAndCrewBean.Cast>> -> {
             Column(
                 modifier = modifier

@@ -14,7 +14,10 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.fold
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -33,22 +36,28 @@ class MovieDetailViewModel @AssistedInject constructor(
         fun create(movieId: Int): MovieDetailViewModel
     }
 
-    val movieDetail = getMovieDetailUseCase(movieId)
-        .map {
-            it.fold(
-                onSuccess = {
-                    MovieDetailUiState.Success(it)
-                },
-                onFailure = {
-                    MovieDetailUiState.Error(it.message ?: "Unknown error")
-                },
-            )
+    private val _retryTrigger = MutableStateFlow(0)
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val movieDetail =
+        _retryTrigger.flatMapLatest {
+            getMovieDetailUseCase(movieId)
+                .map {
+                    it.fold(
+                        onSuccess = {
+                            MovieDetailUiState.Success(it)
+                        },
+                        onFailure = {
+                            MovieDetailUiState.Error(it)
+                        },
+                    )
+                }
         }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = MovieDetailUiState.Loading,
-        )
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = MovieDetailUiState.Loading,
+            )
 
     val movieCollect = movieRepository.getMovieCollectEntityById(movieId)
         .map {
@@ -97,6 +106,12 @@ class MovieDetailViewModel @AssistedInject constructor(
             } else {
                 movieRepository.insertMovieCollect(data.asMovieCardResult())
             }
+        }
+    }
+
+    fun retryMovieDetailApi() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _retryTrigger.emit(_retryTrigger.value + 1)
         }
     }
 }
