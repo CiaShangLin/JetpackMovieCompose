@@ -25,14 +25,14 @@ import com.shang.common.exception.NetworkException
  * @param onRetry 重試回調函式
  * @param errorText 錯誤文字資源 ID
  * @param retryText 重試按鈕文字資源 ID
- * @param errorContent 自訂錯誤內容組件
+ * @param throwable 當前異常，若為 null 則使用預設錯誤文字
  */
 @Composable
 fun ErrorScreen(
     modifier: Modifier = Modifier,
-    networkException: Exception? = null,
+    throwable: Throwable? = null,
     onRetry: () -> Unit = {},
-    errorText: Int = networkException?.toErrorText() ?: R.string.default_error_text,
+    errorText: Int = throwable?.toErrorText() ?: R.string.default_error_text,
     retryText: Int = R.string.retry_button_text,
 ) {
     Column(
@@ -65,7 +65,7 @@ fun ErrorScreen(
  *
  * 根據不同的異常類型返回相應的錯誤文字，提供使用者友善的錯誤訊息
  */
-fun Exception.toErrorText(): Int {
+fun Throwable.toErrorText(): Int {
     return when (this) {
         // NetworkException 處理
         is NetworkException.HttpError -> when (this.httpCode) {
@@ -81,15 +81,6 @@ fun Exception.toErrorText(): Int {
         // 其他未知錯誤
         else -> R.string.default_error_text
     }
-}
-
-@Composable
-fun DefaultErrorText(modifier: Modifier = Modifier, text: Int) {
-    Text(
-        text = stringResource(text),
-        modifier = modifier,
-        style = MaterialTheme.typography.bodyMedium,
-    )
 }
 
 @Preview(showBackground = true)
