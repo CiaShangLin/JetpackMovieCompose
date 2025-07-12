@@ -116,7 +116,7 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
             movieSearchPager.loadState.refresh is LoadState.Error -> {
                 val state = movieSearchPager.loadState.refresh as LoadState.Error
                 SearchErrorScreen(
-                    onRetry = { viewModel.startSearch(inputText) },
+                    onRetry = { viewModel.retrySearch() },
                     networkException = state.error.toNetworkException(),
                 )
             }

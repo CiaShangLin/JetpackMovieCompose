@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
@@ -30,13 +29,18 @@ class SearchViewModel @Inject constructor(
         initialValue = "",
     )
 
+    // 添加重試觸發器
+    private val _retryTrigger = MutableStateFlow(0)
+
     val movieSearchPager = _searchQueryFlow
         .debounce(300)
-        .distinctUntilChanged()
         .flatMapLatest { query ->
             if (query.isNotEmpty()) {
-                movieRepository.getMovieSearchPager(query)
-                    .cachedIn(viewModelScope)
+                // 結合重試觸發器和查詢字串
+                _retryTrigger.flatMapLatest {
+                    movieRepository.getMovieSearchPager(query)
+                        .cachedIn(viewModelScope)
+                }
             } else {
                 flowOf(PagingData.Companion.empty())
             }
@@ -49,7 +53,16 @@ class SearchViewModel @Inject constructor(
      */
     fun startSearch(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _searchQueryFlow.value = query
+            _searchQueryFlow.emit(query)
+        }
+    }
+
+    /**
+     * 重試搜尋，強制刷新當前查詢
+     */
+    fun retrySearch() {
+        viewModelScope.launch {
+            _retryTrigger.emit(_retryTrigger.value + 1)
         }
     }
 }
