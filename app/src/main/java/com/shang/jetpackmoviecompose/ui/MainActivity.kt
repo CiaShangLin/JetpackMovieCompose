@@ -146,7 +146,7 @@ fun MainErrorScreen(exception: Exception?, onRetry: () -> Unit) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         ErrorScreen(
             onRetry = onRetry,
-            networkException = exception,
+            throwable = exception,
         )
     }
 }

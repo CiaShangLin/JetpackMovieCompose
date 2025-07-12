@@ -46,8 +46,6 @@ import com.shang.ui.ErrorScreen
 import com.shang.ui.LoadingScreen
 import com.shang.ui.MovieCard
 import com.shang.ui.asMovieCardData
-import kotlin.text.append
-import kotlin.text.get
 
 @Composable
 fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
@@ -164,7 +162,7 @@ fun SearchErrorScreen(onRetry: () -> Unit, networkException: Exception?) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         ErrorScreen(
             onRetry = onRetry,
-            networkException = networkException,
+            throwable = networkException,
         )
     }
 }
@@ -211,7 +209,7 @@ fun SearchResultScreen(
                 isError -> {
                     ErrorScreen(
                         onRetry = { movieSearchPager.retry() },
-                        networkException = null,
+                        throwable = null,
                     )
                 }
                 isEndOfData -> {
