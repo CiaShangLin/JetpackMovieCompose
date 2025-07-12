@@ -68,7 +68,7 @@ fun MovieDetailScreen(
         when (val state = movieDetail.value) {
             is MovieDetailUiState.Loading -> MovieDetailLoadingScreen()
             is MovieDetailUiState.Error -> MovieDetailErrorScreen(
-                throwable = state.exception,
+                throwable = state.throwable,
                 onRetry = {
                     viewModel.retryMovieDetailApi()
                 },

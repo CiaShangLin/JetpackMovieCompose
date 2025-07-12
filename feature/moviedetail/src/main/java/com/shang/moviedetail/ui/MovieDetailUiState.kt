@@ -7,5 +7,5 @@ sealed interface MovieDetailUiState {
 
     data class Success(val data: MovieDetailBean) : MovieDetailUiState
 
-    data class Error(val exception: Throwable?) : MovieDetailUiState
+    data class Error(val throwable: Throwable?) : MovieDetailUiState
 }
