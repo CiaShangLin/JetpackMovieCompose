@@ -8,8 +8,4 @@ sealed interface CollectUiState {
     data class Success(
         val movieCollectList: List<MovieCardResult>,
     ) : CollectUiState
-
-    data class Error(
-        val message: String,
-    ) : CollectUiState
 }

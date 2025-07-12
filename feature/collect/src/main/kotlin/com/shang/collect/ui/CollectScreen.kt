@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -35,7 +34,6 @@ fun CollectScreen(viewModel: CollectViewModel = hiltViewModel()) {
 
     when (val result = allMovieCollect) {
         CollectUiState.Empty -> CollectEmptyScreen()
-        is CollectUiState.Error -> CollectErrorScreen(message = "")
         is CollectUiState.Success -> {
             if (result.movieCollectList.isEmpty()) {
                 CollectEmptyScreen()
@@ -72,11 +70,6 @@ fun CollectEmptyScreen() {
             color = MaterialTheme.colorScheme.onSurface,
         )
     }
-}
-
-@Composable
-fun CollectErrorScreen(message: String) {
-    Text("Error: $message", style = TextStyle(color = MaterialTheme.colorScheme.error))
 }
 
 @Composable
