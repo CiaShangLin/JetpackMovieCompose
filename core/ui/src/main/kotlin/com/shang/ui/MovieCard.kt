@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.CalendarToday
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.Star
@@ -56,7 +57,8 @@ fun MovieCard(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.onSurface,
                 shape = MaterialTheme.shapes.medium,
-            ).clickable {
+            )
+            .clickable {
                 onMovieClick(data)
             },
     ) {
@@ -113,20 +115,36 @@ fun MovieTitle(title: String) {
 
 @Composable
 fun MovieReleaseTitle(releaseDate: String) {
-    Text(
-        text = releaseDate,
-        style = MaterialTheme.typography.titleMedium,
-        color = MaterialTheme.colorScheme.onSurface,
-        modifier = Modifier.padding(8.dp),
-        maxLines = 1,
-    )
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(vertical = 8.dp),
+    ) {
+        Icon(
+            imageVector = Icons.Rounded.CalendarToday,
+            contentDescription = "Release Date",
+            modifier = Modifier
+                .size(24.dp)
+                .padding(start = 8.dp),
+            tint = MaterialTheme.colorScheme.onSurface,
+        )
+        Text(
+            text = releaseDate,
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.padding(start = 8.dp),
+            maxLines = 1,
+        )
+    }
 }
 
 @Composable
 fun MovieRating(modifier: Modifier, voteAverage: Double) {
     Row(
         modifier = modifier
-            .background(MaterialTheme.colorScheme.secondaryContainer, shape = MaterialTheme.shapes.medium)
+            .background(
+                MaterialTheme.colorScheme.secondaryContainer,
+                shape = MaterialTheme.shapes.medium,
+            )
             .padding(horizontal = 8.dp, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
