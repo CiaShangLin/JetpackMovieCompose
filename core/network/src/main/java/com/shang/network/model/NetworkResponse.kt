@@ -25,13 +25,3 @@ data class NetworkResponse<out T>(
     val isSuccess: Boolean
         get() = code in 200..299 && data != null
 }
-
-// fun <T> NetworkResponse<T>.asFlow(): Flow<Result<T>> {
-//    return flow {
-//        if (isSuccess) {
-//            emit(Result.success(data!!))
-//        } else {
-//            emit(Result.failure(error!!))
-//        }
-//    }
-// }
