@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.request.ImageRequest
 import com.shang.designsystem.component.JMAsyncImage
+import com.shang.designsystem.theme.StarRatingColor
 
 const val DEMO_URL =
     "https://fastly.picsum.photos/id/1020/400/300.jpg?hmac=tyq3V0QObhO4gvke1hMd7uZOQ2Sd5LwaQYB9zLBdi2w"
@@ -152,7 +153,7 @@ fun MovieRating(modifier: Modifier, voteAverage: Double) {
             imageVector = Icons.Rounded.Star,
             contentDescription = "Rating",
             modifier = Modifier.size(16.dp),
-            tint = MaterialTheme.colorScheme.onSecondaryContainer,
+            tint = StarRatingColor,
         )
         Spacer(modifier = Modifier.size(4.dp))
         Text(
