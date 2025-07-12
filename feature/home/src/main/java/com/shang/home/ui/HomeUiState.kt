@@ -9,5 +9,5 @@ sealed class HomeUiState {
         val movieGenres: MovieGenreBean,
     ) : HomeUiState()
 
-    data class Error(val error: Throwable?) : HomeUiState()
+    data class Error(val throwable: Throwable?) : HomeUiState()
 }

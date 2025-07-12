@@ -19,21 +19,26 @@ class MovieGenrePagingSource(
             val response =
                 movieDataSource.getDiscoverMovie(withGenres = withGenres, page = params.key ?: 1)
 
-            val prevKey = if (page == 1) {
-                null
+            if (response.isSuccess) {
+                val prevKey = if (page == 1) {
+                    null
+                } else {
+                    page - 1
+                }
+                val nextKey = if (page == response.data?.totalPages) {
+                    null
+                } else {
+                    page + 1
+                }
+
+                LoadResult.Page(
+                    data = response.data?.results ?: emptyList(),
+                    prevKey = prevKey,
+                    nextKey = nextKey,
+                )
             } else {
-                page - 1
+                LoadResult.Error(response.error ?: Exception("Unknown error"))
             }
-            val nextKey = if (page == response.data?.totalPages) {
-                null
-            } else {
-                page + 1
-            }
-            LoadResult.Page(
-                data = response.data?.results ?: emptyList(),
-                prevKey = prevKey,
-                nextKey = nextKey,
-            )
         } catch (e: Exception) {
             LoadResult.Error(e)
         }

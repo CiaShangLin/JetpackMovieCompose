@@ -51,7 +51,7 @@ class MovieRepositoryImp @Inject constructor(
             if (response.isSuccess) {
                 emit(Result.success(response.data!!))
             } else {
-                emit(Result.failure(Exception(response.error)))
+                emit(Result.failure(response.error!!))
             }
         }.flowOn(ioDispatcher)
     }
