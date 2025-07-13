@@ -1,6 +1,5 @@
 import deps.chucker
 import deps.commonModule
-import deps.datastoreModule
 import deps.hilt
 import deps.kotlinx
 import deps.modelModule
@@ -28,7 +27,6 @@ dependencies {
     hilt()
     modelModule()
     commonModule()
-    datastoreModule()
     testDeps()
     testImplDeps()
 }

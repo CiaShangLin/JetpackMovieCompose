@@ -1,7 +1,6 @@
 package com.shang.network.di
 
-import com.shang.common.di.ApplicationScope
-import com.shang.datastore.UserPreferenceDataSource
+import com.shang.common.LanguageProvider
 import com.shang.network.BuildConfig
 import com.shang.network.intercept.ApiKeyInterceptor
 import com.shang.network.intercept.LanguageInterceptor
@@ -12,7 +11,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -48,13 +46,9 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideLanguageInterceptor(
-        userPreferenceDataSource: UserPreferenceDataSource,
-        @ApplicationScope scope: CoroutineScope,
+        languageProvider: LanguageProvider,
     ): LanguageInterceptor {
-        return LanguageInterceptor(
-            userPreferenceDataSource = userPreferenceDataSource,
-            scope = scope,
-        )
+        return LanguageInterceptor(languageProvider)
     }
 
     @Provides
