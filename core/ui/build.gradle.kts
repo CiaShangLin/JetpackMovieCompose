@@ -1,6 +1,5 @@
 import deps.androidx
 import deps.commonModule
-import deps.dataModule
 import deps.designsystemModule
 import deps.hilt
 import deps.lottie
@@ -24,7 +23,7 @@ dependencies {
     androidx()
     hilt()
     lottie()
-    dataModule()
+
     modelModule()
     designsystemModule()
     commonModule()

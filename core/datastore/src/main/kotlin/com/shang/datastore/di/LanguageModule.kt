@@ -1,6 +1,8 @@
 package com.shang.datastore.di
 
+import com.shang.common.BaseHostUrlProvider
 import com.shang.common.LanguageProvider
+import com.shang.datastore.BaseHostUrlProviderImpl
 import com.shang.datastore.LanguageCodeProvider
 import dagger.Binds
 import dagger.Module
@@ -17,4 +19,10 @@ abstract class LanguageModule {
     abstract fun bindLanguageProvider(
         impl: LanguageCodeProvider,
     ): LanguageProvider
+
+    @Binds
+    @Singleton
+    abstract fun bindBaseHostUrlProvider(
+        impl: BaseHostUrlProviderImpl,
+    ): BaseHostUrlProvider
 }

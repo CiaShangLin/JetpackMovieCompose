@@ -2,12 +2,7 @@ package com.shang.ui.coil
 
 import coil3.intercept.Interceptor
 import coil3.request.ImageResult
-import com.shang.common.di.ApplicationScope
-import com.shang.data.repository.UserDataRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
+import com.shang.common.BaseHostUrlProvider
 import javax.inject.Inject
 
 /**
@@ -19,27 +14,11 @@ import javax.inject.Inject
  * - 處理相對路徑和絕對路徑的 URL
  */
 class HostInterceptor @Inject constructor(
-    private val userDataRepository: UserDataRepository,
-    @ApplicationScope private val applicationScope: CoroutineScope,
+    private val baseUrlProvider: BaseHostUrlProvider,
 ) : Interceptor {
 
-    @Volatile
-    private var baseUrl: String = ""
-
-    init {
-        applicationScope.launch {
-            userDataRepository.userData.map {
-                it.configuration.images.baseUrl
-            }.distinctUntilChanged().collect { url ->
-                baseUrl = url.let {
-                    // 確保 baseUrl 以 / 結尾
-                    if (it.isNotEmpty() && !it.endsWith("/")) "$it/" else it
-                }
-            }
-        }
-    }
-
     override suspend fun intercept(chain: Interceptor.Chain): ImageResult {
+        val baseUrl = baseUrlProvider.getBaseHostUrl()
         val request = chain.request
         val originalUrl = request.data.toString()
 
