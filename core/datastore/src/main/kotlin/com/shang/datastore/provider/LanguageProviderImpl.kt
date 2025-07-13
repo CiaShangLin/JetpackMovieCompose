@@ -1,7 +1,8 @@
-package com.shang.datastore
+package com.shang.datastore.provider
 
 import com.shang.common.LanguageProvider
 import com.shang.common.di.ApplicationScope
+import com.shang.datastore.UserPreferenceDataSource
 import com.shang.model.LanguageMode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -10,7 +11,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class LanguageCodeProvider @Inject constructor(
+class LanguageProviderImpl @Inject constructor(
     private val userPreferenceDataSource: UserPreferenceDataSource,
     @ApplicationScope private val scope: CoroutineScope,
 ) : LanguageProvider {

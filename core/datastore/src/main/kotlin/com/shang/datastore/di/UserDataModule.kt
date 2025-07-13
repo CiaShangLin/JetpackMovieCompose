@@ -2,8 +2,8 @@ package com.shang.datastore.di
 
 import com.shang.common.BaseHostUrlProvider
 import com.shang.common.LanguageProvider
-import com.shang.datastore.BaseHostUrlProviderImpl
-import com.shang.datastore.LanguageCodeProvider
+import com.shang.datastore.provider.BaseHostUrlProviderImpl
+import com.shang.datastore.provider.LanguageProviderImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,12 +12,12 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class LanguageModule {
+abstract class UserDataModule {
 
     @Binds
     @Singleton
     abstract fun bindLanguageProvider(
-        impl: LanguageCodeProvider,
+        impl: LanguageProviderImpl,
     ): LanguageProvider
 
     @Binds

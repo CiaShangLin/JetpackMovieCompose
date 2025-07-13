@@ -1,7 +1,8 @@
-package com.shang.datastore
+package com.shang.datastore.provider
 
 import com.shang.common.BaseHostUrlProvider
 import com.shang.common.di.ApplicationScope
+import com.shang.datastore.UserPreferenceDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
