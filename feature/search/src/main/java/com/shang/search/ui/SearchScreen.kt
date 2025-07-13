@@ -38,7 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.shang.common.exception.toNetworkException
+import com.shang.common.toNetworkException
 import com.shang.designsystem.component.JMLazyVerticalGrid
 import com.shang.model.MovieCardResult
 import com.shang.search.R

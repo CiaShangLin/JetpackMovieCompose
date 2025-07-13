@@ -1,4 +1,4 @@
-package com.shang.common.exception
+package com.shang.common
 
 import java.io.InterruptedIOException
 import java.net.ConnectException

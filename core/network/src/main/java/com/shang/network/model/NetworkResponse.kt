@@ -1,6 +1,6 @@
 package com.shang.network.model
 
-import com.shang.common.exception.NetworkException
+import com.shang.common.NetworkException
 
 /**
  * 統一封裝網路請求回應的資料結構。
