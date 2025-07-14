@@ -95,7 +95,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: 🏗️ 建置 Release APK
-        run: ./gradlew assembleProRelease --stacktrace
+        run: ./gradlew assembleProdRelease --stacktrace
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
@@ -130,7 +130,7 @@ jobs:
       - name: 🏷️ 重新命名 APK
         run: |
           VERSION=${{ steps.version.outputs.version }}
-          mv app/build/outputs/apk/prorelease/release/app-prorelease-release.apk JetpackMovieCompose-$VERSION-release.apk
+          mv app/build/outputs/apk/prorelease/release/app-prodrelease-release.apk JetpackMovieCompose-$VERSION-release.apk
 
       - name: 🎉 建立 GitHub Release
         uses: softprops/action-gh-release@v2
