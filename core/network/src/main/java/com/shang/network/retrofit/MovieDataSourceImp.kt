@@ -13,12 +13,12 @@ import com.shang.network.model.NetworkResponse
 import com.shang.network.model.asExternalModel
 import javax.inject.Inject
 
-class MovieDataSourceImp @Inject constructor(private val _movieApiService: MovieApiService) :
+class MovieDataSourceImp @Inject constructor(private val movieApiService: MovieApiService) :
     MovieDataSource {
 
     override suspend fun getConfiguration(): NetworkResponse<ConfigurationBean> {
         return safeApiCall {
-            _movieApiService.getConfiguration()
+            movieApiService.getConfiguration()
         }.mapData { response ->
             response.asExternalModel()
         }
@@ -26,7 +26,7 @@ class MovieDataSourceImp @Inject constructor(private val _movieApiService: Movie
 
     override suspend fun getMovieGenres(): NetworkResponse<MovieGenreBean> {
         return safeApiCall {
-            _movieApiService.getMovieGenres()
+            movieApiService.getMovieGenres()
         }.mapData { response ->
             response.asExternalModel()
         }
@@ -34,7 +34,7 @@ class MovieDataSourceImp @Inject constructor(private val _movieApiService: Movie
 
     override suspend fun getDiscoverMovie(withGenres: String, page: Int): NetworkResponse<MovieListBean> {
         return safeApiCall {
-            _movieApiService.getDiscoverMovie(withGenres, page)
+            movieApiService.getDiscoverMovie(withGenres, page)
         }.mapData { response ->
             response.asExternalModel()
         }
@@ -45,7 +45,7 @@ class MovieDataSourceImp @Inject constructor(private val _movieApiService: Movie
         page: Int,
     ): NetworkResponse<MovieSearchBean> {
         return safeApiCall {
-            _movieApiService.getMovieSearch(query, page)
+            movieApiService.getMovieSearch(query, page)
         }.mapData { response ->
             response.asExternalModel()
         }
@@ -53,7 +53,7 @@ class MovieDataSourceImp @Inject constructor(private val _movieApiService: Movie
 
     override suspend fun getMovieDetail(id: Int): NetworkResponse<MovieDetailBean> {
         return safeApiCall {
-            _movieApiService.getMovieDetail(id)
+            movieApiService.getMovieDetail(id)
         }.mapData { response ->
             response.asExternalModel()
         }
@@ -61,7 +61,7 @@ class MovieDataSourceImp @Inject constructor(private val _movieApiService: Movie
 
     override suspend fun getMovieRecommendations(id: Int): NetworkResponse<MovieRecommendBean> {
         return safeApiCall {
-            _movieApiService.getMovieRecommendations(id)
+            movieApiService.getMovieRecommendations(id)
         }.mapData { response ->
             response.asExternalModel()
         }
@@ -69,7 +69,7 @@ class MovieDataSourceImp @Inject constructor(private val _movieApiService: Movie
 
     override suspend fun getMovieActor(id: Int): NetworkResponse<MovieCastAndCrewBean> {
         return safeApiCall {
-            _movieApiService.getMovieActor(id)
+            movieApiService.getMovieActor(id)
         }.mapData { response ->
             response.asExternalModel()
         }
