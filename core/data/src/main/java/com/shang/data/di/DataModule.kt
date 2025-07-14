@@ -1,42 +1,28 @@
 package com.shang.data.di
 
-import com.shang.common.di.CommonDispatcher
-import com.shang.common.di.Dispatcher
 import com.shang.data.repository.MovieRepository
 import com.shang.data.repository.MovieRepositoryImp
 import com.shang.data.repository.UserDataRepository
 import com.shang.data.repository.UserDataRepositoryImp
-import com.shang.database.dao.MovieCollectDao
-import com.shang.database.dao.MovieHistoryDao
-import com.shang.datastore.UserPreferenceDataSource
-import com.shang.network.retrofit.MovieDataSource
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataModule {
+abstract class DataModule {
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideMovieRepository(
-        movieDataSource: MovieDataSource,
-        movieCollectDao: MovieCollectDao,
-        movieHistoryDao: MovieHistoryDao,
-        @Dispatcher(CommonDispatcher.IO) dispatcher: CoroutineDispatcher,
-    ): MovieRepository {
-        return MovieRepositoryImp(movieDataSource, movieCollectDao, movieHistoryDao, dispatcher)
-    }
+    abstract fun bindMovieRepository(
+        movieRepositoryImp: MovieRepositoryImp,
+    ): MovieRepository
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideUserDataRepository(
-        userPreferenceDataSource: UserPreferenceDataSource,
-    ): UserDataRepository {
-        return UserDataRepositoryImp(userPreferenceDataSource)
-    }
+    abstract fun bindUserDataRepository(
+        userDataRepositoryImp: UserDataRepositoryImp,
+    ): UserDataRepository
 }
