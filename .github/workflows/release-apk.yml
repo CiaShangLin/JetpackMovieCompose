@@ -25,7 +25,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: 🐘 Gradle 快取
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
@@ -42,7 +42,7 @@ jobs:
         run: ./gradlew test --stacktrace
 
       - name: 📊 上傳測試報告
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-reports
@@ -71,7 +71,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: 🐘 Gradle 快取
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
@@ -89,7 +89,7 @@ jobs:
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/release-keystore.jks
 
       - name: 🏗️ 建置 Release APK
-        run: ./gradlew assembleRelease --stacktrace
+        run: ./gradlew assembleProdRelease --stacktrace
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
@@ -124,10 +124,10 @@ jobs:
       - name: 🏷️ 重新命名 APK
         run: |
           VERSION=${{ steps.version.outputs.version }}
-          mv app/build/outputs/apk/release/app-release.apk JetpackMovieCompose-$VERSION-release.apk
+          mv app/build/outputs/apk/prod/release/app-prod-release.apk JetpackMovieCompose-$VERSION-release.apk
 
       - name: 🎉 建立 GitHub Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           name: "版本 ${{ steps.version.outputs.version }}"
           body_path: CHANGELOG.md
@@ -139,7 +139,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 📤 上傳 APK 到 Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: release-apk-${{ steps.version.outputs.version }}
           path: JetpackMovieCompose-${{ steps.version.outputs.version }}-release.apk
