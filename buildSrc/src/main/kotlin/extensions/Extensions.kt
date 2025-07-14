@@ -7,11 +7,11 @@ import org.gradle.api.Project
 import java.util.Properties
 
 
-private const val LOCAL_PROPERTIES_FILE_NAME = "key.properties"
+private const val KEY_PROPERTIES_FILE_NAME = "key.properties"
 
-fun Project.getLocalProperty(propertyName: String): String {
+fun Project.getKeyProperty(propertyName: String): String {
     val localProperties = Properties().apply {
-        val localPropertiesFile = rootProject.file(LOCAL_PROPERTIES_FILE_NAME)
+        val localPropertiesFile = rootProject.file(KEY_PROPERTIES_FILE_NAME)
         if (localPropertiesFile.exists()) {
             load(localPropertiesFile.inputStream())
         }

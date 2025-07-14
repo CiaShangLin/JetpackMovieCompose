@@ -1,7 +1,7 @@
 package signing
 
 import com.android.build.api.dsl.ApkSigningConfig
-import extensions.getLocalProperty
+import extensions.getKeyProperty
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
 import java.io.File
@@ -27,10 +27,10 @@ sealed class BuildSigning(val name: String) {
     class Release(private val project: Project) : BuildSigning(SigningTypes.RELEASE) {
         override fun create(namedDomainObjectContainer: NamedDomainObjectContainer<out ApkSigningConfig>) {
             namedDomainObjectContainer.create(name) {
-                storeFile = File(project.getLocalProperty("qa_release_key.storeFile"))
-                storePassword = project.getLocalProperty("qa_release_key.storePassword")
-                keyAlias = project.getLocalProperty("qa_release_key.keyAlias")
-                keyPassword = project.getLocalProperty("qa_release_key.keyPassword")
+                storeFile = File(project.getKeyProperty("qa_release_key.storeFile"))
+                storePassword = project.getKeyProperty("qa_release_key.storePassword")
+                keyAlias = project.getKeyProperty("qa_release_key.keyAlias")
+                keyPassword = project.getKeyProperty("qa_release_key.keyPassword")
                 enableV1Signing = true
                 enableV2Signing = true
             }
@@ -41,10 +41,10 @@ sealed class BuildSigning(val name: String) {
         BuildSigning(SigningTypes.RELEASE_EXTERNAL_QA) {
         override fun create(namedDomainObjectContainer: NamedDomainObjectContainer<out ApkSigningConfig>) {
             namedDomainObjectContainer.create(name) {
-                storeFile = File(project.getLocalProperty("qa_release_key.storeFile"))
-                storePassword = project.getLocalProperty("qa_release_key.storePassword")
-                keyAlias = project.getLocalProperty("qa_release_key.keyAlias")
-                keyPassword = project.getLocalProperty("qa_release_key.keyPassword")
+                storeFile = File(project.getKeyProperty("qa_release_key.storeFile"))
+                storePassword = project.getKeyProperty("qa_release_key.storePassword")
+                keyAlias = project.getKeyProperty("qa_release_key.keyAlias")
+                keyPassword = project.getKeyProperty("qa_release_key.keyPassword")
                 enableV1Signing = true
                 enableV2Signing = true
             }
