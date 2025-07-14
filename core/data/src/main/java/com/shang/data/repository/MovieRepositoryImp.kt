@@ -3,6 +3,8 @@ package com.shang.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.shang.common.di.CommonDispatcher
+import com.shang.common.di.Dispatcher
 import com.shang.data.model.asCollectEntity
 import com.shang.data.model.asHistoryEntity
 import com.shang.data.paging.MovieGenrePagingSource
@@ -24,14 +26,11 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-/**
- *
- */
 class MovieRepositoryImp @Inject constructor(
     private val movieDataSource: MovieDataSource,
     private val movieCollectDao: MovieCollectDao,
     private val movieHistoryDao: MovieHistoryDao,
-    private val ioDispatcher: CoroutineDispatcher,
+    @Dispatcher(CommonDispatcher.IO) private val ioDispatcher: CoroutineDispatcher,
 ) : MovieRepository {
 
     override fun getConfiguration(): Flow<Result<ConfigurationBean>> {
