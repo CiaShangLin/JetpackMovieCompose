@@ -87,7 +87,9 @@ class SharedLibraryGradlePlugin : Plugin<Project> {
 
     private fun Project.addKotlinOptions() {
         tasks.withType<KotlinCompile> {
-            kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
+            compilerOptions {
+                jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+            }
         }
     }
 }
