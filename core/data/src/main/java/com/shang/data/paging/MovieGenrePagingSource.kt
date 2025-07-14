@@ -10,7 +10,10 @@ class MovieGenrePagingSource(
     private val withGenres: String,
 ) : PagingSource<Int, MovieCardResult>() {
     override fun getRefreshKey(state: PagingState<Int, MovieCardResult>): Int? {
-        return null
+        return state.anchorPosition?.let {
+            state.closestPageToPosition(it)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
+        }
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieCardResult> {
