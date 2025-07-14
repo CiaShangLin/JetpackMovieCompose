@@ -7,7 +7,7 @@ import deps.okHttp
 import deps.retrofit
 import deps.testDeps
 import deps.testImplDeps
-import extensions.getLocalProperty
+import extensions.getKeyProperty
 import plugs.SharedLibraryGradlePlugin
 
 plugins {
@@ -25,7 +25,7 @@ android {
 
     defaultConfig {
         // 從 key.properties 讀取 API key，如果不存在則使用空字串
-        buildConfigField("String", "TMDB_API_KEY", "\"${getLocalProperty("TMDB_API_KEY")}\"")
+        buildConfigField("String", "TMDB_API_KEY", "\"${getKeyProperty("TMDB_API_KEY")}\"")
     }
 }
 

@@ -8,21 +8,10 @@ import java.util.Properties
 
 
 private const val KEY_PROPERTIES_FILE_NAME = "key.properties"
-private const val LOCAL_PROPERTIES_FILE_NAME = "local.properties"
 
 fun Project.getKeyProperty(propertyName: String): String {
     val localProperties = Properties().apply {
         val localPropertiesFile = rootProject.file(KEY_PROPERTIES_FILE_NAME)
-        if (localPropertiesFile.exists()) {
-            load(localPropertiesFile.inputStream())
-        }
-    }
-    return localProperties.getProperty(propertyName)
-}
-
-fun Project.getLocalProperty(propertyName: String): String {
-    val localProperties = Properties().apply {
-        val localPropertiesFile = rootProject.file(LOCAL_PROPERTIES_FILE_NAME)
         if (localPropertiesFile.exists()) {
             load(localPropertiesFile.inputStream())
         }
