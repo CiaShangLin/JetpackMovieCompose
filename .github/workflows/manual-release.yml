@@ -1,0 +1,81 @@
+name: 📦 手動上傳 APK 發布
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '版本號 (例如: v1.0.0)'
+        required: true
+        type: string
+      changelog:
+        description: '更新說明'
+        required: true
+        type: string
+      apk_path:
+        description: 'APK 檔案路徑 (相對於專案根目錄)'
+        required: true
+        default: 'releases/'
+        type: string
+
+jobs:
+  manual-release:
+    name: 📦 手動發布 APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 檢出程式碼
+        uses: actions/checkout@v4
+
+      - name: 🔍 驗證 APK 檔案存在
+        run: |
+          APK_PATH="${{ github.event.inputs.apk_path }}"
+          if [ ! -f "$APK_PATH"/*.apk ]; then
+            echo "❌ 在 $APK_PATH 目錄中找不到 APK 檔案"
+            echo "請確保已將 APK 檔案上傳到指定目錄"
+            exit 1
+          fi
+          
+          APK_FILE=$(find "$APK_PATH" -name "*.apk" | head -1)
+          echo "✅ 找到 APK 檔案: $APK_FILE"
+          echo "apk_file=$APK_FILE" >> $GITHUB_ENV
+
+      - name: 🏷️ 建立版本標籤
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git tag -a "$VERSION" -m "Release $VERSION"
+          git push origin "$VERSION"
+
+      - name: 📄 建立 Changelog 檔案
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          CHANGELOG="${{ github.event.inputs.changelog }}"
+          
+          echo "## 🎉 版本 $VERSION 更新內容" > CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "$CHANGELOG" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "📱 **APK 檔案：** $(basename ${{ env.apk_file }})" >> CHANGELOG.md
+          echo "📅 **發布時間：** $(date '+%Y-%m-%d %H:%M:%S')" >> CHANGELOG.md
+
+      - name: 🏷️ 重新命名 APK
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          OLD_NAME="${{ env.apk_file }}"
+          NEW_NAME="JetpackMovieCompose-$VERSION-release.apk"
+          
+          cp "$OLD_NAME" "$NEW_NAME"
+          echo "renamed_apk=$NEW_NAME" >> $GITHUB_ENV
+
+      - name: 🎉 建立 GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          name: "版本 ${{ github.event.inputs.version }}"
+          body_path: CHANGELOG.md
+          files: ${{ env.renamed_apk }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

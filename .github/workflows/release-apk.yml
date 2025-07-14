@@ -1,0 +1,145 @@
+name: 🚀 Release APK Build
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # 匹配版本標籤，如 v1.0.0
+  workflow_dispatch:  # 允許手動觸發
+
+jobs:
+  test:
+    name: 🧪 單元測試
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 檢出程式碼
+        uses: actions/checkout@v4
+
+      - name: ☕ 設定 JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: 📱 設定 Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: 🐘 Gradle 快取
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: 🔑 建立 key.properties
+        run: |
+          echo "TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}" > key.properties
+
+      - name: 🧪 執行單元測試
+        run: ./gradlew test --stacktrace
+
+      - name: 📊 上傳測試報告
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-reports
+          path: |
+            **/build/reports/tests/
+            **/build/test-results/
+
+  build-and-release:
+    name: 🔨 建置並發布 APK
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 檢出程式碼
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 獲取完整歷史記錄用於生成 changelog
+
+      - name: ☕ 設定 JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: 📱 設定 Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: 🐘 Gradle 快取
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: 🔑 建立 key.properties
+        run: |
+          echo "TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}" > key.properties
+
+      - name: 🔐 解碼 Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/release-keystore.jks
+
+      - name: 🏗️ 建置 Release APK
+        run: ./gradlew assembleRelease --stacktrace
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
+      - name: 📝 生成版本資訊
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+
+      - name: 📄 生成 Changelog
+        id: changelog
+        run: |
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD~1 2>/dev/null || echo "")
+          if [ -z "$PREVIOUS_TAG" ]; then
+            CHANGELOG="初始版本發布"
+          else
+            CHANGELOG=$(git log --pretty=format:"- %s" $PREVIOUS_TAG..HEAD)
+          fi
+          
+          # 儲存 changelog 到檔案
+          echo "## 🎉 版本 ${{ steps.version.outputs.version }} 更新內容" > CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "$CHANGELOG" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "📱 **APK 檔案：** JetpackMovieCompose-${{ steps.version.outputs.version }}-release.apk" >> CHANGELOG.md
+          
+          cat CHANGELOG.md
+
+      - name: 🏷️ 重新命名 APK
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          mv app/build/outputs/apk/release/app-release.apk JetpackMovieCompose-$VERSION-release.apk
+
+      - name: 🎉 建立 GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: "版本 ${{ steps.version.outputs.version }}"
+          body_path: CHANGELOG.md
+          files: |
+            JetpackMovieCompose-${{ steps.version.outputs.version }}-release.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📤 上傳 APK 到 Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-apk-${{ steps.version.outputs.version }}
+          path: JetpackMovieCompose-${{ steps.version.outputs.version }}-release.apk
