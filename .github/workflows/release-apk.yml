@@ -38,6 +38,9 @@ jobs:
         run: |
           echo "TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}" > key.properties
 
+      - name: 🛠️ 設定 gradlew 執行權限
+        run: chmod +x ./gradlew
+
       - name: 🧪 執行單元測試
         run: ./gradlew test --stacktrace
 
@@ -88,8 +91,11 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/release-keystore.jks
 
+      - name: 🛠️ 設定 gradlew 執行權限
+        run: chmod +x ./gradlew
+
       - name: 🏗️ 建置 Release APK
-        run: ./gradlew assembleProdRelease --stacktrace
+        run: ./gradlew assembleProRelease --stacktrace
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
@@ -124,7 +130,7 @@ jobs:
       - name: 🏷️ 重新命名 APK
         run: |
           VERSION=${{ steps.version.outputs.version }}
-          mv app/build/outputs/apk/prod/release/app-prod-release.apk JetpackMovieCompose-$VERSION-release.apk
+          mv app/build/outputs/apk/prorelease/release/app-prorelease-release.apk JetpackMovieCompose-$VERSION-release.apk
 
       - name: 🎉 建立 GitHub Release
         uses: softprops/action-gh-release@v2
