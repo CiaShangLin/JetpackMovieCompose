@@ -8,7 +8,7 @@ fun DependencyHandler.room() {
     implementation(Dependencies.roomKtx)
     implementation(Dependencies.roomRuntime)
     //implementation(Dependencies.roomPaging)
-    kapt(Dependencies.roomCompiler)
+    ksp(Dependencies.roomCompiler)
 }
 
 
@@ -26,12 +26,12 @@ fun DependencyHandler.okHttp() {
 
 fun DependencyHandler.hilt() {
     implementation(Dependencies.hiltAndroid)
-    kapt(Dependencies.hiltCompiler)
+    ksp(Dependencies.hiltCompiler)
 
     implementation(Dependencies.hiltCompose)
     implementation(Dependencies.hiltNavigation)
-    kapt(Dependencies.hiltAgp)
-    kapt(Dependencies.hiltCompilerKapt)
+    ksp(Dependencies.hiltAgp)
+    ksp(Dependencies.hiltCompilerKapt)
 }
 
 fun DependencyHandler.androidx() {
