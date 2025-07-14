@@ -16,18 +16,21 @@ object CommonModule {
 
     @Dispatcher(CommonDispatcher.Default)
     @Provides
+    @Singleton
     fun provideDefaultDispatcher(): CoroutineDispatcher {
         return Dispatchers.Default
     }
 
     @Dispatcher(CommonDispatcher.IO)
     @Provides
+    @Singleton
     fun provideIODispatcher(): CoroutineDispatcher {
         return Dispatchers.IO
     }
 
     @Dispatcher(CommonDispatcher.Main)
     @Provides
+    @Singleton
     fun provideMainDispatcher(): CoroutineDispatcher {
         return Dispatchers.Main
     }
