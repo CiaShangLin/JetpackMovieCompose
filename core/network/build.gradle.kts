@@ -7,6 +7,7 @@ import deps.okHttp
 import deps.retrofit
 import deps.testDeps
 import deps.testImplDeps
+import extensions.getLocalProperty
 import plugs.SharedLibraryGradlePlugin
 
 plugins {
@@ -17,6 +18,15 @@ apply<SharedLibraryGradlePlugin>()
 
 android {
     namespace = "com.shang.network"
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    defaultConfig {
+        // 從 key.properties 讀取 API key，如果不存在則使用空字串
+        buildConfigField("String", "TMDB_API_KEY", "\"${getLocalProperty("TMDB_API_KEY")}\"")
+    }
 }
 
 dependencies {

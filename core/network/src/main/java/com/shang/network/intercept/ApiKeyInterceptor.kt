@@ -5,13 +5,18 @@ import okhttp3.Response
 
 /**
  * OkHttp 攔截器：自動為所有請求加上 api_key 查詢參數
+ * @param apiKey API 金鑰，透過建構子注入
  */
-class ApiKeyInterceptor : Interceptor {
+class ApiKeyInterceptor(private val apiKey: String) : Interceptor {
+
+    companion object {
+        const val API_KEY_PARAM = "api_key"
+    }
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
         val newUrl = originalRequest.url.newBuilder()
-            .addQueryParameter("api_key", "90b44d4486f4ba2b48dbc22e2099b38b")
+            .addQueryParameter(API_KEY_PARAM, apiKey)
             .build()
         val newRequest = originalRequest.newBuilder()
             .url(newUrl)

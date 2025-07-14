@@ -17,13 +17,22 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
+const val API_KEY_TAG = "api_key"
 const val BASE_URL = "https://api.themoviedb.org/3/"
 
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
+
+    @Provides
+    @Singleton
+    @Named(API_KEY_TAG)
+    fun provideApiKey(): String {
+        return BuildConfig.TMDB_API_KEY
+    }
 
     @Provides
     @Singleton
@@ -53,8 +62,10 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiKeyInterceptor(): ApiKeyInterceptor {
-        return ApiKeyInterceptor()
+    fun provideApiKeyInterceptor(
+        @Named(API_KEY_TAG) apiKey: String,
+    ): ApiKeyInterceptor {
+        return ApiKeyInterceptor(apiKey)
     }
 
     @Provides
