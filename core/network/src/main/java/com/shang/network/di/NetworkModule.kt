@@ -5,8 +5,6 @@ import com.shang.network.BuildConfig
 import com.shang.network.intercept.ApiKeyInterceptor
 import com.shang.network.intercept.LanguageInterceptor
 import com.shang.network.retrofit.MovieApiService
-import com.shang.network.retrofit.MovieDataSource
-import com.shang.network.retrofit.MovieDataSourceImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -96,11 +94,5 @@ class NetworkModule {
     @Singleton
     fun provideMovieApiService(retrofit: Retrofit): MovieApiService {
         return retrofit.create(MovieApiService::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun provideMovieDataSource(movieApiService: MovieApiService): MovieDataSource {
-        return MovieDataSourceImp(movieApiService)
     }
 }
