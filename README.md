@@ -88,7 +88,7 @@ graph TD
 ### 1. Clone 專案
 
 ```bash
-git clone https://github.com/your-username/JetpackMovieCompose.git
+git clone https://github.com/CiaShangLin/JetpackMovieCompose.git
 cd JetpackMovieCompose
 ```
 
