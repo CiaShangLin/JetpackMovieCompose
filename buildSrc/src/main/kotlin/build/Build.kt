@@ -24,7 +24,7 @@ sealed class Build {
     }
 
     object Release : Build() {
-        override val isMinifyEnabled = false
+        override val isMinifyEnabled = true
         override val isDebuggable = false
         override val enableUnitTestCoverage = true
     }
