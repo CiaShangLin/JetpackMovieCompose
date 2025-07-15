@@ -27,10 +27,10 @@ sealed class BuildSigning(val name: String) {
     class Release(private val project: Project) : BuildSigning(SigningTypes.RELEASE) {
         override fun create(namedDomainObjectContainer: NamedDomainObjectContainer<out ApkSigningConfig>) {
             namedDomainObjectContainer.create(name) {
-//                storeFile = File(project.rootProject.rootDir, "app/release-keystore.jks")
-//                storePassword = System.getenv("KEYSTORE_PASSWORD")
-//                keyAlias = System.getenv("KEY_ALIAS")
-//                keyPassword = System.getenv("KEY_PASSWORD")
+                storeFile = File(project.rootProject.rootDir, "app/release-keystore.jks")
+                storePassword = System.getenv("KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("KEY_ALIAS")
+                keyPassword = System.getenv("KEY_PASSWORD")
                 enableV1Signing = true
                 enableV2Signing = true
             }
