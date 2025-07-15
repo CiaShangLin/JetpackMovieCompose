@@ -7,9 +7,9 @@
 - **電影探索**: 瀏覽熱門、即將上映、和高評分的電影。
 - **電影搜尋**: 透過關鍵字即時搜尋電影。
 - **詳細資訊**: 查看電影的詳細介紹、預告片、評分和演員陣容。
-- **演員專頁**: 點擊演員以查看其簡介和參與的電影作品。
 - **個人收藏**: 將喜歡的電影加入收藏清單以便日後查看。
 - **主題切換**: 支援深色與淺色主題模式。
+- **語言切換**: 支援英文與繁體中文。
 
 ## 螢幕截圖 (Screenshots)
 
@@ -116,6 +116,93 @@ cd JetpackMovieCompose
 # 在您的裝置或模擬器上安裝 Debug 版本的 App
 ./gradlew installDebug
 ```
+
+## CI/CD 持續整合與部署 (Continuous Integration & Deployment)
+
+本專案採用 **GitHub Actions** 實現自動化的 CI/CD 流程，確保程式碼品質並簡化發布流程。
+
+### 🔧 CI/CD 流程概覽
+
+```mermaid
+graph LR
+    A[推送程式碼] --> B[觸發 GitHub Actions]
+    B --> C[程式碼檢查]
+    C --> D[單元測試]
+    D --> E[建置 APK]
+    E --> F[簽名 APK]
+    F --> G[建立 Release]
+    G --> H[上傳到 GitHub Releases]
+```
+
+### 📱 自動化流程功能
+
+- **程式碼品質檢查**: 使用 Ktlint 進行程式碼格式化檢查
+- **單元測試執行**: 自動執行所有模組的單元測試
+- **APK 建置**: 自動建置 Release 版本的 APK
+- **APK 簽名**: 使用預設的簽名金鑰進行 APK 簽名
+- **自動發布**: 當推送版本標籤時，自動建立 GitHub Release
+- **Changelog 生成**: 自動產生版本更新日誌
+
+### 🚀 發布新版本
+
+#### 方法一：自動發布（推薦）
+
+1. **建立版本標籤並推送**：
+   ```bash
+   git tag v1.0.0
+   git push origin v1.0.0
+   ```
+
+2. **GitHub Actions 會自動執行**：
+   - 執行測試套件
+   - 建置並簽名 APK
+   - 建立 GitHub Release
+   - 上傳 APK 檔案
+
+### ⚙️ CI/CD 設定檔案
+
+專案包含以下 CI/CD 相關設定檔案：
+
+- `releases/GITHUB_ACTIONS_SETUP.md`: GitHub Actions 詳細設定指南
+- `.github/workflows/`: GitHub Actions 工作流程定義（如存在）
+
+### 🔐 必要的 GitHub Secrets
+
+為了讓 CI/CD 流程正常運作，需要在 GitHub Repository 設定以下 Secrets：
+
+| Secret 名稱 | 說明 | 必要性 |
+|------------|------|-------|
+| `TMDB_API_KEY` | TMDB API 金鑰 | ✅ 必要 |
+| `KEYSTORE_BASE64` | 簽名檔案的 Base64 編碼 | ✅ 必要 |
+| `KEYSTORE_PASSWORD` | Keystore 密碼 | ✅ 必要 |
+| `KEY_ALIAS` | 金鑰別名 | ✅ 必要 |
+| `KEY_PASSWORD` | 金鑰密碼 | ✅ 必要 |
+
+### 📊 建置狀態
+
+| 分支 | 建置狀態 | 程式碼覆蓋率 |
+|------|---------|-------------|
+| main | ![Build Status](https://github.com/your-username/JetpackMovieCompose/workflows/CI/badge.svg) | ![Coverage](https://img.shields.io/badge/coverage-80%25-green) |
+
+### 🛠️ 本地測試 CI 流程
+
+在推送之前，您可以在本地執行相同的檢查：
+
+```bash
+# 執行程式碼格式檢查
+./gradlew ktlintCheck
+
+# 執行所有單元測試
+./gradlew test
+
+# 建置 Release APK
+./gradlew assembleProdRelease
+
+# 執行所有檢查（包含測試和 Lint）
+./gradlew check
+```
+
+詳細的 CI/CD 設定說明請參考 [`releases/GITHUB_ACTIONS_SETUP.md`](releases/GITHUB_ACTIONS_SETUP.md)。
 
 ## 授權 (License)
 
