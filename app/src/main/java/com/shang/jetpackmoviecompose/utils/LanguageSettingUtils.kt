@@ -67,25 +67,17 @@ object LanguageSettingUtils {
      */
     fun updateActivityLocale(activity: Activity, languageMode: LanguageMode) {
         val locale = getLocaleFromLanguageMode(languageMode)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            // Android 13+ 建議使用 recreate() 重新創建 Activity
-            val configuration = Configuration(activity.resources.configuration)
+        val resources = activity.resources
+        val configuration = Configuration(resources.configuration)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             configuration.setLocales(LocaleList(locale))
-            // activity.recreate()
         } else {
-            // 對於舊版本使用傳統方法
-            val resources = activity.resources
-            val configuration = Configuration(resources.configuration)
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                configuration.setLocales(LocaleList(locale))
-            } else {
-                @Suppress("DEPRECATION")
-                configuration.locale = locale
-            }
-
             @Suppress("DEPRECATION")
-            resources.updateConfiguration(configuration, resources.displayMetrics)
+            configuration.locale = locale
         }
+
+        @Suppress("DEPRECATION")
+        resources.updateConfiguration(configuration, resources.displayMetrics)
     }
 }
