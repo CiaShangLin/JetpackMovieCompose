@@ -6,6 +6,7 @@ import com.shang.data.repository.UserDataRepository
 import com.shang.domain.usecase.GetConfigurationUseCase
 import com.shang.model.UserData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -24,6 +25,7 @@ class MainViewModel @Inject constructor(
 
     private val _retryTrigger = MutableSharedFlow<Unit>()
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val configuration: StateFlow<MainUiState> = _retryTrigger
         .onStart { emit(Unit) } // 初始載入
         .flatMapLatest {
