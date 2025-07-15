@@ -51,10 +51,7 @@ class SharedLibraryGradlePlugin : Plugin<Project> {
                     signingConfig = signingConfigs.getByName(SigningTypes.DEBUG)
                 }
                 BuildCreator.Release(project).createLibrary(this).apply {
-                    proguardFiles(
-                        getDefaultProguardFile("proguard-android-optimize.txt"),
-                        "proguard-rules.pro"
-                    )
+                    consumerProguardFiles("consumer-rules.pro")
                     signingConfig = signingConfigs.getByName(SigningTypes.RELEASE)
                 }
                 BuildCreator.ReleaseExternalQA(project).createLibrary(this).apply {
