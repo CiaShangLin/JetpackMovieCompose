@@ -10,13 +10,6 @@
 
     <!-- Retry related text -->
     <string name="retry_button_text">Retry</string>
-    <string name="refresh_button_text">Refresh</string>
-    <string name="reload_button_text">Reload</string>
-    <string name="try_again_text">Try Again</string>
 
-    <!-- Loading related text -->
-    <string name="loading_text">Loading…</string>
-    <string name="please_wait_text">Please wait</string>
-    <string name="processing_text">Processing…</string>
 </resources>
 

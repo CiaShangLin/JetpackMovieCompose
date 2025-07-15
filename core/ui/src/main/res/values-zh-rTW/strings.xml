@@ -10,13 +10,5 @@
 
     <!-- 重試相關文字 -->
     <string name="retry_button_text">重試</string>
-    <string name="refresh_button_text">重新整理</string>
-    <string name="reload_button_text">重新載入</string>
-    <string name="try_again_text">再試一次</string>
-
-    <!-- 載入相關文字 -->
-    <string name="loading_text">載入中…</string>
-    <string name="please_wait_text">請稍候</string>
-    <string name="processing_text">處理中…</string>
 </resources>
 
