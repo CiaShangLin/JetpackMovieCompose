@@ -7,6 +7,8 @@ import androidx.paging.cachedIn
 import com.shang.data.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -32,6 +34,7 @@ class SearchViewModel @Inject constructor(
     // 添加重試觸發器
     private val _retryTrigger = MutableStateFlow(0)
 
+    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     val movieSearchPager = _searchQueryFlow
         .debounce(300)
         .flatMapLatest { query ->
