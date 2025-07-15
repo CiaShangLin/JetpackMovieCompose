@@ -6,23 +6,4 @@
     <string name="nav_history">History</string>
     <string name="nav_favor">Favor</string>
     <string name="nav_setting">Setting</string>
-
-    <string name="release_date">ReleaseDate</string>
-    <string name="pull_down_refresh">pull_down_refresh</string>
-
-    <string name="theme">Theme</string>
-    <string name="language">Language</string>
-    <string name="disclaimer">Disclaimer</string>
-    <string name="developers">Developers</string>
-    <string name="resolution">Resolution</string>
-
-    <string name="system_default_mode">system_default_mode</string>
-    <string name="system_light_mode">system_light_mode</string>
-    <string name="system_dark_mode">system_dark_mode</string>
-
-    <string name="chinese">中文</string>
-    <string name="english">English</string>
-    <string name="summary">Summary</string>
-    <string name="cast">Cast</string>
-    <string name="guess_like">guess_like</string>
 </resources>

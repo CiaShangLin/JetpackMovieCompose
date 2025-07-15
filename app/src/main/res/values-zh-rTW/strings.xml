@@ -6,23 +6,4 @@
     <string name="nav_search">搜尋</string>
     <string name="nav_history">歷史</string>
     <string name="nav_setting">設定</string>
-
-    <string name="release_date">上映日</string>
-    <string name="pull_down_refresh">請下拉刷新</string>
-
-    <string name="theme">主題</string>
-    <string name="language">語言</string>
-    <string name="disclaimer">免責聲明</string>
-    <string name="developers">開發者</string>
-    <string name="resolution">圖片解析度</string>
-
-    <string name="system_default_mode">系統預設</string>
-    <string name="system_light_mode">淺色模式</string>
-    <string name="system_dark_mode">深色模式</string>
-
-    <string name="chinese">中文</string>
-    <string name="english">English</string>
-    <string name="summary">概要</string>
-    <string name="cast">主要演員</string>
-    <string name="guess_like">猜你喜歡</string>
 </resources>
