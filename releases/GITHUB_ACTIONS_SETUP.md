@@ -18,7 +18,7 @@ KEY_PASSWORD=金鑰密碼
 
 在終端機執行以下指令：
 ```bash
-base64 -i qa_release_keystore.jks -o keystore.txt
+base64 -i release_keystore.jks -o keystore.txt
 ```
 然後將 `keystore.txt` 的內容複製到 `KEYSTORE_BASE64` Secret 中。
 
@@ -39,35 +39,12 @@ base64 -i qa_release_keystore.jks -o keystore.txt
    - 📝 生成 Changelog
    - 🎉 建立 GitHub Release
 
-### 方式二：手動上傳（備用方案）
-
-當自動編譯失敗時：
-
-1. 本地編譯 APK：
-   ```bash
-   ./gradlew assembleProdRelease
-   ```
-
-2. 將 APK 複製到 `releases/` 目錄
-
-3. 提交並推送：
-   ```bash
-   git add releases/
-   git commit -m "Add APK for manual release"
-   git push
-   ```
-
-4. 前往 GitHub Actions → 手動觸發「📦 手動上傳 APK 發布」
-
 ## 📁 檔案結構
 
 ```
 .github/
 └── workflows/
     ├── release-apk.yml      # 自動發布工作流程
-    └── manual-release.yml   # 手動發布工作流程
-releases/
-└── README.md               # 手動發布說明
 ```
 
 ## 🔍 工作流程說明
@@ -76,11 +53,6 @@ releases/
 - **觸發條件**：推送版本標籤（v*.*.*）
 - **執行步驟**：測試 → 建置 → 簽名 → 發布
 - **輸出**：GitHub Release + APK 檔案
-
-### manual-release.yml
-- **觸發條件**：手動觸發
-- **輸入參數**：版本號、更新說明、APK 路徑
-- **執行步驟**：建立標籤 → 發布 Release
 
 ## ⚠️ 注意事項
 
