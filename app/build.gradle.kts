@@ -71,6 +71,7 @@ android {
                 "proguard-rules.pro",
             )
             signingConfig = signingConfigs.getByName(SigningTypes.RELEASE)
+            isMinifyEnabled = true
         }
         BuildCreator.ReleaseExternalQA(project).create(this).apply {
             signingConfig = signingConfigs.getByName(SigningTypes.RELEASE_EXTERNAL_QA)
