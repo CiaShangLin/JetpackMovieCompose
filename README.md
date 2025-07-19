@@ -2,6 +2,12 @@
 
 一個使用 Jetpack Compose 和 [TMDB API](https://www.themoviedb.org/documentation/api) 打造的現代化 Android 電影資訊 App。此專案展示了最新的 Android 開發實踐，包含多模組架構、Clean Architecture、以及 Jetpack 生態系中的各種元件。
 
+## Medium
+
+📖 [Android 多模組化實戰練習](https://medium.com/@west7418/android-%E5%A4%9A%E6%A8%A1%E7%B5%84%E5%8C%96%E5%AF%A6%E6%88%B0%E7%B7%B4%E7%BF%92-df87d06cef54)
+
+此文章詳細說明了本專案的多模組架構設計思路、實作細節以及最佳實踐，是理解專案架構的最佳參考資料。
+
 ## 主要功能 (Features)
 
 - **電影探索**: 瀏覽熱門、即將上映、和高評分的電影。
