@@ -69,8 +69,8 @@ object TestFixtures {
                     originalLanguage = "en",
                     originalTitle = "Test Movie Original",
                     popularity = 100.5,
-                    video = false
-                )
+                    video = false,
+                ),
             ),
             totalPages = 10,
             totalResults = 200,
