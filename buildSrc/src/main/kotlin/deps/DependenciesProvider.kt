@@ -95,13 +95,36 @@ fun DependencyHandler.chucker() {
 
 
 fun DependencyHandler.testDeps() {
+    // JUnit 4 (保持現有相容性)
     testImplementation(TestDependencies.JUNIT)
+
+    // JUnit 5 (Jupiter) - 現代化測試框架
+    testImplementation(TestDependencies.JUNIT5_API)
+    testImplementation(TestDependencies.JUNIT5_ENGINE)
+    testImplementation(TestDependencies.JUNIT5_PARAMS)
+
+    // MockK - Kotlin 模擬庫
+    testImplementation(TestDependencies.MOCKK)
+
+    // Strikt - 斷言庫
+    testImplementation(TestDependencies.STRIKT)
+
+    // Coroutines Test - 協程測試支援
+    testImplementation(TestDependencies.KOTLINX_COROUTINES_TEST)
 }
 
 fun DependencyHandler.testImplDeps() {
+    // Android 測試依賴
     androidTestImplementation(TestDependencies.ANDROIDX_JUNIT)
     androidTestImplementation(TestDependencies.ANDROIDX_ESPRESSO_CORE)
+
+    // MockK Android
+    androidTestImplementation(TestDependencies.MOCKK_ANDROID)
+
+    // Compose 測試依賴
     androidTestImplementation(TestDependencies.ANDROIDX_COMPOSE_UI_TEST)
+    debugImplementation(TestDependencies.COMPOSE_UI_TOOLING_PREVIEW)
+    debugImplementation(TestDependencies.COMPOSE_UI_TEST_MANIFEST)
 }
 
 fun DependencyHandler.testDebugDeps() {
@@ -172,8 +195,3 @@ fun DependencyHandler.moviedetailModule() {
 fun DependencyHandler.actorModule() {
     moduleImplementation(project(":feature:actor"))
 }
-
-
-
-
-

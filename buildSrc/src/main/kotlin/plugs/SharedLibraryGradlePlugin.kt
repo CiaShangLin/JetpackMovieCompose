@@ -79,6 +79,17 @@ class SharedLibraryGradlePlugin : Plugin<Project> {
                 sourceCompatibility = JavaVersion.VERSION_17
                 targetCompatibility = JavaVersion.VERSION_17
             }
+
+            // 添加 JUnit 5 測試支援
+            testOptions {
+                unitTests {
+                    isIncludeAndroidResources = true
+                    isReturnDefaultValues = true
+                }
+                unitTests.all {
+                    it.useJUnitPlatform()
+                }
+            }
         }
     }
 
