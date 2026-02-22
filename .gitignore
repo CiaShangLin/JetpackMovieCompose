@@ -16,3 +16,7 @@ local.properties
 /.idea/*
 key.properties
 JetpackMovieCompose.jsk
+.spectra/
+openspec/.vector-search.db
+/.kotlin/
+/buildSrc/build/
