@@ -2,19 +2,45 @@ schema: spec-driven
 
 # Project context (optional)
 # This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  ## 技術棧
+  - Kotlin + Jetpack Compose（Compose BOM 管理版本，Compose Compiler 2.0.21）
+  - Hilt 依賴注入（含 hilt-navigation-compose）
+  - Room（本地資料庫）、Proto DataStore（偏好設定，非 SharedPreferences）
+  - Retrofit + OkHttp + Sandwich（網路層與回應包裝）、Kotlin Serialization（JSON）
+  - Paging 3、Coil 3、Navigation Compose、Lottie Compose、WorkManager
+  - 測試：JUnit 5（useJUnitPlatform）、Strikt 斷言、MockK、Coroutines Test
+
+  ## 架構
+  - 三層模組結構：app / feature/* / core/*，遵循 Clean Architecture
+  - MVVM：ViewModel + StateFlow，UI 狀態獨立定義在 *UiState.kt
+  - Repository 模式抽象化資料層；Use Case 封裝領域邏輯，並從 ViewModel 接收 CoroutineScope 以確保生命週期管理
+  - 各模組 namespace 為 com.shang.<module>（例如 com.shang.network、com.shang.home）
+  - Feature 模組固定結構：navigation/（ROUTE 常數 + NavGraphBuilder 擴充函式）與 ui/（Screen、ViewModel、UiState）
+
+  ## 建置系統
+  - 所有建置邏輯集中在 buildSrc/，新增依賴需依序走 DependenciesVersions → Dependencies → DependenciesProvider，不可在模組 build.gradle.kts 寫死座標
+  - Library 模組一律套用 SharedLibraryGradlePlugin（統一 SDK 版本、build types、簽名、ktlint、JUnit5、Kotlin Serialization）
+  - 新增模組需在 settings.gradle 註冊
+
+  ## 慣例
+  - 註解與文件一律使用繁體中文(zh-tw)
+  - Commit 前需通過 ktlintCheck
+  - 測試採 AAA 模式（Arrange/Act/Assert），最低 80% 單元測試覆蓋率
+  - API 金鑰放 key.properties（不進版控），透過 core/network 的 ApiKeyInterceptor 附加到請求；語言偏好透過 LanguageInterceptor 影響 API 呼叫
 
 # Per-artifact rules (optional)
 # Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+rules:
+  proposal:
+    - "Impact 段落必須列出受影響的 module（例如 feature/home、core/domain）"
+    - "若涉及新增依賴，需註明會動到 buildSrc 的哪些檔案（DependenciesVersions/Dependencies/DependenciesProvider）"
+  specs:
+    - "Requirement 與 Scenario 需以繁體中文(zh-tw) 撰寫"
+  design:
+    - "Decisions 段落需說明是否遵循既有 MVVM / Repository / Use Case 模式，若偏離需說明原因"
+    - "若變更涉及資料庫 schema，需在 Risks / Trade-offs 註明 Room migration 策略"
+  tasks:
+    - "每個 task group 對應一個 module（例如 core/domain、feature/home、core/network）"
+    - "涉及 UI 的 task 需包含對應的單元測試任務，維持最低 80% 覆蓋率"
+    - "新增或修改 API 呼叫的 task 需包含 core/network 攔截器或 model 的更新項目"
