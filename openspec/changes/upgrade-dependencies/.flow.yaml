@@ -1,0 +1,4 @@
+type: feature
+workspace: branch
+branch: feature/upgrade-dependencies
+base_branch: master
