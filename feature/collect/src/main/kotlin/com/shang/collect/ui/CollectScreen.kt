@@ -28,8 +28,17 @@ import com.shang.ui.MovieCard
 import com.shang.ui.MovieCardData
 import com.shang.ui.asMovieCardData
 
+/**
+ * 收藏頁畫面。
+ *
+ * @param onMovieClick 點擊電影卡片時的回呼，帶入該電影的 movieId
+ * @param viewModel 提供收藏清單資料與收藏切換邏輯
+ */
 @Composable
-fun CollectScreen(viewModel: CollectViewModel = hiltViewModel()) {
+fun CollectScreen(
+    onMovieClick: (Int) -> Unit,
+    viewModel: CollectViewModel = hiltViewModel(),
+) {
     val allMovieCollect by viewModel.allMovieCollect.collectAsStateWithLifecycle()
 
     when (val result = allMovieCollect) {
@@ -40,6 +49,7 @@ fun CollectScreen(viewModel: CollectViewModel = hiltViewModel()) {
             } else {
                 CollectSuccessScreen(
                     result.movieCollectList,
+                    onMovieClick = onMovieClick,
                     onCollectClick = { movie ->
                         viewModel.toggleMovieCollectStatus(movie)
                     },
@@ -72,9 +82,17 @@ fun CollectEmptyScreen() {
     }
 }
 
+/**
+ * 顯示收藏電影清單的網格畫面。
+ *
+ * @param movieCollectList 已收藏的電影清單
+ * @param onMovieClick 點擊電影卡片時的回呼，帶入該電影的 movieId
+ * @param onCollectClick 點擊收藏圖示時的回呼，用於切換收藏狀態
+ */
 @Composable
 fun CollectSuccessScreen(
     movieCollectList: List<MovieCardResult>,
+    onMovieClick: (Int) -> Unit,
     onCollectClick: (MovieCardData) -> Unit,
 ) {
     Column(
@@ -105,6 +123,7 @@ fun CollectSuccessScreen(
             items(movieCollectList) { movie ->
                 MovieCard(
                     data = movie.asMovieCardData(),
+                    onMovieClick = { onMovieClick(it.movieCardId) },
                     onCollectClick = onCollectClick,
                 )
             }

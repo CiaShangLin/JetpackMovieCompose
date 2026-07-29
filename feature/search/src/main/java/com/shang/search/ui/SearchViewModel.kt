@@ -3,8 +3,10 @@ package com.shang.search.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.shang.data.repository.MovieRepository
+import com.shang.domain.usecase.GetMovieSearchUseCase
+import com.shang.ui.MovieCardData
+import com.shang.ui.asMovieCardResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,6 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val movieRepository: MovieRepository,
+    private val getMovieSearchUseCase: GetMovieSearchUseCase,
 ) : ViewModel() {
 
     private val _searchQueryFlow = MutableStateFlow<String>("")
@@ -41,8 +44,7 @@ class SearchViewModel @Inject constructor(
             if (query.isNotEmpty()) {
                 // 結合重試觸發器和查詢字串
                 _retryTrigger.flatMapLatest {
-                    movieRepository.getMovieSearchPager(query)
-                        .cachedIn(viewModelScope)
+                    getMovieSearchUseCase(query, viewModelScope)
                 }
             } else {
                 flowOf(PagingData.Companion.empty())
@@ -66,6 +68,20 @@ class SearchViewModel @Inject constructor(
     fun retrySearch() {
         viewModelScope.launch {
             _retryTrigger.emit(_retryTrigger.value + 1)
+        }
+    }
+
+    /**
+     * 切換電影收藏狀態
+     * @param data 目標電影卡片資料
+     */
+    fun toggleMovieCollectStatus(data: MovieCardData) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (data.movieCardIsCollect) {
+                movieRepository.deleteMovieCollect(data.asMovieCardResult())
+            } else {
+                movieRepository.insertMovieCollect(data.asMovieCardResult())
+            }
         }
     }
 }

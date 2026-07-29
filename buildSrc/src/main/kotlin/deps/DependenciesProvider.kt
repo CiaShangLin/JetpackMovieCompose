@@ -113,6 +113,11 @@ fun DependencyHandler.testDeps() {
     testImplementation(TestDependencies.KOTLINX_COROUTINES_TEST)
 }
 
+fun DependencyHandler.pagingTestDeps() {
+    // Paging 3 測試工具（asSnapshot 等），僅供需要驗證 PagingData 的模組使用
+    testImplementation(Dependencies.pagingTesting)
+}
+
 fun DependencyHandler.testImplDeps() {
     // Android 測試依賴
     androidTestImplementation(TestDependencies.ANDROIDX_JUNIT)

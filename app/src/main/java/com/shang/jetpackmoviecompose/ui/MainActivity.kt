@@ -239,9 +239,21 @@ fun SuccessScreen(navController: NavHostController) {
                     navController.navigateToMovieDetail(movieId)
                 },
             )
-            collectScreen()
-            searchScreen()
-            historyScreen()
+            collectScreen(
+                onMovieClick = { movieId ->
+                    navController.navigateToMovieDetail(movieId)
+                },
+            )
+            searchScreen(
+                onMovieClick = { movieId ->
+                    navController.navigateToMovieDetail(movieId)
+                },
+            )
+            historyScreen(
+                onMovieClick = { movieId ->
+                    navController.navigateToMovieDetail(movieId)
+                },
+            )
             settingsScreen()
             movieDetailScreen(onBackClick = {
                 navController.popBackStack()

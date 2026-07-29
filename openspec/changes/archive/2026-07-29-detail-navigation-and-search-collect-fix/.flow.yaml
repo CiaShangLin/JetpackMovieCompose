@@ -2,3 +2,11 @@ type: feature
 workspace: branch
 branch: feature/detail-navigation-and-search-collect-fix
 base_branch: master
+verify_selected:
+  - junit
+  - kdoc
+  - code-review
+verified:
+  - junit
+  - kdoc
+  - code-review

@@ -45,10 +45,20 @@ import com.shang.search.R
 import com.shang.ui.ErrorScreen
 import com.shang.ui.LoadingScreen
 import com.shang.ui.MovieCard
+import com.shang.ui.MovieCardData
 import com.shang.ui.asMovieCardData
 
+/**
+ * 搜尋頁畫面。
+ *
+ * @param onMovieClick 點擊電影卡片時的回呼，帶入該電影的 movieId
+ * @param viewModel 提供搜尋分頁資料與收藏切換邏輯
+ */
 @Composable
-fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
+fun SearchScreen(
+    onMovieClick: (Int) -> Unit,
+    viewModel: SearchViewModel = hiltViewModel(),
+) {
     var inputText by remember { mutableStateOf("") }
     val movieSearchPager = viewModel.movieSearchPager.collectAsLazyPagingItems()
     val query by viewModel.searchQueryFlow.collectAsState()
@@ -124,6 +134,8 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
                     isLoadingMore = movieSearchPager.loadState.append is LoadState.Loading,
                     isError = movieSearchPager.loadState.append is LoadState.Error,
                     isEndOfData = movieSearchPager.loadState.append.endOfPaginationReached,
+                    onMovieClick = onMovieClick,
+                    onCollectClick = { viewModel.toggleMovieCollectStatus(it) },
                 )
             }
         }
@@ -174,12 +186,24 @@ fun SearchLoadingScreen() {
     }
 }
 
+/**
+ * 顯示搜尋結果分頁清單的網格畫面。
+ *
+ * @param movieSearchPager 搜尋結果分頁資料
+ * @param isLoadingMore 是否正在載入下一頁
+ * @param isError 載入下一頁時是否發生錯誤
+ * @param isEndOfData 是否已載入至最後一頁
+ * @param onMovieClick 點擊電影卡片時的回呼，帶入該電影的 movieId
+ * @param onCollectClick 點擊收藏圖示時的回呼，用於切換收藏狀態
+ */
 @Composable
 fun SearchResultScreen(
     movieSearchPager: LazyPagingItems<MovieCardResult>,
     isLoadingMore: Boolean,
     isError: Boolean,
     isEndOfData: Boolean,
+    onMovieClick: (Int) -> Unit,
+    onCollectClick: (MovieCardData) -> Unit,
 ) {
     JMLazyVerticalGrid(
         modifier = Modifier.fillMaxSize(),
@@ -192,6 +216,8 @@ fun SearchResultScreen(
             MovieCard(
                 modifier = Modifier,
                 data = movie.asMovieCardData(),
+                onMovieClick = { onMovieClick(it.movieCardId) },
+                onCollectClick = onCollectClick,
             )
         }
 
@@ -227,5 +253,5 @@ fun SearchResultScreen(
 @Preview
 @Composable
 fun SearchScreenPreview() {
-    SearchScreen()
+    SearchScreen(onMovieClick = {})
 }

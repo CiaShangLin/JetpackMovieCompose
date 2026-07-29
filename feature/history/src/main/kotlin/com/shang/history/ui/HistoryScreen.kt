@@ -36,8 +36,17 @@ import com.shang.ui.MovieCard
 import com.shang.ui.MovieCardData
 import com.shang.ui.asMovieCardData
 
+/**
+ * 觀看歷史頁畫面。
+ *
+ * @param onMovieClick 點擊電影卡片時的回呼，帶入該電影的 movieId
+ * @param viewModel 提供歷史紀錄資料與收藏切換邏輯
+ */
 @Composable
-fun HistoryScreen(viewModel: HistoryViewModel = hiltViewModel()) {
+fun HistoryScreen(
+    onMovieClick: (Int) -> Unit,
+    viewModel: HistoryViewModel = hiltViewModel(),
+) {
     val allMovieHistory = viewModel.allMovieHistory.collectAsStateWithLifecycle()
 
     if (allMovieHistory.value.isEmpty()) {
@@ -45,6 +54,7 @@ fun HistoryScreen(viewModel: HistoryViewModel = hiltViewModel()) {
     } else {
         HistoryMovieScreen(
             data = allMovieHistory.value,
+            onMovieClick = onMovieClick,
             onCollectClick = {
                 viewModel.toggleMovieCollectStatus(it)
             },
@@ -81,6 +91,7 @@ private fun NotDataScreen() {
 @Composable
 private fun HistoryMovieScreen(
     data: List<MovieCardResult>,
+    onMovieClick: (Int) -> Unit,
     onCollectClick: (MovieCardData) -> Unit,
     onClearClick: () -> Unit,
 ) {
@@ -106,6 +117,7 @@ private fun HistoryMovieScreen(
             items(data) { movie ->
                 MovieCard(
                     data = movie.asMovieCardData(),
+                    onMovieClick = { onMovieClick(it.movieCardId) },
                     onCollectClick = {
                         onCollectClick.invoke(it)
                     },
@@ -154,5 +166,5 @@ private fun HistoryTitle(onClearClick: () -> Unit) {
 @Preview
 @Composable
 fun HistoryMovieScreenPreview() {
-    HistoryMovieScreen(listOf(), onCollectClick = {}, onClearClick = {})
+    HistoryMovieScreen(listOf(), onMovieClick = {}, onCollectClick = {}, onClearClick = {})
 }

@@ -3,6 +3,7 @@ import deps.dataModule
 import deps.hilt
 import deps.modelModule
 import deps.paging3
+import deps.pagingTestDeps
 import deps.testDeps
 import deps.testImplDeps
 import plugs.SharedLibraryGradlePlugin
@@ -25,4 +26,5 @@ dependencies {
     modelModule()
     testDeps()
     testImplDeps()
+    pagingTestDeps()
 }
