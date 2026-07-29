@@ -36,6 +36,7 @@ plugins {
     id(plugs.BuildPlugins.KTLINT)
     id(plugs.BuildPlugins.HILT) version deps.DependenciesVersions.HILT
     id(plugs.BuildPlugins.KOTLIN_SERIALIZATION)
+    id(plugs.BuildPlugins.KOVER)
 }
 
 android {
@@ -102,6 +103,17 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+
+    // 添加 JUnit 5 測試支援（library 模組由 SharedLibraryGradlePlugin 統一設定，app 模組非 library 需在此手動設定）
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+        unitTests.all {
+            it.useJUnitPlatform()
         }
     }
 }

@@ -6,6 +6,7 @@ import deps.hilt
 import deps.modelModule
 import deps.networkModule
 import deps.paging3
+import deps.pagingTestDeps
 import deps.testDeps
 import deps.testImplDeps
 import plugs.SharedLibraryGradlePlugin
@@ -31,4 +32,5 @@ dependencies {
     commonModule()
     testDeps()
     testImplDeps()
+    pagingTestDeps()
 }

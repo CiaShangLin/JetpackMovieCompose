@@ -2,3 +2,5 @@ type: feature
 workspace: branch
 branch: feature/improve-unit-test-coverage
 base_branch: master
+verify_selected: []
+verified: []

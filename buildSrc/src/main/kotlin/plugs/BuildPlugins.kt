@@ -12,6 +12,7 @@ object BuildPlugins {
     const val KTLINT = "ktlint-settings"
     const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlin.plugin.serialization"
     const val GOOGLE_PROTOBUF = "com.google.protobuf"
+    const val KOVER = "org.jetbrains.kotlinx.kover"
 
     const val COMPOSE_COMPILER = "org.jetbrains.kotlin:compose-compiler-gradle-plugin"
 }

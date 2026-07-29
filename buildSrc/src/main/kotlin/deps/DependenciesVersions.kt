@@ -39,4 +39,5 @@ object DependenciesVersions {
     const val KOTLIN_COROUTINES = "1.3.9"
     const val WORK = "2.7.1"
     const val LOTTIE_COMPOSE = "6.6.6"
+    const val KOVER = "0.9.9"
 }

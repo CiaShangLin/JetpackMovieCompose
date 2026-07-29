@@ -7,9 +7,11 @@ import com.android.build.api.dsl.LibraryExtension
 import deps.DependenciesVersions
 import deps.TestBuildConfig
 import flavors.BuildFlavor
+import kotlinx.kover.gradle.plugin.dsl.KoverProjectExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import signing.BuildSigning
@@ -21,6 +23,7 @@ class SharedLibraryGradlePlugin : Plugin<Project> {
         project.addConfigurations()
         project.addAndroidConfigurations()
         project.addKotlinOptions()
+        project.addKoverConfiguration()
     }
 
     private fun Project.addConfigurations() {
@@ -30,6 +33,7 @@ class SharedLibraryGradlePlugin : Plugin<Project> {
         plugins.apply(BuildPlugins.KTLINT)
         plugins.apply(BuildPlugins.KOTLIN_SERIALIZATION)
         //plugins.apply(BuildPlugins.KOTLIN_COMPOSE)
+        plugins.apply(BuildPlugins.KOVER)
     }
 
     private fun Project.addAndroidConfigurations() {
@@ -97,6 +101,39 @@ class SharedLibraryGradlePlugin : Plugin<Project> {
         tasks.withType<KotlinCompile> {
             compilerOptions {
                 jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+            }
+        }
+    }
+
+    private fun Project.addKoverConfiguration() {
+        val verifyEnabled = (findProperty("kover.verify.enabled") as? String)?.toBoolean() ?: false
+
+        extensions.configure<KoverProjectExtension>("kover") {
+            reports {
+                filters {
+                    excludes {
+                        classes(
+                            "*_Factory",
+                            "*_Factory\$*",
+                            "*_HiltModules*",
+                            "*_HiltComponents*",
+                            "Hilt_*",
+                            "*Module",
+                            "*Module\$*",
+                            "*_MembersInjector",
+                            "dagger.hilt.*",
+                            "hilt_aggregated_deps.*",
+                            "*.BuildConfig",
+                        )
+                    }
+                }
+
+                verify {
+                    rule {
+                        disabled.set(!verifyEnabled)
+                        minBound(80)
+                    }
+                }
             }
         }
     }
