@@ -1,1 +1,4 @@
 type: feature
+workspace: branch
+branch: feature/detail-navigation-and-search-collect-fix
+base_branch: master
