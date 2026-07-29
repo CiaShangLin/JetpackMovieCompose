@@ -7,7 +7,7 @@
 JetpackMovieCompose 是一個使用 Jetpack Compose 和 TMDB API 建構的現代化 Android 電影應用程式。它展示了多模組架構、Clean Architecture 以及現代 Android 開發實踐。
 
 - **Application ID**: `com.shang.jetpackmoviecompose`
-- **版本**: 2.0.0 (versionCode 2)
+- **版本**: 2.0.1 (versionCode 3)
 - **SDK**: minSdk 23 / targetSdk 36 / compileSdk 36
 - **JDK**: 17
 - **Kotlin / Compose Compiler**: 2.0.21（使用 Compose Compiler Gradle Plugin）
