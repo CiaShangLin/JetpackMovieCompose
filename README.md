@@ -216,11 +216,14 @@ graph LR
 在推送之前，您可以在本地執行相同的檢查：
 
 ```bash
-# 執行程式碼格式檢查
-./gradlew ktlintCheck
+# 執行程式碼格式檢查與自動格式化
+./gradlew ktlintFormat
 
 # 執行所有單元測試
 ./gradlew test
+
+# 產出指定模組的單元測試覆蓋率報表（Kover）
+./gradlew :core:domain:koverHtmlReport
 
 # 建置 Release APK
 ./gradlew assembleProdRelease
@@ -237,7 +240,6 @@ graph LR
 
 ### 🔧 功能改進
 - [ ] **演員結果頁** - 新增演員詳細資訊頁面，展示演員的作品列表和個人資料
-- [ ] **單元測試** - 單元測試
 
 ### 💡 專案狀態
 > **注意**: 由於作者需要開發公司專案，此專案暫時擱置開發。但仍歡迎社群貢獻者提交 Pull Request！
